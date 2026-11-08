@@ -1,4 +1,4 @@
-# Milestone 2 - Model choices
+# Model choices
 
 ## Overview
 
