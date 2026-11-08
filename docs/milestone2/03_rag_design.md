@@ -29,7 +29,7 @@
 - Main model: nomic-embed-text-v1.5, run locally in LM Studio.
 - Why: it is the model used in the course labs, it runs on our laptops at no cost and it accepts long text (up to 8,192 tokens).
 - We use the prefixes the model expects: "search_document: " for chunks and "search_query: " for questions, because the model was trained with them and its documentation requires them.
-- Compared with BM25 keyword search: no neural model, the baseline from the lab. Breed names such as "Shiba Inu" are exact words, where keyword search can beat embeddings, so we measure it instead of assuming.
+- Compared with BM25 keyword search, which uses no neural model and is the baseline from the lab. Breed names such as "Shiba Inu" are exact words, where keyword search can beat embeddings, so we measure it instead of assuming.
 - Compared with bge-small-en-v1.5: a smaller, faster model, to check whether the bigger one is worth it.
 - One collection per embedding model; vectors from different models are never mixed, because they are not comparable.
 
@@ -44,7 +44,7 @@
 
 - Basic RAG (baseline): embed the question, take the top 3 chunks, and the SLM answers only from them, with citations. It is the simplest version, so it shows what the other approaches add.
 - Corrective RAG: the SLM first checks whether the chunks really answer the question. If not, it rewrites the query and searches one more time. Used for danger and care questions, where a made-up answer could harm the pet or the user.
-- Agentic RAG: the agent decides which collection to search and with which filters, with at most 2 searches per question. Needed for mixed questions such as "Would this dog suit my small flat, and what should I name it?"
+- Agentic RAG: the agent decides which collection to search and with which filters, and searches at most twice per question. Needed for mixed questions such as "Would this dog suit my small flat, and what should I name it?"
 - HyDE: considered but not chosen. Our questions are short and clear, and an invented passage could pull the search toward the wrong facts on safety questions.
 - When the breed is known (from the photo or the chat), we filter by breed in Chroma instead of adding keyword search on top of the vector search. An exact filter is simpler and more reliable than combining two search methods.
 - Name suggestion: filter listings by species and main colour, rank them by similarity to the description of the user's pet (from the photo and the chat), and take the 20 closest.
