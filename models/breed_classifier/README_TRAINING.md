@@ -9,6 +9,13 @@ ConvNeXt-Tiny (ImageNet weights from torchvision) fine-tuned on Stanford Dogs, 1
 - Best epoch: 13 of 20. Accuracy was already 75% after the first epoch and stopped improving after about epoch 12.
 - Training time: 16 minutes on an NVIDIA RTX 5050 Laptop GPU (8 GB), PyTorch 2.11 with CUDA 12.8.
 
+## Calibration (issue #10)
+
+- `scripts/calibrate_classifier.py` fits the temperature on the validation split: T = 0.79. Calibration error drops from 7.7% to 2.5%; accuracy does not change.
+- Confidence threshold 0.82 (`threshold.json`): the lowest threshold where at least 95% of the "confident" answers are correct on the validation split.
+- Check on the full test split (8,580 images): 87% of answers are confident and 95.7% of those are correct. 61% of the wrong answers are flagged "not sure"; 92% of the right answers are confident.
+- Typical mistake: Siberian Husky vs Eskimo Dog, two very similar breeds. These mistakes usually fall under the threshold.
+
 ## Files in this folder
 
 - `convnext_tiny_stanford120.pt` - model weights plus `class_names`, `num_classes`, `stanford_labels`. Not in git (about 110 MB, over the GitHub file limit). For now, ask David for the file and put it in this folder.
