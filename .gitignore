@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Downloaded datasets (rebuilt with scripts/download_stanford_dogs.py)
+data/raw/
+
+# Model weights are too large for git (ConvNeXt-Tiny is ~110 MB)
+models/**/*.pt
