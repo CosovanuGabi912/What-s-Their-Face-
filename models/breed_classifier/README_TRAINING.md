@@ -11,7 +11,7 @@ ConvNeXt-Tiny (ImageNet weights from torchvision) fine-tuned on Stanford Dogs, 1
 
 ## Files in this folder
 
-- `convnext_tiny_stanford120.pt` - model weights plus `class_names`, `num_classes`, `stanford_labels`. Not in git (about 110 MB, over the GitHub file limit).
+- `convnext_tiny_stanford120.pt` - model weights plus `class_names`, `num_classes`, `stanford_labels`. Not in git (about 110 MB, over the GitHub file limit). For now, ask David for the file and put it in this folder.
 - `class_names.json` - the 120 breed names, in the order of the model outputs.
 - `metrics.json` - test accuracy, validation accuracy, settings and the accuracy after every epoch.
 
