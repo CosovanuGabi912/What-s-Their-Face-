@@ -1,0 +1,7 @@
+{
+ "confidence_threshold": 0.82,
+ "precision_when_confident": 0.9511,
+ "share_confident": 0.8683,
+ "rule": "lowest threshold where at least 95% of confident answers are correct",
+ "tuned_on": "validation split"
+}
