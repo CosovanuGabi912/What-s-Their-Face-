@@ -1,3 +1,5 @@
+# Milestone 2 – What's Their Face
+
 ## Problem and data
 
 ### MVP user journey
