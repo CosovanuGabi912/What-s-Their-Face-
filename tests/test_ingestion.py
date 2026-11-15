@@ -201,7 +201,7 @@ def test_listings_collection():
 
 def test_prune_removes_chunks_the_raw_data_no_longer_produces(tmp_path):
     chromadb = pytest.importorskip("chromadb")
-    collection = chromadb.PersistentClient(path=str(tmp_path)).get_or_create_collection("t")
+    collection = chromadb.PersistentClient(path=str(tmp_path)).get_or_create_collection("prune_test")
     collection.upsert(ids=["a", "b"], documents=["x", "y"], embeddings=[[1.0, 0.0], [0.0, 1.0]])
-    assert ingest.prune(collection, [("a", "x", {})], "t") == 1
+    assert ingest.prune(collection, [("a", "x", {})], "prune_test") == 1
     assert collection.get()["ids"] == ["a"]
