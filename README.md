@@ -37,6 +37,7 @@ vectors, and search then quietly gets worse: no error, just worse answers. `vali
 1. Get `data_<commit>.zip`: the download link is shared privately in the team chat, so ask Part A (Gabi) for it. The link
    is never put in the repository. Unzip the file into `data/`.
    It contains `chroma_knowledge/`, `chroma_listings/` and `raw/thedogapi/breeds.json`.
+   On Windows, check that `data/chroma_knowledge/` sits directly inside `data/`. "Extract All" can add an extra folder.
 2. In LM Studio load `nomic-embed-text-v1.5` **Q4_K_M** and start the server (default `http://localhost:1234`).
 3. `cp .env.example .env` (Windows: `copy .env.example .env`).
 4. `python scripts/validate_ingestion.py`. It must end with `OK`; any `MISMATCH` line says what differs from the manifest.
