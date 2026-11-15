@@ -19,6 +19,16 @@ def test_project_variables_are_forwarded(monkeypatch):
     assert "SOME_SECRET_TOKEN" not in env
 
 
+def test_ml_runtime_variables_are_forwarded(monkeypatch):
+    monkeypatch.setenv("HF_HOME", "/models/hf")
+    monkeypatch.setenv("PYTORCH_ENABLE_MPS_FALLBACK", "1")
+    monkeypatch.setenv("CUDA_VISIBLE_DEVICES", "0")
+    env = project_env()
+    assert env["HF_HOME"] == "/models/hf"
+    assert env["PYTORCH_ENABLE_MPS_FALLBACK"] == "1"
+    assert env["CUDA_VISIBLE_DEVICES"] == "0"
+
+
 def test_overrides_win(monkeypatch):
     monkeypatch.setenv("WTF_STUB_TOOLS", "")
     assert project_env({"WTF_STUB_TOOLS": "all"})["WTF_STUB_TOOLS"] == "all"
