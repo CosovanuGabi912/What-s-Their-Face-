@@ -59,11 +59,13 @@ def rel(path: Path) -> str:
 
 
 def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as file:
-        for block in iter(lambda: file.read(1 << 20), b""):
-            digest.update(block)
-    return digest.hexdigest()
+    """SHA-256 of the file with CRLF turned into LF first, so the checksum is the same on Windows and Linux.
+
+    git can convert line endings on checkout (core.autocrlf) and Windows Python writes CRLF; every raw
+    input is a text file (JSON or CSV), and its content does not depend on the line ending.
+    """
+    cr_lf, lf = bytes([13, 10]), bytes([10])
+    return hashlib.sha256(path.read_bytes().replace(cr_lf, lf)).hexdigest()
 
 
 def raw_groups() -> dict[str, list[Path]]:

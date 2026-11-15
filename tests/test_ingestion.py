@@ -259,3 +259,12 @@ def test_committed_wikipedia_files_match_the_committed_manifest():
     if manifest is None:
         pytest.skip("data/ingestion_manifest.json does not exist yet")
     assert data_manifest.verify_raw(manifest, ["wikipedia"]) == []
+
+
+def test_checksum_ignores_line_endings(tmp_path):
+    from scripts import data_manifest
+
+    lf, crlf = tmp_path / "lf.json", tmp_path / "crlf.json"
+    lf.write_bytes(bytes([123, 10, 125, 10]))                  # "{\n}\n"
+    crlf.write_bytes(bytes([123, 13, 10, 125, 13, 10]))        # "{\r\n}\r\n"
+    assert data_manifest.sha256_file(lf) == data_manifest.sha256_file(crlf)
