@@ -20,6 +20,39 @@ python scripts/validate_breeds_map.py
 mcp dev mcp_server/server.py    # MCP Inspector (needs Node.js)
 ```
 
+## How to run: get the data (issue #5)
+
+The knowledge and listings databases (ChromaDB) are not in git. This repository is **public**, and the TheDogAPI
+data and the PetFinder listings may not be redistributed, so neither they nor the databases built from them can be
+on GitHub. Part A shares them privately in the team. The Wikipedia articles (CC BY-SA, see
+`data/raw/wikipedia/README.md`) and `data/ingestion_manifest.json` (checksums, chunk counts and the embedding
+model, no data) are in git.
+
+**Everyone must use the same embedding model file: nomic-ai `nomic-embed-text-v1.5`, quantisation `Q4_K_M`**
+(LM Studio id `text-embedding-nomic-embed-text-v1.5`). Another quantisation or model gives slightly different
+vectors, and search then quietly gets worse: no error, just worse answers. `validate_ingestion.py` checks it.
+
+### Fast path (recommended)
+
+1. Get `data_<commit>.zip` from Part A (shared privately in the team, not on GitHub) and unzip it into `data/`.
+   It contains `chroma_knowledge/`, `chroma_listings/` and `raw/thedogapi/breeds.json`.
+2. In LM Studio load `nomic-embed-text-v1.5` **Q4_K_M** and start the server (default `http://localhost:1234`).
+3. `cp .env.example .env` (Windows: `copy .env.example .env`).
+4. `python scripts/validate_ingestion.py`. It must end with `OK`; any `MISMATCH` line says what differs from the manifest.
+
+### Rebuild path (only if you cannot get the zip)
+
+1. Get `breeds.json` from Part A and save it as `data/raw/thedogapi/breeds.json`.
+2. Accept the rules of the [PetFinder competition](https://www.kaggle.com/c/petfinder-adoption-prediction) on Kaggle and
+   save a Kaggle token (`~/.kaggle/access_token`), then `python scripts/download_petfinder.py`.
+3. Load the Q4_K_M model in LM Studio and start the server, `cp .env.example .env`.
+4. `python scripts/ingest.py --all` (stops with an error if a raw file is missing or its checksum differs from the
+   manifest; `--skip-thedogapi` ingests Wikipedia only, and the result will not match the manifest), then
+   `python scripts/validate_ingestion.py`. Running `ingest.py --all` twice is safe: the second run adds nothing.
+
+Part A only: after changing raw data on purpose, `python scripts/ingest.py --all --update-manifest` rewrites the manifest;
+commit it and share a new `data_<commit>.zip`.
+
 ## Shared contracts (issue #3)
 
 - `config.py`: every path (absolute, from the repo root), model IDs, confidence thresholds, agent limits.
