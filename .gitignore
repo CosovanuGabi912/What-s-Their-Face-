@@ -10,7 +10,8 @@ __pycache__/
 .env
 
 # Downloaded and generated datasets (rebuilt by scripts/)
-data/raw/
+data/raw/*
+!data/raw/wikipedia/
 data/processed/
 data/uploads/
 uploads/
