@@ -43,16 +43,16 @@ def test_milestone_example_breeds(akc):
 
 def test_rule_boundaries():
     akc = {
-        "Exactly 40 kg": {"max_weight_kg": 40.0, "energy": 3, "shedding": 2},
-        "Just under 40 kg": {"max_weight_kg": 39.9, "energy": 3, "shedding": 2},
+        "Exactly 25 kg": {"max_weight_kg": 25.0, "energy": 3, "shedding": 2},
+        "Just over 25 kg": {"max_weight_kg": 25.1, "energy": 3, "shedding": 2},
         "Energy 5": {"max_weight_kg": 10.0, "energy": 5, "shedding": 2},
         "Shedding 4": {"max_weight_kg": 10.0, "energy": 3, "shedding": 4},
         "Unknown shedding": {"max_weight_kg": 10.0, "energy": 3, "shedding": None},
     }
     flat_8h_allergies = {**FLAT_9H_ALLERGIES, "hours_alone": 8}
     expected = gd.expected_breeds(flat_8h_allergies, akc)
-    assert expected["forbidden_breeds"] == ["Energy 5", "Exactly 40 kg", "Shedding 4"]
-    assert expected["acceptable_breeds"] == ["Just under 40 kg"]  # unknown shedding is in neither list
+    assert expected["forbidden_breeds"] == ["Energy 5", "Just over 25 kg", "Shedding 4"]
+    assert expected["acceptable_breeds"] == ["Exactly 25 kg"]  # "over 25 kg"; unknown shedding is in neither list
 
     seven_hours_in_a_house = {**FLAT_9H_ALLERGIES, "home": "house", "hours_alone": 7, "has_allergies": False}
     expected = gd.expected_breeds(seven_hours_in_a_house, akc)

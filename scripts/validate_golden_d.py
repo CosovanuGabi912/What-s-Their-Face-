@@ -4,9 +4,9 @@ The expected breeds come from data/akc_breeds.csv and the milestone2 rules table
 map to the AKC data"), written here independently. This file must NOT import
 mcp_server/tools/traits.py: Part D would then only check recommend_breeds against itself.
 
-Hard filters (a breed that breaks one can never be recommended). The milestone table names them in
-words; the numbers below make them exact:
-    home == "flat"        -> remove "the largest breeds":     AKC max_weight >= 40 kg (52 of 277 breeds)
+Hard filters (a breed that breaks one can never be recommended), with the numbers from the milestone
+table and issue #11 (recommend_breeds must use the same ones):
+    home == "flat"        -> remove "the largest breeds":     AKC max_weight over 25 kg (131 of 277 breeds)
     hours_alone >= 8      -> remove "the highest energy":     energy score 5/5, "Needs Lots of Activity" (41)
     has_allergies         -> remove "high shedding":          shedding score 4-5/5, "Regularly" or "Frequent" (36)
 Scores are round(AKC value * 5), as in shared/schemas.py BreedTraits. A breed whose value for an
@@ -37,12 +37,16 @@ sys.path.insert(0, str(ROOT))
 import config  # noqa: E402
 from shared.schemas import GoldenItem, RecommendBreedsInput  # noqa: E402
 
-FLAT_MAX_WEIGHT_KG = 40.0
+FLAT_MAX_WEIGHT_KG = 25.0
 LONG_HOURS_ALONE = 8
 HIGHEST_ENERGY = 5
 HIGH_SHEDDING = 4
 MIN_ITEMS = 20
 MIN_ITEMS_PER_FILTER = 2
+
+FLAT = "flat: max weight > 25 kg"
+ALONE = "8+ hours alone: energy 5/5"
+ALLERGIES = "allergies: shedding 4-5/5"
 
 
 def _number(cell: str) -> Optional[float]:
@@ -78,18 +82,22 @@ def load_akc(path: Path = config.AKC_TABLE_PATH) -> dict[str, dict]:
 Filter = Callable[[dict], Optional[bool]]
 
 
-def _breaks(value: Optional[float], limit: float) -> Optional[bool]:
+def _over(value: Optional[float], limit: float) -> Optional[bool]:
+    return None if value is None else value > limit
+
+
+def _at_least(value: Optional[float], limit: float) -> Optional[bool]:
     return None if value is None else value >= limit
 
 
 def active_filters(answers: dict) -> dict[str, Filter]:
     filters: dict[str, Filter] = {}
     if answers["home"] == "flat":
-        filters["flat: max weight >= 40 kg"] = lambda b: _breaks(b["max_weight_kg"], FLAT_MAX_WEIGHT_KG)
+        filters[FLAT] = lambda b: _over(b["max_weight_kg"], FLAT_MAX_WEIGHT_KG)
     if answers["hours_alone"] >= LONG_HOURS_ALONE:
-        filters["8+ hours alone: energy 5/5"] = lambda b: _breaks(b["energy"], HIGHEST_ENERGY)
+        filters[ALONE] = lambda b: _at_least(b["energy"], HIGHEST_ENERGY)
     if answers["has_allergies"]:
-        filters["allergies: shedding 4-5/5"] = lambda b: _breaks(b["shedding"], HIGH_SHEDDING)
+        filters[ALLERGIES] = lambda b: _at_least(b["shedding"], HIGH_SHEDDING)
     return filters
 
 
@@ -149,7 +157,7 @@ def validate(items: list[dict], akc: dict[str, dict]) -> list[str]:
 
     # Coverage targets from issue #12
     valid = [item for item in part_d if _valid_input(item)]
-    for name in ("flat: max weight >= 40 kg", "8+ hours alone: energy 5/5", "allergies: shedding 4-5/5"):
+    for name in (FLAT, ALONE, ALLERGIES):
         count = sum(name in active_filters(item["input"]) for item in valid)
         if count < MIN_ITEMS_PER_FILTER:
             errors.append(f"hard filter '{name}' is triggered by {count} items, need {MIN_ITEMS_PER_FILTER}")
