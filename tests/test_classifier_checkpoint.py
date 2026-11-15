@@ -15,7 +15,7 @@ CHECKPOINT = MODEL_DIR / "convnext_tiny_stanford120.pt"
 BREEDS_MAP = ROOT / "data" / "breeds_map.json"
 
 pytestmark = pytest.mark.skipif(
-    not CHECKPOINT.exists(), reason="No checkpoint yet: run scripts/train_classifier.py"
+    not CHECKPOINT.exists(), reason="No checkpoint yet: run scripts/download_classifier.py"
 )
 
 

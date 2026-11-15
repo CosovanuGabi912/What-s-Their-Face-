@@ -25,9 +25,19 @@ python scripts/calibrate_classifier.py --sweep
 python scripts/calibrate_classifier.py --confidence-threshold 0.82 --top2-threshold 0.40 --reason "..."
 ```
 
+## Get the trained model (no training needed)
+
+```bash
+python scripts/download_classifier.py
+```
+
+- Downloads `convnext_tiny_stanford120.pt` from the GitHub Release `breed-classifier-v1` into this folder and checks its SHA-256. A wrong or failed download is deleted and never replaces a working file.
+- Run it again after pulling if `identify_breed` or the tests say the checkpoint is missing; it does nothing when the file is already correct.
+- A copy from before the #3 class-name rename has a different hash and is replaced.
+
 ## Files in this folder
 
-- `convnext_tiny_stanford120.pt` - model weights plus `class_names`, `num_classes`, `stanford_labels`. Not in git (about 110 MB, over the GitHub file limit). For now, ask David for the file and put it in this folder.
+- `convnext_tiny_stanford120.pt` - model weights plus `class_names`, `num_classes`, `stanford_labels`. Not in git (112 MB, over the GitHub file limit): it is an asset of the GitHub Release `breed-classifier-v1`. Download it with the command below.
 - `class_names.json` - the 120 breed names (`breeds_map.json` display names), in the order of the model outputs.
 - `temperature.json`, `threshold.json` - calibration from issue #10.
 - `metrics.json` - test accuracy, validation accuracy, settings and the accuracy after every epoch.

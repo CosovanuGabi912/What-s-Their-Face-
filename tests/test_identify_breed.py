@@ -11,7 +11,7 @@ from mcp_server.tools import breed_id  # noqa: E402
 FIXTURES = Path(__file__).resolve().parent / "fixtures"
 
 pytestmark = pytest.mark.skipif(
-    not breed_id.CHECKPOINT_PATH.exists(), reason="No checkpoint yet: run scripts/train_classifier.py"
+    not breed_id.CHECKPOINT_PATH.exists(), reason="No checkpoint yet: run scripts/download_classifier.py"
 )
 
 

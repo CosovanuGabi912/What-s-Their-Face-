@@ -2,7 +2,7 @@
 
 identify_breed uses the fine-tuned ConvNeXt-Tiny from issue #6 with temperature scaling.
 Files read from models/breed_classifier/:
-    convnext_tiny_stanford120.pt   weights + class names (issue #6, not in git)
+    convnext_tiny_stanford120.pt   weights + class names (issue #6, not in git: scripts/download_classifier.py)
     temperature.json               {"temperature": T}, from scripts/calibrate_classifier.py
     threshold.json                 confidence thresholds, read by config.py (CONFIDENCE_HIGH / LOW)
 
@@ -43,6 +43,8 @@ PREPROCESS = transforms.Compose([
 
 
 def load_classifier(device: torch.device) -> tuple[nn.Module, list[str]]:
+    if not CHECKPOINT_PATH.exists():
+        raise FileNotFoundError(f"{CHECKPOINT_PATH} is missing: run python scripts/download_classifier.py")
     checkpoint = torch.load(CHECKPOINT_PATH, map_location="cpu")
     model = models.convnext_tiny(weights=None)
     model.classifier[2] = nn.Linear(768, checkpoint["num_classes"])
