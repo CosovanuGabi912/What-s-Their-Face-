@@ -34,7 +34,8 @@ vectors, and search then quietly gets worse: no error, just worse answers. `vali
 
 ### Fast path (recommended)
 
-1. Get `data_<commit>.zip` from Part A (shared privately in the team, not on GitHub) and unzip it into `data/`.
+1. Get `data_<commit>.zip`: the download link is shared privately in the team chat, so ask Part A (Gabi) for it. The link
+   is never put in the repository. Unzip the file into `data/`.
    It contains `chroma_knowledge/`, `chroma_listings/` and `raw/thedogapi/breeds.json`.
 2. In LM Studio load `nomic-embed-text-v1.5` **Q4_K_M** and start the server (default `http://localhost:1234`).
 3. `cp .env.example .env` (Windows: `copy .env.example .env`).
@@ -42,7 +43,7 @@ vectors, and search then quietly gets worse: no error, just worse answers. `vali
 
 ### Rebuild path (only if you cannot get the zip)
 
-1. Get `breeds.json` from Part A and save it as `data/raw/thedogapi/breeds.json`.
+1. Get `breeds.json` the same way (ask Part A, Gabi, in the team chat) and save it as `data/raw/thedogapi/breeds.json`.
 2. Accept the rules of the [PetFinder competition](https://www.kaggle.com/c/petfinder-adoption-prediction) on Kaggle and
    save a Kaggle token (`~/.kaggle/access_token`), then `python scripts/download_petfinder.py`.
 3. Load the Q4_K_M model in LM Studio and start the server, `cp .env.example .env`.
