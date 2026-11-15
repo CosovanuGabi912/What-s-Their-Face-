@@ -34,6 +34,20 @@ from shared.schemas import CHUNK_ID_PATTERN, LISTING_ID_PATTERN
     ("As pets", "Living Environment"),
     ("Origination of name and split from Chukotka Sled Dogs", None),
     ("Human use", None),
+    ("Activities", "Exercise"),
+    ("Sport", "Exercise"),
+    ("Sports", "Exercise"),
+    ("Dog sports", "Exercise"),
+    ("Work and sport", "Exercise"),
+    ("Care", "Grooming"),
+    ("Hypoallergenic coats", "Grooming"),   # before "coats" is Overview
+    ("Socialization", "Training"),
+    ("Socialisation", "Training"),
+    ("Barking", "Temperament"),
+    ("Vocalisation", "Temperament"),
+    ("Kennel club classification", "History"),
+    ("Kennel club recognition", "History"),
+    ("Health care", "Health"),              # only the heading "Care" is Grooming
 ])
 def test_heading_mapping(heading, expected):
     assert ingest.map_heading(heading) == expected
@@ -77,6 +91,16 @@ def test_placeholder_names(name):
 @pytest.mark.parametrize("name", ["Max", "Luna", "Mimi", "Baby", "Coco 2", "Bella"])
 def test_real_names_survive(name):
     assert not ingest.is_placeholder_name(name)
+
+
+def test_missing_thedogapi_file_is_an_error_unless_skipped(monkeypatch, tmp_path):
+    monkeypatch.setattr(ingest, "THEDOGAPI_PATH", tmp_path / "breeds.json")
+    with pytest.raises(SystemExit) as error:
+        ingest.load_thedogapi()
+    assert "download_thedogapi.py" in str(error.value)
+    if ingest.WIKIPEDIA_DIR.exists() and any(ingest.WIKIPEDIA_DIR.glob("*.json")):
+        build = ingest.build_knowledge(skip_thedogapi=True)
+        assert build.chunks and {c.source for c in build.chunks} == {"wikipedia"}
 
 
 def test_thedogapi_fields_become_sentences_not_dropped():
@@ -173,3 +197,11 @@ def test_knowledge_collection_is_canonical():
 def test_listings_collection():
     collection = _collection(config.CHROMA_LISTINGS_DIR, "listings")
     assert collection.count() > 10_000
+
+
+def test_prune_removes_chunks_the_raw_data_no_longer_produces(tmp_path):
+    chromadb = pytest.importorskip("chromadb")
+    collection = chromadb.PersistentClient(path=str(tmp_path)).get_or_create_collection("t")
+    collection.upsert(ids=["a", "b"], documents=["x", "y"], embeddings=[[1.0, 0.0], [0.0, 1.0]])
+    assert ingest.prune(collection, [("a", "x", {})], "t") == 1
+    assert collection.get()["ids"] == ["a"]

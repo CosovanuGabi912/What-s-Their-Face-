@@ -58,17 +58,18 @@ CHROMA_BATCH = 256
 # ("coat care" is Grooming before "coat" is Overview). Each heading is matched on its own; only when
 # it matches nothing does it inherit the section of its parent heading (see parse_sections).
 HEADING_RULES: list[tuple[str, str]] = [
-    ("Grooming", r"\b(coat care|grooming|shedding|brushing|bathing|hygiene)\b"),
-    ("Exercise", r"\b(exercise|physical activity|activity level|energy level|working ability)\b"),
-    ("Training", r"\b(training|trainab\w*|obedience|intelligence)\b"),
+    ("Grooming", r"\b(coat care|grooming|shedding|brushing|bathing|hygiene|hypoallergenic)\b|^care$"),
+    ("Exercise", r"\b(exercise|physical activity|activity level|energy level|working ability|activit(y|ies)|"
+                 r"sports?|work and sport)\b"),
+    ("Training", r"\b(training|trainab\w*|obedience|intelligence|socialis\w*|socializ\w*)\b"),
     ("Feeding", r"\b(diet|feeding|nutrition|food|prey)\b"),
     ("Health", r"\b(health|diseases?|disorders?|illness\w*|medical|lifespan|life span|longevity|mortality|"
                r"genetic (health|disorders?|conditions?)|inherited)\b"),
-    ("Temperament", r"\b(temperament|behaviou?rs?|personality|character|disposition|social)\b"),
-    ("Living Environment", r"\b(living|environment|habitat|as (a )?pets?|companion\w*|housing|kennel\w*|"
+    ("Temperament", r"\b(temperament|behaviou?rs?|personality|character|disposition|social|barking|vocali[sz]ation)\b"),
+    ("Living Environment", r"\b(living|environment|habitat|as (a )?pets?|companion\w*|housing|"
                            r"family life)\b"),
     ("History", r"\b(history|origins?|etymology|lineage|taxonomy|phylogeny|ancestry|evolution|prehistoric|"
-                r"founding|recognition)\b"),
+                r"founding|recognition|classification)\b"),
     ("Overview", r"\b(description|appearance|characteristics|coat|colou?rs?|size|physical|conformation|"
                  r"anatomy|breed standard|head|eyes?|ears?|nose|tail|gait|height|weight|morphology|build|"
                  r"overview|general)\b"),
@@ -213,7 +214,8 @@ def load_wikipedia(display: str) -> dict | None:
 
 def load_thedogapi() -> dict[str, dict]:
     if not THEDOGAPI_PATH.exists():
-        return {}
+        sys.exit(f"{THEDOGAPI_PATH} is missing. Run `python scripts/download_thedogapi.py` "
+                 "(needs THEDOGAPI_KEY in .env), or pass --skip-thedogapi to ingest Wikipedia only.")
     return {_clean(item.get("name")): item for item in json.loads(THEDOGAPI_PATH.read_text(encoding="utf-8"))}
 
 
@@ -226,10 +228,10 @@ class KnowledgeBuild:
     without_thedogapi: list[str]  # breeds that map to a TheDogAPI name but have no record in the file
 
 
-def build_knowledge() -> KnowledgeBuild:
+def build_knowledge(skip_thedogapi: bool = False) -> KnowledgeBuild:
     """Section chunks (Wikipedia first, then TheDogAPI) and the 90-word baseline windows for every breed."""
     entries = load_breeds_map()
-    dogapi = load_thedogapi()
+    dogapi = {} if skip_thedogapi else load_thedogapi()
     chunks: list[KnowledgeChunk] = []
     windows: list[KnowledgeChunk] = []
     duplicates = 0
@@ -246,7 +248,7 @@ def build_knowledge() -> KnowledgeBuild:
                 if len(body.split()) >= MIN_SECTION_WORDS:
                     sections.append((section, body, "wikipedia"))
         api_name = entries[display].get("thedogapi_name")
-        if api_name:
+        if api_name and not skip_thedogapi:
             if api_name in dogapi:
                 sections += [(s, b, "thedogapi") for s, b in thedogapi_sections(dogapi[api_name]).items()]
             else:
@@ -436,10 +438,22 @@ def get_collection(directory: Path, name: str):
     return client.get_or_create_collection(name, metadata={"hnsw:space": "cosine"})
 
 
+def prune(collection, rows: list[tuple[str, str, dict]], name: str) -> int:
+    """Delete chunks whose ID the raw data no longer produces (e.g. after a heading rule changed),
+    so a collection always mirrors data/raw/ exactly."""
+    keep = {row[0] for row in rows}
+    stale = [i for i in collection.get(include=[])["ids"] if i not in keep]
+    for part in batches(stale, CHROMA_BATCH):
+        collection.delete(ids=part)
+    if stale:
+        print(f"  {name}: removed {len(stale)} stale chunks no longer produced by data/raw/", file=sys.stderr)
+    return len(stale)
+
+
 class _EmptyCollection:
     """Stand-in for a collection in --dry-run, so a dry run creates no files on disk."""
 
-    def get(self, ids, include=None):
+    def get(self, ids=None, include=None):
         return {"ids": [], "documents": [], "metadatas": []}
 
 
@@ -449,8 +463,8 @@ def _collection_for(directory: Path, name: str, dry_run: bool):
     return get_collection(directory, name)
 
 
-def ingest_knowledge(embedder: Embedder | None, dry_run: bool) -> None:
-    build = build_knowledge()
+def ingest_knowledge(embedder: Embedder | None, skip_thedogapi: bool = False) -> None:
+    build = build_knowledge(skip_thedogapi)
     if build.without_wikipedia:
         print(f"WARNING: no Wikipedia file for {len(build.without_wikipedia)} breeds "
               f"(run scripts/download_wikipedia.py): {build.without_wikipedia[:10]}", file=sys.stderr)
@@ -458,7 +472,10 @@ def ingest_knowledge(embedder: Embedder | None, dry_run: bool) -> None:
         print(f"WARNING: TheDogAPI name not in breeds.json for: {build.without_thedogapi}", file=sys.stderr)
     for name, chunks in ((KNOWLEDGE, build.chunks), (KNOWLEDGE_90W, build.windows)):
         collection = _collection_for(config.CHROMA_KNOWLEDGE_DIR, name, embedder is None)
-        counts = upsert(collection, [(c.chunk_id, c.document, c.metadata) for c in chunks], embedder)
+        rows = [(c.chunk_id, c.document, c.metadata) for c in chunks]
+        counts = upsert(collection, rows, embedder)
+        if embedder is not None:
+            prune(collection, rows, name)
         skipped = counts["skipped"] + (build.duplicates if name == KNOWLEDGE else 0)
         label = "Knowledge collection:" if name == KNOWLEDGE else "Knowledge 90w collection:"
         print(f"{label} {counts['added']} added, {counts['updated']} updated, {skipped} skipped (duplicates)")
@@ -476,6 +493,8 @@ def ingest_listings(embedder: Embedder | None, exclude_path: Path | None) -> Non
             removed = len(present)
     metadata_rows = [(item.listing_id, item.document, item.metadata) for item in build.listings]
     counts = upsert(collection, metadata_rows, embedder)
+    if embedder is not None:
+        prune(collection, metadata_rows, LISTINGS)
     placeholder = build.skipped["placeholder name"] + build.skipped["litter (Quantity > 1)"]
     print(f"Listings collection:  {counts['added']} added, {counts['updated']} updated, "
           f"{placeholder} skipped (placeholder names)")
@@ -491,6 +510,9 @@ def main() -> None:
     which.add_argument("--all", action="store_true", help="knowledge and listings")
     parser.add_argument("--exclude-ids", type=Path,
                         help="listings only: file with listing IDs to leave out (held-out set), one per line or a JSON list")
+    parser.add_argument("--skip-thedogapi", action="store_true",
+                        help="knowledge only: ingest Wikipedia without data/raw/thedogapi/breeds.json "
+                             "(otherwise a missing file is an error)")
     parser.add_argument("--dry-run", action="store_true", help="count what would be added or updated without calling the embedder")
     args = parser.parse_args()
     sys.stdout.reconfigure(encoding="utf-8")
@@ -499,7 +521,7 @@ def main() -> None:
     if embedder:
         embedder.check()
     if args.all or args.collection == "knowledge":
-        ingest_knowledge(embedder, args.dry_run)
+        ingest_knowledge(embedder, args.skip_thedogapi)
     if args.all or args.collection == "listings":
         ingest_listings(embedder, args.exclude_ids)
 
