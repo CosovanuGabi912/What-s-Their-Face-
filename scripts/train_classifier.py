@@ -34,11 +34,13 @@ from torchvision import datasets, models, transforms
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from shared.breeds import to_display  # noqa: E402
+from utils.device import get_device  # noqa: E402
+
 NUM_CLASSES = 120
 IMAGENET_MEAN = [0.485, 0.456, 0.406]
 IMAGENET_STD = [0.229, 0.224, 0.225]
 SPLIT_FILE = ROOT / "data" / "splits" / "stanford_dogs_val.json"
-BREEDS_MAP_PATH = ROOT / "data" / "breeds_map.json"
 
 TRAIN_TRANSFORM = transforms.Compose([
     transforms.RandomResizedCrop(224),
@@ -56,28 +58,12 @@ EVAL_TRANSFORM = transforms.Compose([
 ])
 
 
-def get_device() -> torch.device:
-    try:
-        from utils.device import get_device as shared_get_device  # from the shared skeleton (#3)
-        return shared_get_device()
-    except ImportError:
-        if torch.cuda.is_available():
-            return torch.device("cuda")
-        if torch.backends.mps.is_available():
-            return torch.device("mps")
-        return torch.device("cpu")
-
-
 def display_names(stanford_labels: list[str]) -> tuple[list[str], str]:
-    """Canonical breed names from breeds_map.json (#3); readable folder names until it exists."""
-    if BREEDS_MAP_PATH.exists():
-        breeds_map = json.loads(BREEDS_MAP_PATH.read_text(encoding="utf-8"))
-        return [breeds_map[label.split("-", 1)[0]]["display"] for label in stanford_labels], "breeds_map"
-    names = []
-    for label in stanford_labels:
-        words = label.split("-", 1)[1].replace("_", " ").split()
-        names.append(" ".join(word[0].upper() + word[1:] for word in words))
-    return names, "stanford_folder_names"
+    """Canonical breed names from data/breeds_map.json, in model output order."""
+    names = [to_display(label) for label in stanford_labels]
+    if None in names or len(set(names)) != len(names):
+        sys.exit("Every Stanford label must map to its own breeds_map display name")
+    return names, "breeds_map"
 
 
 def stratified_split(dataset: datasets.ImageFolder, val_fraction: float, seed: int) -> tuple[list[int], list[int]]:

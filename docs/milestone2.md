@@ -1,3 +1,5 @@
+# Milestone 2 – What's Their Face
+
 ## Problem and data
 
 ### MVP user journey
@@ -199,7 +201,7 @@ The agent keeps a small state object next to the chat history:
 | Decision | Options | Who decides and how |
 |---|---|---|
 | 1. What the user wants now | Identify breed, breed question, fit questionnaire, name suggestion, out of scope | SLM, from the message and the state. A new photo with no other text means "identify breed". |
-| 2. Is the breed identification good enough? | Answer / show top 2 / ask for a clearer photo | Code: a confidence threshold tuned on golden Part A. The SLM only words the reply. |
+| 2. Is the breed identification good enough? | Answer / show top 2 / ask for a clearer photo | Code: two confidence thresholds (confident / show top 2), chosen by trial and error on a validation split held out from the training photos and checked on golden Part A. The SLM only words the reply. |
 | 3. Where to search and with which filters | Knowledge collection with or without a breed filter | SLM picks the query and the filter; code adds the breed filter automatically when `current_breed` is known (as in the RAG design). |
 | 4. Search again or answer? | Answer, rewrite the query once, or say "I don't know" | SLM checks the chunks (corrective RAG); code allows at most 2 searches per question. |
 | 5. Which questionnaire question to ask next | Ask a missing question / skip it / run the recommendation | SLM, but only for missing fields. If the user already said "I live in a flat", the home question is skipped. |
@@ -229,14 +231,15 @@ How the answers map to the AKC data:
 
 | Question | AKC field | Rule |
 |---|---|---|
-| Home (flat / house / house with garden) | Energy, height, weight | Flat: remove the largest breeds; lower energy scores higher |
-| Hours alone per day | Energy, demeanor | 8+ hours: remove breeds with the highest energy score |
+| Home (flat / house / house with garden) | Energy, height, weight | Flat: remove the largest breeds (maximum weight over 25 kg); lower energy scores higher |
+| Hours alone per day | Energy, demeanor | 8+ hours: remove breeds with the highest energy score (5) |
 | Daily walks | Energy | Energy should be close to the walking time the user can give |
 | Kids at home | Demeanor, size | Prefer friendly demeanor; mention size in the explanation |
-| Allergies | Shedding | Allergies: remove breeds with high shedding |
+| Allergies | Shedding | Allergies: remove breeds with high shedding (4 or 5) |
 | Experience with dogs | Trainability | First dog: prefer easy-to-train breeds |
 
 - "Remove" rules are hard filters (a breed that breaks them can never appear). The others give a score; the top 3 by score are returned.
+- The AKC table stores each score as 0.2–1.0; we use it on a 1–5 scale (value × 5). Some breeds have missing scores; a breed missing a score that a hard filter needs is not recommended.
 
 #### How the tools are designed
 
@@ -401,7 +404,7 @@ flowchart LR
 - **ViT-B/16:** a different architecture family (transformer); shows whether the bigger model is worth the cost.
 - **CLIP zero-shot (baseline):** no training, breed names as text prompts. Shows how much fine-tuning adds over a ready-made model.
 
-**Confidence:** temperature scaling on a validation split, so a score of 0.9 really means about 90% correct. The "confident / show top 2 / ask for another photo" threshold is then tuned on golden Part A.
+**Confidence:** temperature scaling on a validation split, so a score of 0.9 really means about 90% correct. The two thresholds for "confident / show top 2 / ask for another photo" are then chosen by trial and error on the same validation split (we do not use the F1 score for this). Golden Part A only checks them: it has about 100 photos, too few to choose a threshold, and tuning on it would make the reported results look better than they are.
 
 **Known risks:**
 - **Possible data leakage:** Stanford Dogs was built from ImageNet images, and our backbones are pre-trained on ImageNet, so they may have seen some test images. Accuracy on Stanford Dogs can look better than it is. We therefore also report results on a small set of photos from other sources.

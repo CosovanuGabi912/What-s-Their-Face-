@@ -5,7 +5,7 @@
  "val_top1_accuracy": 0.9042,
  "val_top3_accuracy": 0.9808,
  "best_epoch": 13,
- "class_names_source": "stanford_folder_names",
+ "class_names_source": "breeds_map (renamed after #3 merged; same weights, no retraining)",
  "config": {
   "model": "convnext_tiny",
   "epochs": 20,

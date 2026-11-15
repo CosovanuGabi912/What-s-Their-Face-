@@ -24,7 +24,7 @@ def test_husky_photo_returns_valid_output():
     result = breed_id.identify_breed(image_id="test_husky.jpg")
     class_names = json.loads((breed_id.MODEL_DIR / "class_names.json").read_text(encoding="utf-8"))
 
-    assert set(result) == {"top3", "is_confident"}
+    assert set(result) == {"top3", "decision", "is_confident", "kind"}
     assert isinstance(result["is_confident"], bool)
     assert len(result["top3"]) == 3
     assert all(item["breed"] in class_names for item in result["top3"])
@@ -36,9 +36,11 @@ def test_husky_photo_returns_valid_output():
 
 def test_calibration_files_are_valid_json():
     temperature = json.loads(breed_id.TEMPERATURE_PATH.read_text(encoding="utf-8"))["temperature"]
-    threshold = json.loads(breed_id.THRESHOLD_PATH.read_text(encoding="utf-8"))["confidence_threshold"]
+    thresholds = json.loads(breed_id.THRESHOLD_PATH.read_text(encoding="utf-8"))
     assert temperature > 0
-    assert 0 < threshold < 1
+    assert 0 < thresholds["top2_threshold"] < thresholds["confidence_threshold"] < 1
+    assert thresholds["tuned_on"] == "validation split"
+    assert thresholds["method"] == "trial and error"
 
 
 @pytest.mark.parametrize("image_id", ["../secret.jpg", "sub/dir.jpg", ""])

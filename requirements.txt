@@ -1,0 +1,33 @@
+# Minimum versions; exact pins are frozen in requirements.lock at code freeze (#23).
+# Python 3.11 (see .python-version).
+
+# MCP server + agent + UI
+mcp[cli]>=1.2.0,<2       # <2: v2 renamed FastMCP to MCPServer. Official SDK: `from mcp.server.fastmcp import FastMCP` + `mcp dev` (NOT the separate `fastmcp` package)
+chainlit>=1.0.0
+openai>=1.0.0            # LM Studio serves an OpenAI-compatible API
+pydantic>=2.0.0
+python-dotenv>=1.0.0
+
+# RAG
+chromadb>=0.5.0
+rank-bm25>=0.2.2         # Experiment 2 BM25 baseline (#19)
+
+# Vision (#6, #10). On an NVIDIA RTX 50-series GPU install a CUDA 12.8+ build first:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
+torch>=2.2.0
+torchvision>=0.17.0
+transformers>=4.40.0
+pillow>=10.0.0
+open-clip-torch>=2.24.0  # Experiment 4 CLIP zero-shot (#20)
+
+# Data
+pyarrow>=15.0.0          # scripts/download_stanford_dogs.py reads the Parquet mirror (#6)
+pandas>=2.0.0
+numpy>=1.26.0
+scikit-learn>=1.4.0      # colour heuristic k-means (#20)
+scipy>=1.11.0            # inter-rater Spearman (#22)
+kaggle>=1.6.0            # PetFinder download (#5)
+
+# Tests
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
