@@ -9,6 +9,8 @@ Rules:
 - akc_name may be null only for wild_canid entries and for Eskimo Dog
 - display == akc_name whenever akc_name is set
 - every akc_name is in data/akc_breeds.csv, and every AKC breed has an entry
+- no spelling (display name or alias from shared.breeds.aliases) points to two breeds; to_display()
+  would otherwise silently pick one of them
 
 Usage:
     python scripts/validate_breeds_map.py
@@ -19,13 +21,14 @@ from __future__ import annotations
 import csv
 import json
 import sys
+from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from config import AKC_TABLE_PATH, BREEDS_MAP_PATH  # noqa: E402
-from shared.breeds import normalise  # noqa: E402
+from shared.breeds import aliases, normalise  # noqa: E402
 
 STANFORD_SPLIT_FILE = ROOT / "data" / "splits" / "stanford_dogs_val.json"
 FIELDS = {"display", "kind", "stanford_label", "akc_name", "petfinder_name", "thedogapi_name"}
@@ -82,6 +85,14 @@ def validate(breeds_map: dict[str, dict], akc_names: set[str], stanford_folders:
     mapped_akc = {e["akc_name"] for e in breeds_map.values() if e.get("akc_name")}
     for name in sorted(akc_names - mapped_akc):
         errors.append(f"AKC breed {name!r} has no entry")
+
+    owners: dict[str, set[str]] = defaultdict(set)
+    for display, entry in breeds_map.items():
+        for name in [display, *aliases(entry)]:
+            owners[normalise(name)].add(display)
+    for alias, displays in sorted(owners.items()):
+        if len(displays) > 1:
+            errors.append(f"spelling {alias!r} points to several breeds: {sorted(displays)}")
     return errors
 
 
