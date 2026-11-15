@@ -1,0 +1,4 @@
+# Raw Wikipedia files are fingerprinted in data/ingestion_manifest.json: never convert their line endings
+# (a Windows checkout with core.autocrlf=true would otherwise change every checksum).
+data/raw/wikipedia/*.json -text
+data/ingestion_manifest.json -text
