@@ -1,0 +1,2250 @@
+{
+  "Affenpinscher": {
+    "display": "Affenpinscher",
+    "kind": "breed",
+    "stanford_label": "n02110627-affenpinscher",
+    "akc_name": "Affenpinscher",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Afghan Hound": {
+    "display": "Afghan Hound",
+    "kind": "breed",
+    "stanford_label": "n02088094-Afghan_hound",
+    "akc_name": "Afghan Hound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "African Wild Dog": {
+    "display": "African Wild Dog",
+    "kind": "wild_canid",
+    "stanford_label": "n02116738-African_hunting_dog",
+    "akc_name": null,
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Airedale Terrier": {
+    "display": "Airedale Terrier",
+    "kind": "breed",
+    "stanford_label": "n02096051-Airedale",
+    "akc_name": "Airedale Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Akita": {
+    "display": "Akita",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Akita",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Alaskan Malamute": {
+    "display": "Alaskan Malamute",
+    "kind": "breed",
+    "stanford_label": "n02110063-malamute",
+    "akc_name": "Alaskan Malamute",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "American Bulldog": {
+    "display": "American Bulldog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "American Bulldog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "American English Coonhound": {
+    "display": "American English Coonhound",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "American English Coonhound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "American Eskimo Dog": {
+    "display": "American Eskimo Dog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "American Eskimo Dog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "American Foxhound": {
+    "display": "American Foxhound",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "American Foxhound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "American Hairless Terrier": {
+    "display": "American Hairless Terrier",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "American Hairless Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "American Leopard Hound": {
+    "display": "American Leopard Hound",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "American Leopard Hound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "American Staffordshire Terrier": {
+    "display": "American Staffordshire Terrier",
+    "kind": "breed",
+    "stanford_label": "n02093428-American_Staffordshire_terrier",
+    "akc_name": "American Staffordshire Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "American Water Spaniel": {
+    "display": "American Water Spaniel",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "American Water Spaniel",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Anatolian Shepherd Dog": {
+    "display": "Anatolian Shepherd Dog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Anatolian Shepherd Dog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Appenzeller Sennenhund": {
+    "display": "Appenzeller Sennenhund",
+    "kind": "breed",
+    "stanford_label": "n02107908-Appenzeller",
+    "akc_name": "Appenzeller Sennenhund",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Australian Cattle Dog": {
+    "display": "Australian Cattle Dog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Australian Cattle Dog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Australian Kelpie": {
+    "display": "Australian Kelpie",
+    "kind": "breed",
+    "stanford_label": "n02105412-kelpie",
+    "akc_name": "Australian Kelpie",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Australian Shepherd": {
+    "display": "Australian Shepherd",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Australian Shepherd",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Australian Stumpy Tail Cattle Dog": {
+    "display": "Australian Stumpy Tail Cattle Dog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Australian Stumpy Tail Cattle Dog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Australian Terrier": {
+    "display": "Australian Terrier",
+    "kind": "breed",
+    "stanford_label": "n02096294-Australian_terrier",
+    "akc_name": "Australian Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Azawakh": {
+    "display": "Azawakh",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Azawakh",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Barbet": {
+    "display": "Barbet",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Barbet",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Basenji": {
+    "display": "Basenji",
+    "kind": "breed",
+    "stanford_label": "n02110806-basenji",
+    "akc_name": "Basenji",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Basset Fauve de Bretagne": {
+    "display": "Basset Fauve de Bretagne",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Basset Fauve de Bretagne",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Basset Hound": {
+    "display": "Basset Hound",
+    "kind": "breed",
+    "stanford_label": "n02088238-basset",
+    "akc_name": "Basset Hound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Bavarian Mountain Scent Hound": {
+    "display": "Bavarian Mountain Scent Hound",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Bavarian Mountain Scent Hound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Beagle": {
+    "display": "Beagle",
+    "kind": "breed",
+    "stanford_label": "n02088364-beagle",
+    "akc_name": "Beagle",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Bearded Collie": {
+    "display": "Bearded Collie",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Bearded Collie",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Beauceron": {
+    "display": "Beauceron",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Beauceron",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Bedlington Terrier": {
+    "display": "Bedlington Terrier",
+    "kind": "breed",
+    "stanford_label": "n02093647-Bedlington_terrier",
+    "akc_name": "Bedlington Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Belgian Laekenois": {
+    "display": "Belgian Laekenois",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Belgian Laekenois",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Belgian Malinois": {
+    "display": "Belgian Malinois",
+    "kind": "breed",
+    "stanford_label": "n02105162-malinois",
+    "akc_name": "Belgian Malinois",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Belgian Sheepdog": {
+    "display": "Belgian Sheepdog",
+    "kind": "breed",
+    "stanford_label": "n02105056-groenendael",
+    "akc_name": "Belgian Sheepdog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Belgian Tervuren": {
+    "display": "Belgian Tervuren",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Belgian Tervuren",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Bergamasco Sheepdog": {
+    "display": "Bergamasco Sheepdog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Bergamasco Sheepdog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Berger Picard": {
+    "display": "Berger Picard",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Berger Picard",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Bernese Mountain Dog": {
+    "display": "Bernese Mountain Dog",
+    "kind": "breed",
+    "stanford_label": "n02107683-Bernese_mountain_dog",
+    "akc_name": "Bernese Mountain Dog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Bichon Frise": {
+    "display": "Bichon Frise",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Bichon Frise",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Biewer Terrier": {
+    "display": "Biewer Terrier",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Biewer Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Black and Tan Coonhound": {
+    "display": "Black and Tan Coonhound",
+    "kind": "breed",
+    "stanford_label": "n02089078-black-and-tan_coonhound",
+    "akc_name": "Black and Tan Coonhound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Black Russian Terrier": {
+    "display": "Black Russian Terrier",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Black Russian Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Bloodhound": {
+    "display": "Bloodhound",
+    "kind": "breed",
+    "stanford_label": "n02088466-bloodhound",
+    "akc_name": "Bloodhound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Bluetick Coonhound": {
+    "display": "Bluetick Coonhound",
+    "kind": "breed",
+    "stanford_label": "n02088632-bluetick",
+    "akc_name": "Bluetick Coonhound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Boerboel": {
+    "display": "Boerboel",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Boerboel",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Bohemian Shepherd": {
+    "display": "Bohemian Shepherd",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Bohemian Shepherd",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Bolognese": {
+    "display": "Bolognese",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Bolognese",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Border Collie": {
+    "display": "Border Collie",
+    "kind": "breed",
+    "stanford_label": "n02106166-Border_collie",
+    "akc_name": "Border Collie",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Border Terrier": {
+    "display": "Border Terrier",
+    "kind": "breed",
+    "stanford_label": "n02093754-Border_terrier",
+    "akc_name": "Border Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Borzoi": {
+    "display": "Borzoi",
+    "kind": "breed",
+    "stanford_label": "n02090622-borzoi",
+    "akc_name": "Borzoi",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Boston Terrier": {
+    "display": "Boston Terrier",
+    "kind": "breed",
+    "stanford_label": "n02096585-Boston_bull",
+    "akc_name": "Boston Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Bouvier des Flandres": {
+    "display": "Bouvier des Flandres",
+    "kind": "breed",
+    "stanford_label": "n02106382-Bouvier_des_Flandres",
+    "akc_name": "Bouvier des Flandres",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Boxer": {
+    "display": "Boxer",
+    "kind": "breed",
+    "stanford_label": "n02108089-boxer",
+    "akc_name": "Boxer",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Boykin Spaniel": {
+    "display": "Boykin Spaniel",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Boykin Spaniel",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Bracco Italiano": {
+    "display": "Bracco Italiano",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Bracco Italiano",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Braque du Bourbonnais": {
+    "display": "Braque du Bourbonnais",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Braque du Bourbonnais",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Braque Francais Pyrenean": {
+    "display": "Braque Francais Pyrenean",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Braque Francais Pyrenean",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Briard": {
+    "display": "Briard",
+    "kind": "breed",
+    "stanford_label": "n02105251-briard",
+    "akc_name": "Briard",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Brittany": {
+    "display": "Brittany",
+    "kind": "breed",
+    "stanford_label": "n02101388-Brittany_spaniel",
+    "akc_name": "Brittany",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Broholmer": {
+    "display": "Broholmer",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Broholmer",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Brussels Griffon": {
+    "display": "Brussels Griffon",
+    "kind": "breed",
+    "stanford_label": "n02112706-Brabancon_griffon",
+    "akc_name": "Brussels Griffon",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Bull Terrier": {
+    "display": "Bull Terrier",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Bull Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Bulldog": {
+    "display": "Bulldog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Bulldog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Bullmastiff": {
+    "display": "Bullmastiff",
+    "kind": "breed",
+    "stanford_label": "n02108422-bull_mastiff",
+    "akc_name": "Bullmastiff",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Cairn Terrier": {
+    "display": "Cairn Terrier",
+    "kind": "breed",
+    "stanford_label": "n02096177-cairn",
+    "akc_name": "Cairn Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Canaan Dog": {
+    "display": "Canaan Dog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Canaan Dog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Cane Corso": {
+    "display": "Cane Corso",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Cane Corso",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Cardigan Welsh Corgi": {
+    "display": "Cardigan Welsh Corgi",
+    "kind": "breed",
+    "stanford_label": "n02113186-Cardigan",
+    "akc_name": "Cardigan Welsh Corgi",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Carolina Dog": {
+    "display": "Carolina Dog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Carolina Dog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Catahoula Leopard Dog": {
+    "display": "Catahoula Leopard Dog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Catahoula Leopard Dog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Caucasian Shepherd Dog": {
+    "display": "Caucasian Shepherd Dog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Caucasian Shepherd Dog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Cavalier King Charles Spaniel": {
+    "display": "Cavalier King Charles Spaniel",
+    "kind": "breed",
+    "stanford_label": "n02086646-Blenheim_spaniel",
+    "akc_name": "Cavalier King Charles Spaniel",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Central Asian Shepherd Dog": {
+    "display": "Central Asian Shepherd Dog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Central Asian Shepherd Dog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Cesky Terrier": {
+    "display": "Cesky Terrier",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Cesky Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Chesapeake Bay Retriever": {
+    "display": "Chesapeake Bay Retriever",
+    "kind": "breed",
+    "stanford_label": "n02099849-Chesapeake_Bay_retriever",
+    "akc_name": "Chesapeake Bay Retriever",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Chihuahua": {
+    "display": "Chihuahua",
+    "kind": "breed",
+    "stanford_label": "n02085620-Chihuahua",
+    "akc_name": "Chihuahua",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Chinese Crested": {
+    "display": "Chinese Crested",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Chinese Crested",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Chinese Shar-Pei": {
+    "display": "Chinese Shar-Pei",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Chinese Shar-Pei",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Chinook": {
+    "display": "Chinook",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Chinook",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Chow Chow": {
+    "display": "Chow Chow",
+    "kind": "breed",
+    "stanford_label": "n02112137-chow",
+    "akc_name": "Chow Chow",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Cirneco dell’Etna": {
+    "display": "Cirneco dell’Etna",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Cirneco dell’Etna",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Clumber Spaniel": {
+    "display": "Clumber Spaniel",
+    "kind": "breed",
+    "stanford_label": "n02101556-clumber",
+    "akc_name": "Clumber Spaniel",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Cocker Spaniel": {
+    "display": "Cocker Spaniel",
+    "kind": "breed",
+    "stanford_label": "n02102318-cocker_spaniel",
+    "akc_name": "Cocker Spaniel",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Collie": {
+    "display": "Collie",
+    "kind": "breed",
+    "stanford_label": "n02106030-collie",
+    "akc_name": "Collie",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Coton de Tulear": {
+    "display": "Coton de Tulear",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Coton de Tulear",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Croatian Sheepdog": {
+    "display": "Croatian Sheepdog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Croatian Sheepdog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Curly-Coated Retriever": {
+    "display": "Curly-Coated Retriever",
+    "kind": "breed",
+    "stanford_label": "n02099429-curly-coated_retriever",
+    "akc_name": "Curly-Coated Retriever",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Czechoslovakian Vlcak": {
+    "display": "Czechoslovakian Vlcak",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Czechoslovakian Vlcak",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Dachshund": {
+    "display": "Dachshund",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Dachshund",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Dalmatian": {
+    "display": "Dalmatian",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Dalmatian",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Dandie Dinmont Terrier": {
+    "display": "Dandie Dinmont Terrier",
+    "kind": "breed",
+    "stanford_label": "n02096437-Dandie_Dinmont",
+    "akc_name": "Dandie Dinmont Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Danish-Swedish Farmdog": {
+    "display": "Danish-Swedish Farmdog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Danish-Swedish Farmdog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Deutscher Wachtelhund": {
+    "display": "Deutscher Wachtelhund",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Deutscher Wachtelhund",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Dhole": {
+    "display": "Dhole",
+    "kind": "wild_canid",
+    "stanford_label": "n02115913-dhole",
+    "akc_name": null,
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Dingo": {
+    "display": "Dingo",
+    "kind": "wild_canid",
+    "stanford_label": "n02115641-dingo",
+    "akc_name": null,
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Doberman Pinscher": {
+    "display": "Doberman Pinscher",
+    "kind": "breed",
+    "stanford_label": "n02107142-Doberman",
+    "akc_name": "Doberman Pinscher",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Dogo Argentino": {
+    "display": "Dogo Argentino",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Dogo Argentino",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Dogue de Bordeaux": {
+    "display": "Dogue de Bordeaux",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Dogue de Bordeaux",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Drentsche Patrijshond": {
+    "display": "Drentsche Patrijshond",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Drentsche Patrijshond",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Drever": {
+    "display": "Drever",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Drever",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Dutch Shepherd": {
+    "display": "Dutch Shepherd",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Dutch Shepherd",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "English Cocker Spaniel": {
+    "display": "English Cocker Spaniel",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "English Cocker Spaniel",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "English Foxhound": {
+    "display": "English Foxhound",
+    "kind": "breed",
+    "stanford_label": "n02089973-English_foxhound",
+    "akc_name": "English Foxhound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "English Setter": {
+    "display": "English Setter",
+    "kind": "breed",
+    "stanford_label": "n02100735-English_setter",
+    "akc_name": "English Setter",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "English Springer Spaniel": {
+    "display": "English Springer Spaniel",
+    "kind": "breed",
+    "stanford_label": "n02102040-English_springer",
+    "akc_name": "English Springer Spaniel",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "English Toy Spaniel": {
+    "display": "English Toy Spaniel",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "English Toy Spaniel",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Entlebucher Mountain Dog": {
+    "display": "Entlebucher Mountain Dog",
+    "kind": "breed",
+    "stanford_label": "n02108000-EntleBucher",
+    "akc_name": "Entlebucher Mountain Dog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Eskimo Dog": {
+    "display": "Eskimo Dog",
+    "kind": "breed",
+    "stanford_label": "n02109961-Eskimo_dog",
+    "akc_name": null,
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Estrela Mountain Dog": {
+    "display": "Estrela Mountain Dog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Estrela Mountain Dog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Eurasier": {
+    "display": "Eurasier",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Eurasier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Field Spaniel": {
+    "display": "Field Spaniel",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Field Spaniel",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Finnish Lapphund": {
+    "display": "Finnish Lapphund",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Finnish Lapphund",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Finnish Spitz": {
+    "display": "Finnish Spitz",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Finnish Spitz",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Flat-Coated Retriever": {
+    "display": "Flat-Coated Retriever",
+    "kind": "breed",
+    "stanford_label": "n02099267-flat-coated_retriever",
+    "akc_name": "Flat-Coated Retriever",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "French Bulldog": {
+    "display": "French Bulldog",
+    "kind": "breed",
+    "stanford_label": "n02108915-French_bulldog",
+    "akc_name": "French Bulldog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "French Spaniel": {
+    "display": "French Spaniel",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "French Spaniel",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "German Longhaired Pointer": {
+    "display": "German Longhaired Pointer",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "German Longhaired Pointer",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "German Pinscher": {
+    "display": "German Pinscher",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "German Pinscher",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "German Shepherd Dog": {
+    "display": "German Shepherd Dog",
+    "kind": "breed",
+    "stanford_label": "n02106662-German_shepherd",
+    "akc_name": "German Shepherd Dog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "German Shorthaired Pointer": {
+    "display": "German Shorthaired Pointer",
+    "kind": "breed",
+    "stanford_label": "n02100236-German_short-haired_pointer",
+    "akc_name": "German Shorthaired Pointer",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "German Spitz": {
+    "display": "German Spitz",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "German Spitz",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "German Wirehaired Pointer": {
+    "display": "German Wirehaired Pointer",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "German Wirehaired Pointer",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Giant Schnauzer": {
+    "display": "Giant Schnauzer",
+    "kind": "breed",
+    "stanford_label": "n02097130-giant_schnauzer",
+    "akc_name": "Giant Schnauzer",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Glen of Imaal Terrier": {
+    "display": "Glen of Imaal Terrier",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Glen of Imaal Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Golden Retriever": {
+    "display": "Golden Retriever",
+    "kind": "breed",
+    "stanford_label": "n02099601-golden_retriever",
+    "akc_name": "Golden Retriever",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Gordon Setter": {
+    "display": "Gordon Setter",
+    "kind": "breed",
+    "stanford_label": "n02101006-Gordon_setter",
+    "akc_name": "Gordon Setter",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Grand Basset Griffon Vendéen": {
+    "display": "Grand Basset Griffon Vendéen",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Grand Basset Griffon Vendéen",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Great Dane": {
+    "display": "Great Dane",
+    "kind": "breed",
+    "stanford_label": "n02109047-Great_Dane",
+    "akc_name": "Great Dane",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Great Pyrenees": {
+    "display": "Great Pyrenees",
+    "kind": "breed",
+    "stanford_label": "n02111500-Great_Pyrenees",
+    "akc_name": "Great Pyrenees",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Greater Swiss Mountain Dog": {
+    "display": "Greater Swiss Mountain Dog",
+    "kind": "breed",
+    "stanford_label": "n02107574-Greater_Swiss_Mountain_dog",
+    "akc_name": "Greater Swiss Mountain Dog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Greyhound": {
+    "display": "Greyhound",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Greyhound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Hamiltonstovare": {
+    "display": "Hamiltonstovare",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Hamiltonstovare",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Hanoverian Scenthound": {
+    "display": "Hanoverian Scenthound",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Hanoverian Scenthound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Harrier": {
+    "display": "Harrier",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Harrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Havanese": {
+    "display": "Havanese",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Havanese",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Hokkaido": {
+    "display": "Hokkaido",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Hokkaido",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Hovawart": {
+    "display": "Hovawart",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Hovawart",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Ibizan Hound": {
+    "display": "Ibizan Hound",
+    "kind": "breed",
+    "stanford_label": "n02091244-Ibizan_hound",
+    "akc_name": "Ibizan Hound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Icelandic Sheepdog": {
+    "display": "Icelandic Sheepdog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Icelandic Sheepdog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Irish Red and White Setter": {
+    "display": "Irish Red and White Setter",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Irish Red and White Setter",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Irish Setter": {
+    "display": "Irish Setter",
+    "kind": "breed",
+    "stanford_label": "n02100877-Irish_setter",
+    "akc_name": "Irish Setter",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Irish Terrier": {
+    "display": "Irish Terrier",
+    "kind": "breed",
+    "stanford_label": "n02093991-Irish_terrier",
+    "akc_name": "Irish Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Irish Water Spaniel": {
+    "display": "Irish Water Spaniel",
+    "kind": "breed",
+    "stanford_label": "n02102973-Irish_water_spaniel",
+    "akc_name": "Irish Water Spaniel",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Irish Wolfhound": {
+    "display": "Irish Wolfhound",
+    "kind": "breed",
+    "stanford_label": "n02090721-Irish_wolfhound",
+    "akc_name": "Irish Wolfhound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Italian Greyhound": {
+    "display": "Italian Greyhound",
+    "kind": "breed",
+    "stanford_label": "n02091032-Italian_greyhound",
+    "akc_name": "Italian Greyhound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Jagdterrier": {
+    "display": "Jagdterrier",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Jagdterrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Japanese Chin": {
+    "display": "Japanese Chin",
+    "kind": "breed",
+    "stanford_label": "n02085782-Japanese_spaniel",
+    "akc_name": "Japanese Chin",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Japanese Spitz": {
+    "display": "Japanese Spitz",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Japanese Spitz",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Jindo": {
+    "display": "Jindo",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Jindo",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Kai Ken": {
+    "display": "Kai Ken",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Kai Ken",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Karelian Bear Dog": {
+    "display": "Karelian Bear Dog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Karelian Bear Dog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Keeshond": {
+    "display": "Keeshond",
+    "kind": "breed",
+    "stanford_label": "n02112350-keeshond",
+    "akc_name": "Keeshond",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Kerry Blue Terrier": {
+    "display": "Kerry Blue Terrier",
+    "kind": "breed",
+    "stanford_label": "n02093859-Kerry_blue_terrier",
+    "akc_name": "Kerry Blue Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Kishu Ken": {
+    "display": "Kishu Ken",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Kishu Ken",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Komondor": {
+    "display": "Komondor",
+    "kind": "breed",
+    "stanford_label": "n02105505-komondor",
+    "akc_name": "Komondor",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Kromfohrlander": {
+    "display": "Kromfohrlander",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Kromfohrlander",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Kuvasz": {
+    "display": "Kuvasz",
+    "kind": "breed",
+    "stanford_label": "n02104029-kuvasz",
+    "akc_name": "Kuvasz",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Labrador Retriever": {
+    "display": "Labrador Retriever",
+    "kind": "breed",
+    "stanford_label": "n02099712-Labrador_retriever",
+    "akc_name": "Labrador Retriever",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Lagotto Romagnolo": {
+    "display": "Lagotto Romagnolo",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Lagotto Romagnolo",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Lakeland Terrier": {
+    "display": "Lakeland Terrier",
+    "kind": "breed",
+    "stanford_label": "n02095570-Lakeland_terrier",
+    "akc_name": "Lakeland Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Lancashire Heeler": {
+    "display": "Lancashire Heeler",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Lancashire Heeler",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Lapponian Herder": {
+    "display": "Lapponian Herder",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Lapponian Herder",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Leonberger": {
+    "display": "Leonberger",
+    "kind": "breed",
+    "stanford_label": "n02111129-Leonberg",
+    "akc_name": "Leonberger",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Lhasa Apso": {
+    "display": "Lhasa Apso",
+    "kind": "breed",
+    "stanford_label": "n02098413-Lhasa",
+    "akc_name": "Lhasa Apso",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Löwchen": {
+    "display": "Löwchen",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Löwchen",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Maltese": {
+    "display": "Maltese",
+    "kind": "breed",
+    "stanford_label": "n02085936-Maltese_dog",
+    "akc_name": "Maltese",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Manchester Terrier (Standard)": {
+    "display": "Manchester Terrier (Standard)",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Manchester Terrier (Standard)",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Manchester Terrier (Toy)": {
+    "display": "Manchester Terrier (Toy)",
+    "kind": "breed",
+    "stanford_label": "n02087046-toy_terrier",
+    "akc_name": "Manchester Terrier (Toy)",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Mastiff": {
+    "display": "Mastiff",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Mastiff",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Miniature American Shepherd": {
+    "display": "Miniature American Shepherd",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Miniature American Shepherd",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Miniature Bull Terrier": {
+    "display": "Miniature Bull Terrier",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Miniature Bull Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Miniature Pinscher": {
+    "display": "Miniature Pinscher",
+    "kind": "breed",
+    "stanford_label": "n02107312-miniature_pinscher",
+    "akc_name": "Miniature Pinscher",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Miniature Schnauzer": {
+    "display": "Miniature Schnauzer",
+    "kind": "breed",
+    "stanford_label": "n02097047-miniature_schnauzer",
+    "akc_name": "Miniature Schnauzer",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Mountain Cur": {
+    "display": "Mountain Cur",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Mountain Cur",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Mudi": {
+    "display": "Mudi",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Mudi",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Neapolitan Mastiff": {
+    "display": "Neapolitan Mastiff",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Neapolitan Mastiff",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Nederlandse Kooikerhondje": {
+    "display": "Nederlandse Kooikerhondje",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Nederlandse Kooikerhondje",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Newfoundland": {
+    "display": "Newfoundland",
+    "kind": "breed",
+    "stanford_label": "n02111277-Newfoundland",
+    "akc_name": "Newfoundland",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Norfolk Terrier": {
+    "display": "Norfolk Terrier",
+    "kind": "breed",
+    "stanford_label": "n02094114-Norfolk_terrier",
+    "akc_name": "Norfolk Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Norrbottenspets": {
+    "display": "Norrbottenspets",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Norrbottenspets",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Norwegian Buhund": {
+    "display": "Norwegian Buhund",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Norwegian Buhund",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Norwegian Elkhound": {
+    "display": "Norwegian Elkhound",
+    "kind": "breed",
+    "stanford_label": "n02091467-Norwegian_elkhound",
+    "akc_name": "Norwegian Elkhound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Norwegian Lundehund": {
+    "display": "Norwegian Lundehund",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Norwegian Lundehund",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Norwich Terrier": {
+    "display": "Norwich Terrier",
+    "kind": "breed",
+    "stanford_label": "n02094258-Norwich_terrier",
+    "akc_name": "Norwich Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Nova Scotia Duck Tolling Retriever": {
+    "display": "Nova Scotia Duck Tolling Retriever",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Nova Scotia Duck Tolling Retriever",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Old English Sheepdog": {
+    "display": "Old English Sheepdog",
+    "kind": "breed",
+    "stanford_label": "n02105641-Old_English_sheepdog",
+    "akc_name": "Old English Sheepdog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Otterhound": {
+    "display": "Otterhound",
+    "kind": "breed",
+    "stanford_label": "n02091635-otterhound",
+    "akc_name": "Otterhound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Papillon": {
+    "display": "Papillon",
+    "kind": "breed",
+    "stanford_label": "n02086910-papillon",
+    "akc_name": "Papillon",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Parson Russell Terrier": {
+    "display": "Parson Russell Terrier",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Parson Russell Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Pekingese": {
+    "display": "Pekingese",
+    "kind": "breed",
+    "stanford_label": "n02086079-Pekinese",
+    "akc_name": "Pekingese",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Pembroke Welsh Corgi": {
+    "display": "Pembroke Welsh Corgi",
+    "kind": "breed",
+    "stanford_label": "n02113023-Pembroke",
+    "akc_name": "Pembroke Welsh Corgi",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Perro de Presa Canario": {
+    "display": "Perro de Presa Canario",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Perro de Presa Canario",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Peruvian Inca Orchid": {
+    "display": "Peruvian Inca Orchid",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Peruvian Inca Orchid",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Petit Basset Griffon Vendéen": {
+    "display": "Petit Basset Griffon Vendéen",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Petit Basset Griffon Vendéen",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Pharaoh Hound": {
+    "display": "Pharaoh Hound",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Pharaoh Hound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Plott Hound": {
+    "display": "Plott Hound",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Plott Hound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Pointer": {
+    "display": "Pointer",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Pointer",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Polish Lowland Sheepdog": {
+    "display": "Polish Lowland Sheepdog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Polish Lowland Sheepdog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Pomeranian": {
+    "display": "Pomeranian",
+    "kind": "breed",
+    "stanford_label": "n02112018-Pomeranian",
+    "akc_name": "Pomeranian",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Poodle (Miniature)": {
+    "display": "Poodle (Miniature)",
+    "kind": "breed",
+    "stanford_label": "n02113712-miniature_poodle",
+    "akc_name": "Poodle (Miniature)",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Poodle (Standard)": {
+    "display": "Poodle (Standard)",
+    "kind": "breed",
+    "stanford_label": "n02113799-standard_poodle",
+    "akc_name": "Poodle (Standard)",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Poodle (Toy)": {
+    "display": "Poodle (Toy)",
+    "kind": "breed",
+    "stanford_label": "n02113624-toy_poodle",
+    "akc_name": "Poodle (Toy)",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Porcelaine": {
+    "display": "Porcelaine",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Porcelaine",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Portuguese Podengo": {
+    "display": "Portuguese Podengo",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Portuguese Podengo",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Portuguese Podengo Pequeno": {
+    "display": "Portuguese Podengo Pequeno",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Portuguese Podengo Pequeno",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Portuguese Pointer": {
+    "display": "Portuguese Pointer",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Portuguese Pointer",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Portuguese Sheepdog": {
+    "display": "Portuguese Sheepdog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Portuguese Sheepdog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Portuguese Water Dog": {
+    "display": "Portuguese Water Dog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Portuguese Water Dog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Pudelpointer": {
+    "display": "Pudelpointer",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Pudelpointer",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Pug": {
+    "display": "Pug",
+    "kind": "breed",
+    "stanford_label": "n02110958-pug",
+    "akc_name": "Pug",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Puli": {
+    "display": "Puli",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Puli",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Pumi": {
+    "display": "Pumi",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Pumi",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Pyrenean Mastiff": {
+    "display": "Pyrenean Mastiff",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Pyrenean Mastiff",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Pyrenean Shepherd": {
+    "display": "Pyrenean Shepherd",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Pyrenean Shepherd",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Rafeiro do Alentejo": {
+    "display": "Rafeiro do Alentejo",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Rafeiro do Alentejo",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Rat Terrier": {
+    "display": "Rat Terrier",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Rat Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Redbone Coonhound": {
+    "display": "Redbone Coonhound",
+    "kind": "breed",
+    "stanford_label": "n02090379-redbone",
+    "akc_name": "Redbone Coonhound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Rhodesian Ridgeback": {
+    "display": "Rhodesian Ridgeback",
+    "kind": "breed",
+    "stanford_label": "n02087394-Rhodesian_ridgeback",
+    "akc_name": "Rhodesian Ridgeback",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Romanian Mioritic Shepherd Dog": {
+    "display": "Romanian Mioritic Shepherd Dog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Romanian Mioritic Shepherd Dog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Rottweiler": {
+    "display": "Rottweiler",
+    "kind": "breed",
+    "stanford_label": "n02106550-Rottweiler",
+    "akc_name": "Rottweiler",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Russell Terrier": {
+    "display": "Russell Terrier",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Russell Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Russian Toy": {
+    "display": "Russian Toy",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Russian Toy",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Russian Tsvetnaya Bolonka": {
+    "display": "Russian Tsvetnaya Bolonka",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Russian Tsvetnaya Bolonka",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Saint Bernard": {
+    "display": "Saint Bernard",
+    "kind": "breed",
+    "stanford_label": "n02109525-Saint_Bernard",
+    "akc_name": "Saint Bernard",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Saluki": {
+    "display": "Saluki",
+    "kind": "breed",
+    "stanford_label": "n02091831-Saluki",
+    "akc_name": "Saluki",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Samoyed": {
+    "display": "Samoyed",
+    "kind": "breed",
+    "stanford_label": "n02111889-Samoyed",
+    "akc_name": "Samoyed",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Schapendoes": {
+    "display": "Schapendoes",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Schapendoes",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Schipperke": {
+    "display": "Schipperke",
+    "kind": "breed",
+    "stanford_label": "n02104365-schipperke",
+    "akc_name": "Schipperke",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Scottish Deerhound": {
+    "display": "Scottish Deerhound",
+    "kind": "breed",
+    "stanford_label": "n02092002-Scottish_deerhound",
+    "akc_name": "Scottish Deerhound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Scottish Terrier": {
+    "display": "Scottish Terrier",
+    "kind": "breed",
+    "stanford_label": "n02097298-Scotch_terrier",
+    "akc_name": "Scottish Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Sealyham Terrier": {
+    "display": "Sealyham Terrier",
+    "kind": "breed",
+    "stanford_label": "n02095889-Sealyham_terrier",
+    "akc_name": "Sealyham Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Segugio Italiano": {
+    "display": "Segugio Italiano",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Segugio Italiano",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Shetland Sheepdog": {
+    "display": "Shetland Sheepdog",
+    "kind": "breed",
+    "stanford_label": "n02105855-Shetland_sheepdog",
+    "akc_name": "Shetland Sheepdog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Shiba Inu": {
+    "display": "Shiba Inu",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Shiba Inu",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Shih Tzu": {
+    "display": "Shih Tzu",
+    "kind": "breed",
+    "stanford_label": "n02086240-Shih-Tzu",
+    "akc_name": "Shih Tzu",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Shikoku": {
+    "display": "Shikoku",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Shikoku",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Siberian Husky": {
+    "display": "Siberian Husky",
+    "kind": "breed",
+    "stanford_label": "n02110185-Siberian_husky",
+    "akc_name": "Siberian Husky",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Silky Terrier": {
+    "display": "Silky Terrier",
+    "kind": "breed",
+    "stanford_label": "n02097658-silky_terrier",
+    "akc_name": "Silky Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Skye Terrier": {
+    "display": "Skye Terrier",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Skye Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Sloughi": {
+    "display": "Sloughi",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Sloughi",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Slovakian Wirehaired Pointer": {
+    "display": "Slovakian Wirehaired Pointer",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Slovakian Wirehaired Pointer",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Slovensky Cuvac": {
+    "display": "Slovensky Cuvac",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Slovensky Cuvac",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Slovensky Kopov": {
+    "display": "Slovensky Kopov",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Slovensky Kopov",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Small Munsterlander Pointer": {
+    "display": "Small Munsterlander Pointer",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Small Munsterlander Pointer",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Smooth Fox Terrier": {
+    "display": "Smooth Fox Terrier",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Smooth Fox Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Soft Coated Wheaten Terrier": {
+    "display": "Soft Coated Wheaten Terrier",
+    "kind": "breed",
+    "stanford_label": "n02098105-soft-coated_wheaten_terrier",
+    "akc_name": "Soft Coated Wheaten Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Spanish Mastiff": {
+    "display": "Spanish Mastiff",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Spanish Mastiff",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Spanish Water Dog": {
+    "display": "Spanish Water Dog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Spanish Water Dog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Spinone Italiano": {
+    "display": "Spinone Italiano",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Spinone Italiano",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Stabyhoun": {
+    "display": "Stabyhoun",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Stabyhoun",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Staffordshire Bull Terrier": {
+    "display": "Staffordshire Bull Terrier",
+    "kind": "breed",
+    "stanford_label": "n02093256-Staffordshire_bullterrier",
+    "akc_name": "Staffordshire Bull Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Standard Schnauzer": {
+    "display": "Standard Schnauzer",
+    "kind": "breed",
+    "stanford_label": "n02097209-standard_schnauzer",
+    "akc_name": "Standard Schnauzer",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Sussex Spaniel": {
+    "display": "Sussex Spaniel",
+    "kind": "breed",
+    "stanford_label": "n02102480-Sussex_spaniel",
+    "akc_name": "Sussex Spaniel",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Swedish Lapphund": {
+    "display": "Swedish Lapphund",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Swedish Lapphund",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Swedish Vallhund": {
+    "display": "Swedish Vallhund",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Swedish Vallhund",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Taiwan Dog": {
+    "display": "Taiwan Dog",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Taiwan Dog",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Teddy Roosevelt Terrier": {
+    "display": "Teddy Roosevelt Terrier",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Teddy Roosevelt Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Thai Ridgeback": {
+    "display": "Thai Ridgeback",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Thai Ridgeback",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Tibetan Mastiff": {
+    "display": "Tibetan Mastiff",
+    "kind": "breed",
+    "stanford_label": "n02108551-Tibetan_mastiff",
+    "akc_name": "Tibetan Mastiff",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Tibetan Spaniel": {
+    "display": "Tibetan Spaniel",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Tibetan Spaniel",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Tibetan Terrier": {
+    "display": "Tibetan Terrier",
+    "kind": "breed",
+    "stanford_label": "n02097474-Tibetan_terrier",
+    "akc_name": "Tibetan Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Tornjak": {
+    "display": "Tornjak",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Tornjak",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Tosa": {
+    "display": "Tosa",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Tosa",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Toy Fox Terrier": {
+    "display": "Toy Fox Terrier",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Toy Fox Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Transylvanian Hound": {
+    "display": "Transylvanian Hound",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Transylvanian Hound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Treeing Tennessee Brindle": {
+    "display": "Treeing Tennessee Brindle",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Treeing Tennessee Brindle",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Treeing Walker Coonhound": {
+    "display": "Treeing Walker Coonhound",
+    "kind": "breed",
+    "stanford_label": "n02089867-Walker_hound",
+    "akc_name": "Treeing Walker Coonhound",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Vizsla": {
+    "display": "Vizsla",
+    "kind": "breed",
+    "stanford_label": "n02100583-vizsla",
+    "akc_name": "Vizsla",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Weimaraner": {
+    "display": "Weimaraner",
+    "kind": "breed",
+    "stanford_label": "n02092339-Weimaraner",
+    "akc_name": "Weimaraner",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Welsh Springer Spaniel": {
+    "display": "Welsh Springer Spaniel",
+    "kind": "breed",
+    "stanford_label": "n02102177-Welsh_springer_spaniel",
+    "akc_name": "Welsh Springer Spaniel",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Welsh Terrier": {
+    "display": "Welsh Terrier",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Welsh Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "West Highland White Terrier": {
+    "display": "West Highland White Terrier",
+    "kind": "breed",
+    "stanford_label": "n02098286-West_Highland_white_terrier",
+    "akc_name": "West Highland White Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Wetterhoun": {
+    "display": "Wetterhoun",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Wetterhoun",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Whippet": {
+    "display": "Whippet",
+    "kind": "breed",
+    "stanford_label": "n02091134-whippet",
+    "akc_name": "Whippet",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Wire Fox Terrier": {
+    "display": "Wire Fox Terrier",
+    "kind": "breed",
+    "stanford_label": "n02095314-wire-haired_fox_terrier",
+    "akc_name": "Wire Fox Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Wirehaired Pointing Griffon": {
+    "display": "Wirehaired Pointing Griffon",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Wirehaired Pointing Griffon",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Wirehaired Vizsla": {
+    "display": "Wirehaired Vizsla",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Wirehaired Vizsla",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Working Kelpie": {
+    "display": "Working Kelpie",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Working Kelpie",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Xoloitzcuintli": {
+    "display": "Xoloitzcuintli",
+    "kind": "breed",
+    "stanford_label": "n02113978-Mexican_hairless",
+    "akc_name": "Xoloitzcuintli",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Yakutian Laika": {
+    "display": "Yakutian Laika",
+    "kind": "breed",
+    "stanford_label": null,
+    "akc_name": "Yakutian Laika",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  },
+  "Yorkshire Terrier": {
+    "display": "Yorkshire Terrier",
+    "kind": "breed",
+    "stanford_label": "n02094433-Yorkshire_terrier",
+    "akc_name": "Yorkshire Terrier",
+    "petfinder_name": null,
+    "thedogapi_name": null
+  }
+}

@@ -1,0 +1,44 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# Secrets / local overrides (copy .env.example to .env)
+.env
+
+# Downloaded and generated datasets (rebuilt by scripts/)
+data/raw/
+data/processed/
+data/uploads/
+uploads/
+
+# Persisted Chroma collections (rebuilt by the ingestion script, #5)
+data/chroma_knowledge/
+data/chroma_listings/
+chroma_db/
+*.sqlite3
+
+# Model weights are too large for git (ConvNeXt-Tiny is ~110 MB).
+# The small JSON files next to them (class_names, metrics, temperature, threshold) ARE tracked.
+models/**/*.pt
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.onnx
+checkpoints/
+
+# Runtime output
+logs/
+.chainlit/
+.files/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
