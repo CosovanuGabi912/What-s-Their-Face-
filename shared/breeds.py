@@ -51,26 +51,26 @@ def display_names() -> list[str]:
     return sorted(load_breeds_map(), key=str.casefold)
 
 
+def aliases(entry: dict) -> list[str]:
+    """Every other spelling to_display() accepts for this entry (scripts/validate_breeds_map.py
+    checks that no alias points to two breeds)."""
+    names = [entry.get(key) for key in ("akc_name", "petfinder_name", "thedogapi_name")]
+    label = entry.get("stanford_label")
+    if label:
+        wordnet_id, folder = label.split("-", 1)
+        names += [label, wordnet_id, folder, stanford_readable_name(label)]  # last one: pre-#3 class name
+    return [name for name in names if name]
+
+
 @lru_cache(maxsize=1)
 def _alias_index() -> dict[str, str]:
     index: dict[str, str] = {}
-
-    def add(alias: str | None, display: str) -> None:
-        if alias:
-            index.setdefault(normalise(alias), display)
-
     entries = load_breeds_map()
     for display in entries:  # display names first so they always win
-        add(display, display)
+        index.setdefault(normalise(display), display)
     for display, entry in entries.items():
-        for key in ("akc_name", "petfinder_name", "thedogapi_name"):
-            add(entry.get(key), display)
-        label = entry.get("stanford_label")
-        if label:
-            add(label, display)
-            add(label.split("-", 1)[0], display)           # WordNet ID
-            add(label.split("-", 1)[1], display)           # folder name
-            add(stanford_readable_name(label), display)    # pre-#3 class name
+        for alias in aliases(entry):
+            index.setdefault(normalise(alias), display)
     return index
 
 

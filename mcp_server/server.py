@@ -8,6 +8,12 @@ Tool bodies live in mcp_server/tools/ and are owned by each part; this file owns
 the descriptions the SLM reads, and the contract check: every result is validated against
 shared/schemas.py before it is returned, so a tool that drifts from the contract fails here.
 Tools named in WTF_STUB_TOOLS (or all, with "all") are served from mcp_server/tools/stubs.py.
+
+Rules for tool code:
+- Never write to stdout (no print): over stdio, stdout carries the MCP protocol and any other
+  output breaks it. Use logging, which goes to stderr.
+- Clients start this server with shared.mcp_client.server_params(), so WTF_* and model variables
+  set in code or in the terminal reach the tools.
 """
 
 from __future__ import annotations

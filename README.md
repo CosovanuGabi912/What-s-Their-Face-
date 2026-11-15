@@ -27,3 +27,5 @@ mcp dev mcp_server/server.py    # MCP Inspector (needs Node.js)
 - `data/breeds_map.json`: one canonical `display` name per breed. Use `shared.breeds.to_display()` to turn any spelling (Stanford label, AKC, PetFinder, ...) into it.
 - `shared/images.py`: photos are saved once as `data/uploads/<image_id>`; only the `image_id` travels through the agent and MCP.
 - `mcp_server/server.py`: the `pet-advisor` MCP server. Tools without weights or data on your laptop can be served from `mcp_server/tools/stubs.py` with `WTF_STUB_TOOLS=identify_breed,describe_pet` (or `all`).
+- `shared/mcp_client.py`: start the server with `server_params()`. The MCP stdio client does not pass the parent's environment to the server, so without it `WTF_*` and model variables set in code or in the terminal never reach the tools (values in `.env` still work).
+- Tool code must never print to stdout: over stdio, stdout carries the MCP protocol. Use `logging` (stderr).

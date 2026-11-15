@@ -8,23 +8,21 @@ from __future__ import annotations
 
 import importlib.util
 import json
-import sys
 from pathlib import Path
 
 import pytest
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
+from shared.mcp_client import server_params
 from shared.schemas import BREEDS_LIST_URI, TOOL_SCHEMAS
 from tests.test_contracts import SAMPLE_CALLS
 
-SERVER = Path(__file__).resolve().parents[1] / "mcp_server" / "server.py"
-
 
 def _params(cwd: Path) -> StdioServerParameters:
-    # Stubs: this tests the protocol and the contract, not the model weights or Chroma
-    return StdioServerParameters(command=sys.executable, args=[str(SERVER)], cwd=str(cwd),
-                                 env={"WTF_STUB_TOOLS": "all"})
+    # Stubs: this tests the protocol and the contract, not the model weights or Chroma.
+    # Same helper the agent, Chainlit and run_eval.py use to start the server.
+    return server_params({"WTF_STUB_TOOLS": "all"}, cwd=cwd)
 
 
 @pytest.mark.asyncio
