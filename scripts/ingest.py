@@ -33,6 +33,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 import config  # noqa: E402
+import scripts.data_manifest as manifest_tools  # noqa: E402
 from shared.breeds import load_breeds_map, normalise, slugify, to_display  # noqa: E402
 
 RAW_DIR = config.DATA_DIR / "raw"
@@ -513,9 +514,28 @@ def main() -> None:
     parser.add_argument("--skip-thedogapi", action="store_true",
                         help="knowledge only: ingest Wikipedia without data/raw/thedogapi/breeds.json "
                              "(otherwise a missing file is an error)")
+    parser.add_argument("--update-manifest", action="store_true",
+                        help="Part A only, with --all: after ingesting, rewrite data/ingestion_manifest.json "
+                             "(raw-file checksums, chunk counts, embedding model). Others never need this.")
     parser.add_argument("--dry-run", action="store_true", help="count what would be added or updated without calling the embedder")
     args = parser.parse_args()
     sys.stdout.reconfigure(encoding="utf-8")
+
+    if args.update_manifest and (not args.all or args.skip_thedogapi or args.dry_run):
+        sys.exit("--update-manifest needs --all, without --skip-thedogapi or --dry-run.")
+    if not args.update_manifest:  # with --update-manifest the raw files ARE the new reference
+        groups = []
+        if args.all or args.collection == "knowledge":
+            groups += ["wikipedia", "thedogapi"]
+        if args.all or args.collection == "listings":
+            groups.append("petfinder")
+        problems = manifest_tools.verify_raw(manifest_tools.load_manifest(), groups, skip_thedogapi=args.skip_thedogapi)
+        if problems:
+            sys.exit("Raw data does not match data/ingestion_manifest.json, nothing was ingested:\n  - "
+                     + "\n  - ".join(problems))
+        if args.skip_thedogapi:
+            print("NOTE: --skip-thedogapi: the knowledge collection will not match the manifest's chunk counts.",
+                  file=sys.stderr)
 
     embedder = None if args.dry_run else Embedder()
     if embedder:
@@ -524,6 +544,13 @@ def main() -> None:
         ingest_knowledge(embedder, args.skip_thedogapi)
     if args.all or args.collection == "listings":
         ingest_listings(embedder, args.exclude_ids)
+    if args.update_manifest:
+        counts = {name: get_collection(directory, name).count() for directory, name in
+                  ((config.CHROMA_KNOWLEDGE_DIR, KNOWLEDGE), (config.CHROMA_KNOWLEDGE_DIR, KNOWLEDGE_90W),
+                   (config.CHROMA_LISTINGS_DIR, LISTINGS))}
+        manifest_tools.MANIFEST_PATH.write_text(
+            json.dumps(manifest_tools.build_manifest(counts), indent=2) + "\n", encoding="utf-8")
+        print(f"Wrote {manifest_tools.MANIFEST_PATH.relative_to(ROOT)}: {counts}")
 
 
 if __name__ == "__main__":

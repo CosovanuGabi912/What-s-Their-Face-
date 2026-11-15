@@ -205,3 +205,57 @@ def test_prune_removes_chunks_the_raw_data_no_longer_produces(tmp_path):
     collection.upsert(ids=["a", "b"], documents=["x", "y"], embeddings=[[1.0, 0.0], [0.0, 1.0]])
     assert ingest.prune(collection, [("a", "x", {})], "prune_test") == 1
     assert collection.get()["ids"] == ["a"]
+
+
+# --- Manifest checks -----------------------------------------------------------------------------------
+@pytest.fixture
+def fake_raw(tmp_path, monkeypatch):
+    """A tiny data/ folder with one TheDogAPI file and a manifest that describes it."""
+    from scripts import data_manifest
+
+    monkeypatch.setattr(config, "DATA_DIR", tmp_path)
+    (tmp_path / "raw" / "thedogapi").mkdir(parents=True)
+    file = tmp_path / "raw" / "thedogapi" / "breeds.json"
+    file.write_text("[]", encoding="utf-8")
+    manifest = {"raw_files": {"thedogapi": {"files": {"raw/thedogapi/breeds.json": data_manifest.sha256_file(file)}}}}
+    return data_manifest, manifest, file
+
+
+def test_verify_raw_accepts_matching_files(fake_raw):
+    data_manifest, manifest, _ = fake_raw
+    assert data_manifest.verify_raw(manifest, ["thedogapi"]) == []
+
+
+def test_verify_raw_reports_a_changed_file(fake_raw):
+    data_manifest, manifest, file = fake_raw
+    file.write_text('[{"name": "other"}]', encoding="utf-8")
+    problems = data_manifest.verify_raw(manifest, ["thedogapi"])
+    assert len(problems) == 1 and "checksum mismatch" in problems[0] and "breeds.json" in problems[0]
+
+
+def test_verify_raw_reports_a_missing_file_and_skip_thedogapi_allows_it(fake_raw):
+    data_manifest, manifest, file = fake_raw
+    file.unlink()
+    problems = data_manifest.verify_raw(manifest, ["thedogapi"])
+    assert len(problems) == 1 and "missing" in problems[0] and "Part A" in problems[0]
+    assert data_manifest.verify_raw(manifest, ["thedogapi"], skip_thedogapi=True) == []
+
+
+def test_ingest_stops_before_doing_anything_when_a_checksum_differs(fake_raw, monkeypatch):
+    data_manifest, manifest, file = fake_raw
+    file.write_text('[{"name": "other"}]', encoding="utf-8")
+    monkeypatch.setattr(data_manifest, "load_manifest", lambda required=True: manifest)
+    monkeypatch.setattr("sys.argv", ["ingest.py", "--collection", "knowledge", "--dry-run"])
+    with pytest.raises(SystemExit) as error:
+        ingest.main()
+    assert "does not match data/ingestion_manifest.json" in str(error.value)
+
+
+def test_committed_wikipedia_files_match_the_committed_manifest():
+    """Fails when a checkout changed line endings or a file differs from what the manifest was built from."""
+    from scripts import data_manifest
+
+    manifest = data_manifest.load_manifest(required=False)
+    if manifest is None:
+        pytest.skip("data/ingestion_manifest.json does not exist yet")
+    assert data_manifest.verify_raw(manifest, ["wikipedia"]) == []
