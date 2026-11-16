@@ -25,8 +25,11 @@ from mcp import StdioServerParameters
 import config
 
 SERVER_SCRIPT = config.ROOT / "mcp_server" / "server.py"
-FORWARDED_PREFIXES = ("WTF_", "LM_STUDIO_")
-FORWARDED_NAMES = ("AGENT_MODEL", "EMBEDDING_MODEL", "VISION_MODEL")
+# Project settings, plus the ML runtime settings the real tools need once they load models
+# (Hugging Face cache/offline mode, MPS fallback, GPU selection).
+FORWARDED_PREFIXES = ("WTF_", "LM_STUDIO_", "HF_", "TORCH_", "PYTORCH_")
+FORWARDED_NAMES = ("AGENT_MODEL", "EMBEDDING_MODEL", "VISION_MODEL", "CUDA_VISIBLE_DEVICES",
+                   "TOKENIZERS_PARALLELISM")
 
 
 def project_env(overrides: dict[str, str] | None = None) -> dict[str, str]:
