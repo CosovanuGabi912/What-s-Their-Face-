@@ -1,0 +1,1614 @@
+{
+  "part": "A",
+  "golden_sha256": "40a3e8bd524cc38e34e1a00ebefdc8fc6df479ddbd3c3bac68a438f64afff64d",
+  "aggregates": {
+    "num_items": 100,
+    "top1_accuracy": 0.02,
+    "top3_accuracy": 0.02,
+    "coverage": 1.0,
+    "selective_accuracy": 0.02,
+    "wrong_flagged_rate": 0.0
+  },
+  "per_item": [
+    {
+      "id": "A_001",
+      "image_id": "A_001.jpg",
+      "expected_breed": "Japanese Chin",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_002",
+      "image_id": "A_002.jpg",
+      "expected_breed": "Japanese Chin",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_003",
+      "image_id": "A_003.jpg",
+      "expected_breed": "Papillon",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_004",
+      "image_id": "A_004.jpg",
+      "expected_breed": "Papillon",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_005",
+      "image_id": "A_005.jpg",
+      "expected_breed": "Rhodesian Ridgeback",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_006",
+      "image_id": "A_006.jpg",
+      "expected_breed": "Rhodesian Ridgeback",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_007",
+      "image_id": "A_007.jpg",
+      "expected_breed": "Afghan Hound",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_008",
+      "image_id": "A_008.jpg",
+      "expected_breed": "Afghan Hound",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_009",
+      "image_id": "A_009.jpg",
+      "expected_breed": "Basset Hound",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_010",
+      "image_id": "A_010.jpg",
+      "expected_breed": "Basset Hound",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_011",
+      "image_id": "A_011.jpg",
+      "expected_breed": "Treeing Walker Coonhound",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_012",
+      "image_id": "A_012.jpg",
+      "expected_breed": "Treeing Walker Coonhound",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_013",
+      "image_id": "A_013.jpg",
+      "expected_breed": "English Foxhound",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_014",
+      "image_id": "A_014.jpg",
+      "expected_breed": "English Foxhound",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_015",
+      "image_id": "A_015.jpg",
+      "expected_breed": "Whippet",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_016",
+      "image_id": "A_016.jpg",
+      "expected_breed": "Whippet",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_017",
+      "image_id": "A_017.jpg",
+      "expected_breed": "Ibizan Hound",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_018",
+      "image_id": "A_018.jpg",
+      "expected_breed": "Ibizan Hound",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_019",
+      "image_id": "A_019.jpg",
+      "expected_breed": "Scottish Deerhound",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_020",
+      "image_id": "A_020.jpg",
+      "expected_breed": "Scottish Deerhound",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_021",
+      "image_id": "A_021.jpg",
+      "expected_breed": "Bedlington Terrier",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_022",
+      "image_id": "A_022.jpg",
+      "expected_breed": "Bedlington Terrier",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_023",
+      "image_id": "A_023.jpg",
+      "expected_breed": "Kerry Blue Terrier",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_024",
+      "image_id": "A_024.jpg",
+      "expected_breed": "Kerry Blue Terrier",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_025",
+      "image_id": "A_025.jpg",
+      "expected_breed": "Wire Fox Terrier",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_026",
+      "image_id": "A_026.jpg",
+      "expected_breed": "Wire Fox Terrier",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_027",
+      "image_id": "A_027.jpg",
+      "expected_breed": "Lakeland Terrier",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_028",
+      "image_id": "A_028.jpg",
+      "expected_breed": "Lakeland Terrier",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_029",
+      "image_id": "A_029.jpg",
+      "expected_breed": "Cairn Terrier",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_030",
+      "image_id": "A_030.jpg",
+      "expected_breed": "Cairn Terrier",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_031",
+      "image_id": "A_031.jpg",
+      "expected_breed": "Standard Schnauzer",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_032",
+      "image_id": "A_032.jpg",
+      "expected_breed": "Standard Schnauzer",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_033",
+      "image_id": "A_033.jpg",
+      "expected_breed": "Tibetan Terrier",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_034",
+      "image_id": "A_034.jpg",
+      "expected_breed": "Tibetan Terrier",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_035",
+      "image_id": "A_035.jpg",
+      "expected_breed": "Silky Terrier",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_036",
+      "image_id": "A_036.jpg",
+      "expected_breed": "Silky Terrier",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_037",
+      "image_id": "A_037.jpg",
+      "expected_breed": "West Highland White Terrier",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_038",
+      "image_id": "A_038.jpg",
+      "expected_breed": "West Highland White Terrier",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_039",
+      "image_id": "A_039.jpg",
+      "expected_breed": "Golden Retriever",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_040",
+      "image_id": "A_040.jpg",
+      "expected_breed": "Golden Retriever",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_041",
+      "image_id": "A_041.jpg",
+      "expected_breed": "Chesapeake Bay Retriever",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_042",
+      "image_id": "A_042.jpg",
+      "expected_breed": "Chesapeake Bay Retriever",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_043",
+      "image_id": "A_043.jpg",
+      "expected_breed": "German Shorthaired Pointer",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_044",
+      "image_id": "A_044.jpg",
+      "expected_breed": "German Shorthaired Pointer",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_045",
+      "image_id": "A_045.jpg",
+      "expected_breed": "Vizsla",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_046",
+      "image_id": "A_046.jpg",
+      "expected_breed": "Vizsla",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_047",
+      "image_id": "A_047.jpg",
+      "expected_breed": "Irish Setter",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_048",
+      "image_id": "A_048.jpg",
+      "expected_breed": "Irish Setter",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_049",
+      "image_id": "A_049.jpg",
+      "expected_breed": "Gordon Setter",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_050",
+      "image_id": "A_050.jpg",
+      "expected_breed": "Gordon Setter",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_051",
+      "image_id": "A_051.jpg",
+      "expected_breed": "Welsh Springer Spaniel",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_052",
+      "image_id": "A_052.jpg",
+      "expected_breed": "Welsh Springer Spaniel",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_053",
+      "image_id": "A_053.jpg",
+      "expected_breed": "Cocker Spaniel",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_054",
+      "image_id": "A_054.jpg",
+      "expected_breed": "Cocker Spaniel",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_055",
+      "image_id": "A_055.jpg",
+      "expected_breed": "Irish Water Spaniel",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_056",
+      "image_id": "A_056.jpg",
+      "expected_breed": "Irish Water Spaniel",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_057",
+      "image_id": "A_057.jpg",
+      "expected_breed": "Schipperke",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_058",
+      "image_id": "A_058.jpg",
+      "expected_breed": "Schipperke",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_059",
+      "image_id": "A_059.jpg",
+      "expected_breed": "Australian Kelpie",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_060",
+      "image_id": "A_060.jpg",
+      "expected_breed": "Australian Kelpie",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_061",
+      "image_id": "A_061.jpg",
+      "expected_breed": "Shetland Sheepdog",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_062",
+      "image_id": "A_062.jpg",
+      "expected_breed": "Shetland Sheepdog",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_063",
+      "image_id": "A_063.jpg",
+      "expected_breed": "Collie",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_064",
+      "image_id": "A_064.jpg",
+      "expected_breed": "Collie",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_065",
+      "image_id": "A_065.jpg",
+      "expected_breed": "German Shepherd Dog",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_066",
+      "image_id": "A_066.jpg",
+      "expected_breed": "German Shepherd Dog",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_067",
+      "image_id": "A_067.jpg",
+      "expected_breed": "Doberman Pinscher",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_068",
+      "image_id": "A_068.jpg",
+      "expected_breed": "Doberman Pinscher",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_069",
+      "image_id": "A_069.jpg",
+      "expected_breed": "Greater Swiss Mountain Dog",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_070",
+      "image_id": "A_070.jpg",
+      "expected_breed": "Greater Swiss Mountain Dog",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_071",
+      "image_id": "A_071.jpg",
+      "expected_breed": "Bernese Mountain Dog",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_072",
+      "image_id": "A_072.jpg",
+      "expected_breed": "Bernese Mountain Dog",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_073",
+      "image_id": "A_073.jpg",
+      "expected_breed": "Appenzeller Sennenhund",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_074",
+      "image_id": "A_074.jpg",
+      "expected_breed": "Appenzeller Sennenhund",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_075",
+      "image_id": "A_075.jpg",
+      "expected_breed": "Eskimo Dog",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_076",
+      "image_id": "A_076.jpg",
+      "expected_breed": "Eskimo Dog",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_077",
+      "image_id": "A_077.jpg",
+      "expected_breed": "Alaskan Malamute",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_078",
+      "image_id": "A_078.jpg",
+      "expected_breed": "Alaskan Malamute",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_079",
+      "image_id": "A_079.jpg",
+      "expected_breed": "Siberian Husky",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_080",
+      "image_id": "A_080.jpg",
+      "expected_breed": "Siberian Husky",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_081",
+      "image_id": "A_081.jpg",
+      "expected_breed": "Leonberger",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_082",
+      "image_id": "A_082.jpg",
+      "expected_breed": "Leonberger",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_083",
+      "image_id": "A_083.jpg",
+      "expected_breed": "Samoyed",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_084",
+      "image_id": "A_084.jpg",
+      "expected_breed": "Samoyed",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_085",
+      "image_id": "A_085.jpg",
+      "expected_breed": "Chow Chow",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_086",
+      "image_id": "A_086.jpg",
+      "expected_breed": "Chow Chow",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_087",
+      "image_id": "A_087.jpg",
+      "expected_breed": "Poodle (Toy)",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_088",
+      "image_id": "A_088.jpg",
+      "expected_breed": "Poodle (Toy)",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_089",
+      "image_id": "A_089.jpg",
+      "expected_breed": "Poodle (Miniature)",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_090",
+      "image_id": "A_090.jpg",
+      "expected_breed": "Poodle (Miniature)",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_091",
+      "image_id": "A_091.jpg",
+      "expected_breed": "Poodle (Standard)",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_092",
+      "image_id": "A_092.jpg",
+      "expected_breed": "Poodle (Standard)",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_093",
+      "image_id": "A_093.jpg",
+      "expected_breed": "Xoloitzcuintli",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_094",
+      "image_id": "A_094.jpg",
+      "expected_breed": "Xoloitzcuintli",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_095",
+      "image_id": "A_095.jpg",
+      "expected_breed": "Dingo",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_096",
+      "image_id": "A_096.jpg",
+      "expected_breed": "Dingo",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_097",
+      "image_id": "A_097.jpg",
+      "expected_breed": "Dhole",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_098",
+      "image_id": "A_098.jpg",
+      "expected_breed": "Dhole",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_099",
+      "image_id": "A_099.jpg",
+      "expected_breed": "African Wild Dog",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_100",
+      "image_id": "A_100.jpg",
+      "expected_breed": "African Wild Dog",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Belgian Sheepdog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    }
+  ]
+}
