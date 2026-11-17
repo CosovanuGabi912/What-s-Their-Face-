@@ -188,3 +188,16 @@ def test_live_result_matches_the_contract_and_the_server_tool(live):
     SearchKnowledgeOutput.model_validate(out.model_dump())
     via_server = server.search_knowledge(query="grooming needs", breed="Poodle (Toy)")
     assert [c.chunk_id for c in via_server.chunks] == [c.chunk_id for c in out.chunks]
+
+
+# --- scripts/eval_search_breed_filter.py ---------------------------------------------------------------------
+def test_eval_script_takes_the_breed_from_the_expected_chunk_id():
+    from scripts.eval_search_breed_filter import breed_of
+    from shared.breeds import load_breeds_map, slugify
+
+    by_slug = {slugify(display): display for display in load_breeds_map()}
+    assert breed_of("kb:siberian-husky:exercise:0", by_slug) == "Siberian Husky"
+    assert breed_of("kb:german-shepherd-dog:history:6", by_slug) == "German Shepherd Dog"
+    assert len(by_slug) == len(load_breeds_map())  # no two breeds share a slug
+    with pytest.raises(SystemExit):
+        breed_of("kb:no-such-breed:overview:0", by_slug)
