@@ -1,0 +1,973 @@
+{
+  "part": "B",
+  "mode": "breed filter taken from the expected chunk ID (best case: the breed is known and correct)",
+  "golden_sha256": "40a3e8bd524cc38e34e1a00ebefdc8fc6df479ddbd3c3bac68a438f64afff64d",
+  "aggregates": {
+    "num_items": 60,
+    "hit@1": 0.5333,
+    "hit@3": 0.85,
+    "items_without_filter": 0
+  },
+  "per_item": [
+    {
+      "id": "B_001",
+      "query": "How much exercise and mental stimulation does an Australian Shepherd need?",
+      "breed_filter": "Australian Shepherd",
+      "expected_chunk_ids": [
+        "kb:australian-shepherd:exercise:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:australian-shepherd:temperament:0",
+        "kb:australian-shepherd:overview:2",
+        "kb:australian-shepherd:exercise:0"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_002",
+      "query": "What kind of exercise is recommended for Australian Cattle Dogs?",
+      "breed_filter": "Australian Cattle Dog",
+      "expected_chunk_ids": [
+        "kb:australian-cattle-dog:exercise:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:australian-cattle-dog:exercise:0",
+        "kb:australian-cattle-dog:exercise:1",
+        "kb:australian-cattle-dog:exercise:2"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_003",
+      "query": "Does an American Foxhound require a lot of daily exercise?",
+      "breed_filter": "American Foxhound",
+      "expected_chunk_ids": [
+        "kb:american-foxhound:exercise:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:american-foxhound:exercise:0",
+        "kb:american-foxhound:overview:2",
+        "kb:american-foxhound:health:0"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_004",
+      "query": "What are the exercise requirements for a Dalmatian?",
+      "breed_filter": "Dalmatian",
+      "expected_chunk_ids": [
+        "kb:dalmatian:overview:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:dalmatian:overview:3",
+        "kb:dalmatian:health:2",
+        "kb:dalmatian:overview:0"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_005",
+      "query": "What happens if a Border Collie does not receive enough exercise?",
+      "breed_filter": "Border Collie",
+      "expected_chunk_ids": [
+        "kb:border-collie:exercise:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:border-collie:health:2",
+        "kb:border-collie:health:3",
+        "kb:border-collie:exercise:0"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_006",
+      "query": "How active are Irish Setters and what are their exercise needs?",
+      "breed_filter": "Irish Setter",
+      "expected_chunk_ids": [
+        "kb:irish-setter:overview:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:irish-setter:overview:1",
+        "kb:irish-setter:overview:0",
+        "kb:irish-setter:temperament:1"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_007",
+      "query": "How often does a Black Russian Terrier need grooming and coat maintenance?",
+      "breed_filter": "Black Russian Terrier",
+      "expected_chunk_ids": [
+        "kb:black-russian-terrier:grooming:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:black-russian-terrier:grooming:0",
+        "kb:black-russian-terrier:overview:2",
+        "kb:black-russian-terrier:health:0"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_008",
+      "query": "How should the coat of a Cesky Terrier be clipped?",
+      "breed_filter": "Cesky Terrier",
+      "expected_chunk_ids": [
+        "kb:cesky-terrier:grooming:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:cesky-terrier:grooming:0",
+        "kb:cesky-terrier:overview:3",
+        "kb:cesky-terrier:overview:4"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_009",
+      "query": "What grooming is necessary to maintain a Boykin Spaniel's coat?",
+      "breed_filter": "Boykin Spaniel",
+      "expected_chunk_ids": [
+        "kb:boykin-spaniel:grooming:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:boykin-spaniel:grooming:0",
+        "kb:boykin-spaniel:overview:1",
+        "kb:boykin-spaniel:overview:0"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_010",
+      "query": "How should a Gordon Setter's coat be groomed?",
+      "breed_filter": "Gordon Setter",
+      "expected_chunk_ids": [
+        "kb:gordon-setter:overview:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:gordon-setter:overview:1",
+        "kb:gordon-setter:overview:0",
+        "kb:gordon-setter:temperament:0"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_011",
+      "query": "Does the Irish Water Spaniel require regular coat trimming?",
+      "breed_filter": "Irish Water Spaniel",
+      "expected_chunk_ids": [
+        "kb:irish-water-spaniel:overview:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:irish-water-spaniel:living-environment:0",
+        "kb:irish-water-spaniel:overview:1",
+        "kb:irish-water-spaniel:overview:3"
+      ],
+      "hit@1": false,
+      "hit@3": false,
+      "pass": false
+    },
+    {
+      "id": "B_012",
+      "query": "Does a Kerry Blue Terrier shed hair?",
+      "breed_filter": "Kerry Blue Terrier",
+      "expected_chunk_ids": [
+        "kb:kerry-blue-terrier:overview:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:kerry-blue-terrier:overview:1",
+        "kb:kerry-blue-terrier:overview:0",
+        "kb:kerry-blue-terrier:health:0"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_013",
+      "query": "Can American Foxhounds be stubborn during training?",
+      "breed_filter": "American Foxhound",
+      "expected_chunk_ids": [
+        "kb:american-foxhound:training:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:american-foxhound:training:0",
+        "kb:american-foxhound:temperament:0",
+        "kb:american-foxhound:overview:0"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_014",
+      "query": "How responsive are Australian Cattle Dogs to obedience training?",
+      "breed_filter": "Australian Cattle Dog",
+      "expected_chunk_ids": [
+        "kb:australian-cattle-dog:training:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:australian-cattle-dog:training:0",
+        "kb:australian-cattle-dog:temperament:1",
+        "kb:australian-cattle-dog:temperament:0"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_015",
+      "query": "Why can Bloodhounds be challenging to train in basic obedience?",
+      "breed_filter": "Bloodhound",
+      "expected_chunk_ids": [
+        "kb:bloodhound:training:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:bloodhound:temperament:0",
+        "kb:bloodhound:training:1",
+        "kb:bloodhound:other:4"
+      ],
+      "hit@1": false,
+      "hit@3": false,
+      "pass": false
+    },
+    {
+      "id": "B_016",
+      "query": "What training style works best for a Chesapeake Bay Retriever?",
+      "breed_filter": "Chesapeake Bay Retriever",
+      "expected_chunk_ids": [
+        "kb:chesapeake-bay-retriever:training:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:chesapeake-bay-retriever:training:0",
+        "kb:chesapeake-bay-retriever:overview:0",
+        "kb:chesapeake-bay-retriever:overview:1"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_017",
+      "query": "What makes German Shepherds suitable for police and military service?",
+      "breed_filter": "German Shepherd Dog",
+      "expected_chunk_ids": [
+        "kb:german-shepherd-dog:training:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:german-shepherd-dog:other:0",
+        "kb:german-shepherd-dog:overview:0",
+        "kb:german-shepherd-dog:temperament:0"
+      ],
+      "hit@1": false,
+      "hit@3": false,
+      "pass": false
+    },
+    {
+      "id": "B_018",
+      "query": "What is essential when training a young Doberman Pinscher?",
+      "breed_filter": "Doberman Pinscher",
+      "expected_chunk_ids": [
+        "kb:doberman-pinscher:training:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:doberman-pinscher:training:0",
+        "kb:doberman-pinscher:overview:3",
+        "kb:doberman-pinscher:overview:0"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_019",
+      "query": "Does a Bearded Collie need outdoor space or a garden?",
+      "breed_filter": "Bearded Collie",
+      "expected_chunk_ids": [
+        "kb:bearded-collie:living-environment:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:bearded-collie:living-environment:0",
+        "kb:bearded-collie:overview:0",
+        "kb:bearded-collie:other:0"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_020",
+      "query": "Why do French Bulldogs adapt well to apartment life?",
+      "breed_filter": "French Bulldog",
+      "expected_chunk_ids": [
+        "kb:french-bulldog:overview:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:french-bulldog:overview:0",
+        "kb:french-bulldog:health:1",
+        "kb:french-bulldog:overview:2"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_021",
+      "query": "Can Pugs live comfortably in smaller homes without large yards?",
+      "breed_filter": "Pug",
+      "expected_chunk_ids": [
+        "kb:pug:overview:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:pug:overview:0",
+        "kb:pug:temperament:0",
+        "kb:pug:health:0"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_022",
+      "query": "Are Greyhounds quiet and calm indoors?",
+      "breed_filter": "Greyhound",
+      "expected_chunk_ids": [
+        "kb:greyhound:living-environment:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:greyhound:temperament:0",
+        "kb:greyhound:overview:0",
+        "kb:greyhound:temperament:1"
+      ],
+      "hit@1": false,
+      "hit@3": false,
+      "pass": false
+    },
+    {
+      "id": "B_023",
+      "query": "Is the Chihuahua suitable for city apartment dwellers?",
+      "breed_filter": "Chihuahua",
+      "expected_chunk_ids": [
+        "kb:chihuahua:overview:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:chihuahua:overview:0",
+        "kb:chihuahua:health:0",
+        "kb:chihuahua:overview:2"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_024",
+      "query": "What do African Wild Dogs primarily feed on in the wild?",
+      "breed_filter": "African Wild Dog",
+      "expected_chunk_ids": [
+        "kb:african-wild-dog:feeding:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:african-wild-dog:feeding:3",
+        "kb:african-wild-dog:feeding:0",
+        "kb:african-wild-dog:feeding:1"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_025",
+      "query": "How do Dholes hunt and feed in their natural habitat?",
+      "breed_filter": "Dhole",
+      "expected_chunk_ids": [
+        "kb:dhole:feeding:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:dhole:feeding:0",
+        "kb:dhole:temperament:4",
+        "kb:dhole:feeding:1"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_026",
+      "query": "What constitutes the primary diet of Australian Dingos?",
+      "breed_filter": "Dingo",
+      "expected_chunk_ids": [
+        "kb:dingo:feeding:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:dingo:feeding:1",
+        "kb:dingo:feeding:0",
+        "kb:dingo:overview:0"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_027",
+      "query": "Why is it important to monitor feeding habits in Boxers?",
+      "breed_filter": "Boxer",
+      "expected_chunk_ids": [
+        "kb:boxer:feeding:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:boxer:feeding:0",
+        "kb:boxer:health:0",
+        "kb:boxer:temperament:0"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_028",
+      "query": "What joint disorders are common in German Shepherd Dogs?",
+      "breed_filter": "German Shepherd Dog",
+      "expected_chunk_ids": [
+        "kb:german-shepherd-dog:health:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:german-shepherd-dog:health:0",
+        "kb:german-shepherd-dog:health:1",
+        "kb:german-shepherd-dog:health:2"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_029",
+      "query": "What eye problems are Siberian Huskies predisposed to?",
+      "breed_filter": "Siberian Husky",
+      "expected_chunk_ids": [
+        "kb:siberian-husky:health:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:siberian-husky:health:0",
+        "kb:siberian-husky:overview:2",
+        "kb:siberian-husky:overview:1"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_030",
+      "query": "What is the leading cause of mortality in Golden Retrievers?",
+      "breed_filter": "Golden Retriever",
+      "expected_chunk_ids": [
+        "kb:golden-retriever:health:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:golden-retriever:health:0",
+        "kb:golden-retriever:health:1",
+        "kb:golden-retriever:overview:3"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_031",
+      "query": "What cardiac disease is known to specifically affect Boxers?",
+      "breed_filter": "Boxer",
+      "expected_chunk_ids": [
+        "kb:boxer:health:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:boxer:health:0",
+        "kb:boxer:health:1",
+        "kb:boxer:feeding:0"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_032",
+      "query": "Why are Dachshunds at high risk for back problems?",
+      "breed_filter": "Dachshund",
+      "expected_chunk_ids": [
+        "kb:dachshund:health:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:dachshund:health:0",
+        "kb:dachshund:health:2",
+        "kb:dachshund:health:1"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_033",
+      "query": "What bleeding disorder is genetically inherited in Dobermans?",
+      "breed_filter": "Doberman Pinscher",
+      "expected_chunk_ids": [
+        "kb:doberman-pinscher:health:1"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:doberman-pinscher:overview:1",
+        "kb:doberman-pinscher:health:1",
+        "kb:doberman-pinscher:health:2"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_034",
+      "query": "What acute gastrointestinal emergency is common in Great Danes?",
+      "breed_filter": "Great Dane",
+      "expected_chunk_ids": [
+        "kb:great-dane:health:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:great-dane:health:0",
+        "kb:great-dane:health:1",
+        "kb:great-dane:overview:1"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_035",
+      "query": "What joint condition frequently affects Rottweilers?",
+      "breed_filter": "Rottweiler",
+      "expected_chunk_ids": [
+        "kb:rottweiler:health:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:rottweiler:health:1",
+        "kb:rottweiler:health:0",
+        "kb:rottweiler:overview:3"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_036",
+      "query": "What neurological condition can occur in Beagles?",
+      "breed_filter": "Beagle",
+      "expected_chunk_ids": [
+        "kb:beagle:health:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:beagle:health:1",
+        "kb:beagle:health:0",
+        "kb:beagle:health:2"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_037",
+      "query": "What heart condition is prevalent in older Cavalier King Charles Spaniels?",
+      "breed_filter": "Cavalier King Charles Spaniel",
+      "expected_chunk_ids": [
+        "kb:cavalier-king-charles-spaniel:health:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:cavalier-king-charles-spaniel:health:2",
+        "kb:cavalier-king-charles-spaniel:health:0",
+        "kb:cavalier-king-charles-spaniel:health:1"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_038",
+      "query": "What cancer has an unusually high incidence in Bernese Mountain Dogs?",
+      "breed_filter": "Bernese Mountain Dog",
+      "expected_chunk_ids": [
+        "kb:bernese-mountain-dog:health:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:bernese-mountain-dog:health:0",
+        "kb:bernese-mountain-dog:health:1",
+        "kb:bernese-mountain-dog:overview:2"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_039",
+      "query": "How is the energy level and intelligence of a Border Collie characterized?",
+      "breed_filter": "Border Collie",
+      "expected_chunk_ids": [
+        "kb:border-collie:overview:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:border-collie:temperament:0",
+        "kb:border-collie:overview:2",
+        "kb:border-collie:overview:1"
+      ],
+      "hit@1": false,
+      "hit@3": false,
+      "pass": false
+    },
+    {
+      "id": "B_040",
+      "query": "Is the Golden Retriever considered a friendly family companion?",
+      "breed_filter": "Golden Retriever",
+      "expected_chunk_ids": [
+        "kb:golden-retriever:temperament:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:golden-retriever:temperament:0",
+        "kb:golden-retriever:temperament:1",
+        "kb:golden-retriever:other:0"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_041",
+      "query": "How do Labrador Retrievers interact with children and families?",
+      "breed_filter": "Labrador Retriever",
+      "expected_chunk_ids": [
+        "kb:labrador-retriever:overview:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:labrador-retriever:other:1",
+        "kb:labrador-retriever:other:0",
+        "kb:labrador-retriever:overview:0"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_042",
+      "query": "What kind of disposition does the Beagle have?",
+      "breed_filter": "Beagle",
+      "expected_chunk_ids": [
+        "kb:beagle:temperament:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:beagle:temperament:0",
+        "kb:beagle:temperament:2",
+        "kb:beagle:overview:1"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_043",
+      "query": "What is the natural protective instinct of a Rottweiler?",
+      "breed_filter": "Rottweiler",
+      "expected_chunk_ids": [
+        "kb:rottweiler:temperament:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:rottweiler:temperament:1",
+        "kb:rottweiler:temperament:0",
+        "kb:rottweiler:other:0"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_044",
+      "query": "Does the Australian Shepherd have strong herding instincts?",
+      "breed_filter": "Australian Shepherd",
+      "expected_chunk_ids": [
+        "kb:australian-shepherd:temperament:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:australian-shepherd:temperament:0",
+        "kb:australian-shepherd:exercise:0",
+        "kb:australian-shepherd:overview:0"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_045",
+      "query": "How does a Shiba Inu typically behave around strangers?",
+      "breed_filter": "Shiba Inu",
+      "expected_chunk_ids": [
+        "kb:shiba-inu:temperament:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:shiba-inu:temperament:0",
+        "kb:shiba-inu:overview:2",
+        "kb:shiba-inu:temperament:1"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_046",
+      "query": "What is the general personality of a Pembroke Welsh Corgi?",
+      "breed_filter": "Pembroke Welsh Corgi",
+      "expected_chunk_ids": [
+        "kb:pembroke-welsh-corgi:temperament:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:pembroke-welsh-corgi:temperament:1",
+        "kb:pembroke-welsh-corgi:temperament:0",
+        "kb:pembroke-welsh-corgi:overview:3"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_047",
+      "query": "Does the French Bulldog bark frequently?",
+      "breed_filter": "French Bulldog",
+      "expected_chunk_ids": [
+        "kb:french-bulldog:overview:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:french-bulldog:overview:0",
+        "kb:french-bulldog:health:2",
+        "kb:french-bulldog:overview:2"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_048",
+      "query": "How do Boxers behave with their human families?",
+      "breed_filter": "Boxer",
+      "expected_chunk_ids": [
+        "kb:boxer:temperament:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:boxer:temperament:0",
+        "kb:boxer:other:0",
+        "kb:boxer:overview:3"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_049",
+      "query": "How is the temperament of the Shetland Sheepdog described?",
+      "breed_filter": "Shetland Sheepdog",
+      "expected_chunk_ids": [
+        "kb:shetland-sheepdog:temperament:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:shetland-sheepdog:temperament:1",
+        "kb:shetland-sheepdog:temperament:0",
+        "kb:shetland-sheepdog:exercise:0"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_050",
+      "query": "Which indigenous people originally bred the Siberian Husky?",
+      "breed_filter": "Siberian Husky",
+      "expected_chunk_ids": [
+        "kb:siberian-husky:history:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:siberian-husky:history:0",
+        "kb:siberian-husky:overview:0",
+        "kb:siberian-husky:history:7"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_051",
+      "query": "Who was the founder of the German Shepherd Dog breed?",
+      "breed_filter": "German Shepherd Dog",
+      "expected_chunk_ids": [
+        "kb:german-shepherd-dog:history:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:german-shepherd-dog:history:6",
+        "kb:german-shepherd-dog:overview:0",
+        "kb:german-shepherd-dog:history:1"
+      ],
+      "hit@1": false,
+      "hit@3": false,
+      "pass": false
+    },
+    {
+      "id": "B_052",
+      "query": "What was the ancestral role of the Rottweiler in ancient Rome?",
+      "breed_filter": "Rottweiler",
+      "expected_chunk_ids": [
+        "kb:rottweiler:history:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:rottweiler:history:2",
+        "kb:rottweiler:history:0",
+        "kb:rottweiler:overview:0"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_053",
+      "query": "Who first bred the Doberman Pinscher and why?",
+      "breed_filter": "Doberman Pinscher",
+      "expected_chunk_ids": [
+        "kb:doberman-pinscher:history:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:doberman-pinscher:history:0",
+        "kb:doberman-pinscher:history:2",
+        "kb:doberman-pinscher:overview:0"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_054",
+      "query": "What large wild animal was the Great Dane originally bred to hunt?",
+      "breed_filter": "Great Dane",
+      "expected_chunk_ids": [
+        "kb:great-dane:history:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:great-dane:overview:0",
+        "kb:great-dane:history:2",
+        "kb:great-dane:overview:1"
+      ],
+      "hit@1": false,
+      "hit@3": false,
+      "pass": false
+    },
+    {
+      "id": "B_055",
+      "query": "What underground burrow animal were Dachshunds bred to hunt?",
+      "breed_filter": "Dachshund",
+      "expected_chunk_ids": [
+        "kb:dachshund:history:1"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:dachshund:overview:0",
+        "kb:dachshund:history:1",
+        "kb:dachshund:history:0"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_056",
+      "query": "What quarry were Beagles traditionally developed to hunt in England?",
+      "breed_filter": "Beagle",
+      "expected_chunk_ids": [
+        "kb:beagle:history:1"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:beagle:history:5",
+        "kb:beagle:other:5",
+        "kb:beagle:overview:0"
+      ],
+      "hit@1": false,
+      "hit@3": false,
+      "pass": false
+    },
+    {
+      "id": "B_057",
+      "query": "In which historical setting were Shih Tzu dogs treasured as palace pets?",
+      "breed_filter": "Shih Tzu",
+      "expected_chunk_ids": [
+        "kb:shih-tzu:history:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:shih-tzu:history:0",
+        "kb:shih-tzu:other:0",
+        "kb:shih-tzu:history:3"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_058",
+      "query": "Where did the Akita dog breed originate in Japan?",
+      "breed_filter": "Akita",
+      "expected_chunk_ids": [
+        "kb:akita:history:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:akita:overview:0",
+        "kb:akita:history:8",
+        "kb:akita:history:1"
+      ],
+      "hit@1": false,
+      "hit@3": false,
+      "pass": false
+    },
+    {
+      "id": "B_059",
+      "query": "What was the rescue mission of Saint Bernard dogs in the Alps?",
+      "breed_filter": "Saint Bernard",
+      "expected_chunk_ids": [
+        "kb:saint-bernard:history:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:saint-bernard:history:0",
+        "kb:saint-bernard:overview:0",
+        "kb:saint-bernard:history:2"
+      ],
+      "hit@1": true,
+      "hit@3": true,
+      "pass": true
+    },
+    {
+      "id": "B_060",
+      "query": "Where does the name Dalmatian originate geographically?",
+      "breed_filter": "Dalmatian",
+      "expected_chunk_ids": [
+        "kb:dalmatian:history:0"
+      ],
+      "retrieved_chunk_ids": [
+        "kb:dalmatian:history:2",
+        "kb:dalmatian:history:0",
+        "kb:dalmatian:overview:0"
+      ],
+      "hit@1": false,
+      "hit@3": true,
+      "pass": true
+    }
+  ]
+}
