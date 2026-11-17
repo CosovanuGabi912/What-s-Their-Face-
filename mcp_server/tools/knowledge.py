@@ -65,7 +65,7 @@ def _embed(text: str) -> list[float]:
                                                          input=config.EMBED_QUERY_PREFIX + text)
     except Exception as error:  # noqa: BLE001 - connection refused, model not loaded, timeout, ...
         raise RuntimeError(f"Cannot embed the question with {config.EMBED_MODEL_ID!r} at {config.LM_STUDIO_BASE_URL}: "
-                           f"{error}. Start the LM Studio server and load the embedding model "
+                           f"{str(error).rstrip('.')}. Start the LM Studio server and load the embedding model "
                            f"(nomic-embed-text-v1.5 Q4_K_M).") from error
     return response.data[0].embedding
 
