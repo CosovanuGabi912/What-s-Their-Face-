@@ -15,7 +15,7 @@ from mcp.types import CallToolResult, TextContent, Tool
 
 import config
 from agent import loop as loop_module
-from agent.guards import VET_REPLY
+from agent.guards import VET_REPLY, vet_check
 from agent.loop import APOLOGY_REPLY, DONT_KNOW_REPLY, AgentLoop, strip_think, to_openai_tool
 from mcp_server.tools import stubs, traits
 from shared.schemas import TOOL_SCHEMAS
@@ -124,6 +124,26 @@ async def test_history_is_kept_across_turns():
     assert contents == ["First question", "First answer.", "Second question"]
 
 
+
+@pytest.mark.asyncio
+async def test_tool_results_are_dropped_from_history_when_a_turn_ends():
+    llm = FakeLLM(
+        reply(calls=[tool_call("search_knowledge", {"query": "exercise", "breed": "Beagle"})]),
+        reply("Beagles need an hour a day [kb:beagle:exercise:0]."),
+        reply("Second answer."),
+    )
+    agent, _ = make_agent(llm)
+    await agent.run_turn("How much exercise does a beagle need?")
+    # inside the turn the SLM sees the tool call and its result
+    assert [m["role"] for m in llm.requests[1]["messages"][1:]] == ["user", "assistant", "tool"]
+
+    await agent.run_turn("And grooming?")
+    # the next turn only gets the user messages and the final replies
+    history = llm.requests[-1]["messages"][1:]
+    assert [m["role"] for m in history] == ["user", "assistant", "user"]
+    assert history[1]["content"] == "Beagles need an hour a day [kb:beagle:exercise:0]."
+    assert agent.messages[-1] == {"role": "assistant", "content": "Second answer."}
+
 # --- Limits (enforced in code) -----------------------------------------------------------------
 @pytest.mark.asyncio
 async def test_tool_call_limit_per_turn():
@@ -224,6 +244,25 @@ async def test_vet_check_runs_before_the_slm():
     assert await agent.run_turn("Help, my dog ate chocolate!") == VET_REPLY
     assert llm.requests == [] and session.calls == []
 
+
+
+@pytest.mark.parametrize("message", [
+    "My dog is bleeding from the paw",
+    "Our puppy had a seizure this morning",
+    "my dog swallowed a sock",
+    "He ate chocolate, what do I do?",          # patterns fire without "my"/"our"
+])
+def test_vet_check_fires_on_own_pet_emergencies(message):
+    assert vet_check(message)
+
+
+@pytest.mark.parametrize("message", [
+    "What bleeding disorder is genetically inherited in Dobermans?",   # golden Part B
+    "Are Boxers prone to seizures?",
+    "Which breeds are prone to choking on food?",
+])
+def test_vet_check_ignores_breed_questions_with_vet_words(message):
+    assert not vet_check(message)
 
 @pytest.mark.asyncio
 async def test_failed_citation_check_retries_once(monkeypatch):

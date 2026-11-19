@@ -13,7 +13,10 @@ import re
 VET_REPLY = ("This sounds like it could be a health emergency, and I can't give medical advice. "
              "Please contact your vet or an emergency animal clinic right away.")
 
-# Phrases that always mean "see a vet", matched case-insensitively anywhere in the message.
+# Phrases that mean "see a vet", matched case-insensitively anywhere in the message, but only when the
+# message is about the user's own animal (OWN_PET_RE): "What bleeding disorder is inherited in Dobermans?"
+# is a breed question for search_knowledge, "my dog is bleeding" is an emergency.
+OWN_PET_RE = re.compile(r"\b(my|our)\b")
 VET_KEYWORDS = (
     "bleeding", "not breathing", "can't breathe", "cannot breathe", "seizure", "collapsed",
     "unconscious", "poison", "vomiting blood", "blood in", "hit by a car", "choking",
@@ -30,7 +33,7 @@ VET_PATTERNS = (
 def vet_check(message: str) -> bool:
     """True when the message looks like a vet or danger question (the agent must not answer it)."""
     text = message.casefold()
-    if any(keyword in text for keyword in VET_KEYWORDS):
+    if OWN_PET_RE.search(text) and any(keyword in text for keyword in VET_KEYWORDS):
         return True
     return any(pattern.search(text) for pattern in VET_PATTERNS)
 

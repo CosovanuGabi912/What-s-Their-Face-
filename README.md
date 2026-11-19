@@ -64,3 +64,11 @@ commit it and share a new `data_<commit>.zip`.
 - `mcp_server/server.py`: the `pet-advisor` MCP server. Tools without weights or data on your laptop can be served from `mcp_server/tools/stubs.py` with `WTF_STUB_TOOLS=identify_breed,describe_pet` (or `all`).
 - `shared/mcp_client.py`: start the server with `server_params()`. The MCP stdio client does not pass the parent's environment to the server, so without it `WTF_*`, `LM_STUDIO_*`, model and ML runtime variables (`HF_*`, `TORCH_*`, `PYTORCH_*`, `CUDA_VISIBLE_DEVICES`) set in code or in the terminal never reach the tools (values in `.env` still work). `tests/test_server_hygiene.py` enforces the stdout rule below and JSON-Schema-safe regex patterns.
 - Tool code must never print to stdout: over stdio, stdout carries the MCP protocol. Use `logging` (stderr).
+
+## Agent SLM (issue #7)
+
+- In LM Studio load **Qwen3-4B** (id `qwen3-4b`, or set `AGENT_MODEL` in `.env`) with **Context Length 8192**
+  (load settings, before loading the model). The default of 4096 is too small: the system prompt and the tool
+  schemas alone are about 2.2k tokens, and one turn with two searches adds about 2k more, plus Qwen3's thinking.
+- `agent/loop.py` keeps only the user messages and the final replies between turns. Tool calls and results stay
+  in the turn that made them; what later turns need (breed, questionnaire, rejected names) is in the conversation state.

@@ -108,7 +108,11 @@ class AgentLoop:
         self._tool_names: set[str] = set()
 
         self.state = ConversationState()
-        self.messages: list[dict[str, Any]] = []   # chat history without the system prompt
+        # Chat history without the system prompt. Between turns it holds only user messages and final
+        # replies: tool calls and results are dropped when a turn ends (_reply), so retrieved chunks do not
+        # fill the SLM's context. What later turns need (breed, questionnaire, rejected names) is in self.state.
+        self.messages: list[dict[str, Any]] = []
+        self._turn_start = 0                       # index of this turn's user message in self.messages
         self.trace: list[ToolCallLog] = []         # every tool call of the conversation
         self.turn = 0
         self._prompt_template = SYSTEM_PROMPT_PATH.read_text(encoding="utf-8")
@@ -151,6 +155,7 @@ class AgentLoop:
         """Single conversation turn. Returns the agent's reply."""
         self.turn += 1
         content = user_message if image_id is None else f"{user_message}\n[image_id: {image_id}]"
+        self._turn_start = len(self.messages)
         self.messages.append({"role": "user", "content": content})
 
         if vet_check(user_message):          # code first; the SLM never sees it, so it cannot overrule it
@@ -204,6 +209,8 @@ class AgentLoop:
         return self._reply(answer)
 
     def _reply(self, text: str) -> str:
+        """End the turn: drop its tool calls and results from the history, keep the user message and the reply."""
+        del self.messages[self._turn_start + 1:]
         self.messages.append({"role": "assistant", "content": text})
         return text
 
