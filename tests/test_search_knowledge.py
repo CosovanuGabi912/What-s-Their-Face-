@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
+import anyio
 import pytest
 
 import config
@@ -80,7 +81,33 @@ def test_any_known_breed_spelling_is_resolved(small_db):
     assert ids(knowledge.search_knowledge("anything", breed="german shepherd")) == ["kb:german-shepherd-dog:overview:0"]
 
 
-def test_known_breed_without_a_matching_chunk_returns_nothing(small_db):
+def test_partial_breed_name_that_fits_one_breed_is_resolved(small_db, monkeypatch):
+    docs = [("kb:labrador-retriever:feeding:0", "Labrador Retriever", "Feeding")]
+    small_db.upsert(ids=[d[0] for d in docs], documents=["Labrador Retriever - Feeding text"],
+                    metadatas=[{"chunk_id": d[0], "breed": d[1], "section": d[2], "source": "wikipedia"} for d in docs],
+                    embeddings=[[0.9, 0.1]])
+    assert ids(knowledge.search_knowledge("anything", breed="Labrador")) == ["kb:labrador-retriever:feeding:0"]
+
+
+def test_section_synonym_is_resolved(small_db):
+    assert ids(knowledge.search_knowledge("anything", breed="Beagle", section="Wellbeing")) == []  # unknown: no chunks
+    assert ids(knowledge.search_knowledge("anything", section="Diseases")) == ["kb:siberian-husky:health:0", "kb:beagle:health:0"]
+
+
+def test_breed_and_section_without_a_chunk_falls_back_to_the_breed(small_db, caplog):
+    with caplog.at_level("INFO", logger=knowledge.log.name):
+        out = knowledge.search_knowledge("anything", breed="Beagle", section="Overview")
+    assert ids(out) == ["kb:beagle:health:0"]
+    assert "retrying with the breed only" in caplog.text
+
+
+def test_fallback_keeps_the_breed(small_db):
+    out = knowledge.search_knowledge("anything", breed="Siberian Husky", section="Exercise")
+    assert {c.breed for c in out.chunks} == {"Siberian Husky"}
+
+
+def test_breed_without_any_chunk_returns_nothing(small_db):
+    small_db.delete(where={"breed": "Beagle"})
     assert ids(knowledge.search_knowledge("anything", breed="Beagle", section="Overview")) == []
 
 
@@ -119,6 +146,53 @@ def test_chunks_are_embedded_at_ingestion_with_the_document_prefix():
     assert sent == [["search_document: Siberian Husky - Overview\ntext"]]
 
 
+def test_empty_embedding_response_raises_a_clear_error(monkeypatch):
+    fake = SimpleNamespace(embeddings=SimpleNamespace(create=lambda model, input: SimpleNamespace(data=[])))
+    monkeypatch.setattr(knowledge, "_embedding_client", lambda: fake)
+    with pytest.raises(RuntimeError, match="returned no embedding"):
+        knowledge._embed("exercise")
+
+
+def test_wrong_vector_dimension_raises_a_clear_error(small_db, monkeypatch):
+    monkeypatch.setattr(knowledge, "_embed", lambda text: [1.0, 0.0, 0.0])  # the collection holds 2-D vectors
+    with pytest.raises(RuntimeError, match="dimensions"):
+        knowledge.search_knowledge("exercise")
+
+
+def test_other_chroma_query_errors_say_what_failed(small_db, monkeypatch):
+    def broken(**kwargs):
+        raise OSError("database is locked")
+
+    monkeypatch.setattr(small_db, "query", broken)
+    with pytest.raises(RuntimeError, match="database is locked"):
+        knowledge.search_knowledge("exercise")
+
+
+def test_only_a_missing_collection_points_to_ingest(monkeypatch):
+    chromadb = pytest.importorskip("chromadb")
+    import chromadb.errors
+
+    class FakeClient:
+        def __init__(self, error):
+            self.error = error
+
+        def get_collection(self, name):
+            raise self.error
+
+    knowledge._collection.cache_clear()
+    try:
+        monkeypatch.setattr(knowledge, "_chroma_client", lambda: FakeClient(chromadb.errors.NotFoundError("nope")))
+        with pytest.raises(RuntimeError, match="ingest.py"):
+            knowledge._collection("knowledge")
+        knowledge._collection.cache_clear()
+        monkeypatch.setattr(knowledge, "_chroma_client", lambda: FakeClient(OSError("schema version mismatch")))
+        with pytest.raises(RuntimeError, match="schema version mismatch") as info:
+            knowledge._collection("knowledge")
+        assert "run `python scripts/ingest.py" not in str(info.value)  # a re-ingest would not fix this
+    finally:
+        knowledge._collection.cache_clear()
+
+
 def test_clients_are_created_once():
     pytest.importorskip("openai")
     assert knowledge._embedding_client() is knowledge._embedding_client()
@@ -152,6 +226,8 @@ def test_lm_studio_down_raises_a_clear_error(small_db, monkeypatch):
 # --- Live: the real collection and LM Studio -----------------------------------------------------------------
 @pytest.fixture(scope="module")
 def live():
+    if "all" in config.STUB_TOOLS or "search_knowledge" in config.STUB_TOOLS:
+        pytest.skip("WTF_STUB_TOOLS serves the stub search_knowledge")
     knowledge._chroma_client.cache_clear()
     knowledge._collection.cache_clear()
     try:
@@ -180,13 +256,14 @@ def test_live_unknown_breed_returns_no_chunks_without_raising(live):
     assert knowledge.search_knowledge(query="nutrition", breed="NonExistentBreed999").chunks == []
 
 
-def test_live_result_matches_the_contract_and_the_server_tool(live):
+def test_live_result_matches_the_contract_and_the_server_tool(live, monkeypatch):
     from mcp_server import server
 
     out = knowledge.search_knowledge(query="grooming needs", breed="Poodle (Toy)")
     assert out.chunks and len(out.chunks) <= config.SEARCH_TOP_K
     SearchKnowledgeOutput.model_validate(out.model_dump())
-    via_server = server.search_knowledge(query="grooming needs", breed="Poodle (Toy)")
+    monkeypatch.setattr(config, "STUB_TOOLS", set())  # the server must route to the real tool
+    via_server = anyio.run(lambda: server.search_knowledge(query="grooming needs", breed="Poodle (Toy)"))
     assert [c.chunk_id for c in via_server.chunks] == [c.chunk_id for c in out.chunks]
 
 
@@ -201,3 +278,11 @@ def test_eval_script_takes_the_breed_from_the_expected_chunk_id():
     assert len(by_slug) == len(load_breeds_map())  # no two breeds share a slug
     with pytest.raises(SystemExit):
         breed_of("kb:no-such-breed:overview:0", by_slug)
+
+
+def test_golden_sha256_ignores_line_endings(tmp_path):
+    from scripts.eval_search_breed_filter import golden_sha256
+
+    (tmp_path / "lf.jsonl").write_bytes(b'{"a": 1}\n{"b": 2}\n')
+    (tmp_path / "crlf.jsonl").write_bytes(b'{"a": 1}\r\n{"b": 2}\r\n')
+    assert golden_sha256(tmp_path / "lf.jsonl") == golden_sha256(tmp_path / "crlf.jsonl")

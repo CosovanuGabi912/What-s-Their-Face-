@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import sys
 from pathlib import Path
@@ -25,8 +26,20 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 import config  # noqa: E402
-from mcp_server.tools.knowledge import search_knowledge  # noqa: E402
 from shared.breeds import load_breeds_map, slugify  # noqa: E402
+
+
+def _load_run_eval():
+    """eval/run_eval.py as a module (eval/ is not a package). It is reused, not copied, and not modified."""
+    spec = importlib.util.spec_from_file_location("run_eval", ROOT / "eval" / "run_eval.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def golden_sha256(path: Path) -> str:
+    """SHA-256 of the file with CRLF turned into LF, so a Windows checkout (autocrlf) and a Linux/macOS one agree."""
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def breed_of(chunk_id: str, by_slug: dict[str, str]) -> str:
@@ -42,37 +55,37 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=config.EVAL_DIR / "results_B_week8_breed.json")
     args = parser.parse_args()
 
+    run_eval = _load_run_eval()
     by_slug = {slugify(display): display for display in load_breeds_map()}
-    items = [json.loads(line) for line in args.golden.read_text(encoding="utf-8").splitlines() if line.strip()]
-    items = [item for item in items if item["part"] == "B"]
+    items = run_eval.load_golden(args.golden, "B")
     if not items:
         sys.exit(f"No Part B items in {args.golden}")
 
-    per_item, hit1_count, hit3_count = [], 0, 0
+    breed_for_query = {}
     for item in items:
-        expected = item["expected"]["source_chunk_ids"]
-        breeds = sorted({breed_of(chunk_id, by_slug) for chunk_id in expected})
-        breed = breeds[0] if len(breeds) == 1 else None  # several breeds expected: no filter for that item
-        out = search_knowledge(query=item["input"]["query"], breed=breed)
-        retrieved = [chunk.chunk_id for chunk in out.chunks]
-        hit1, hit3 = any(c in retrieved[:1] for c in expected), any(c in retrieved[:3] for c in expected)
-        hit1_count += hit1
-        hit3_count += hit3
-        per_item.append({"id": item["id"], "query": item["input"]["query"], "breed_filter": breed,
-                         "expected_chunk_ids": expected, "retrieved_chunk_ids": retrieved,
-                         "hit@1": hit1, "hit@3": hit3, "pass": hit3})
+        breeds = sorted({breed_of(chunk_id, by_slug) for chunk_id in item["expected"]["source_chunk_ids"]})
+        breed_for_query[item["input"]["query"]] = breeds[0] if len(breeds) == 1 else None  # several: no filter
 
-    n = len(items)
+    # run_eval.eval_part_b calls its own search_knowledge(query=...); the only change here is the breed argument.
+    official_search = run_eval.search_knowledge
+    run_eval.search_knowledge = lambda query: official_search(query=query, breed=breed_for_query[query])
+    try:
+        evaluated = run_eval.eval_part_b(items)
+    finally:
+        run_eval.search_knowledge = official_search
+    per_item = [{**row, "breed_filter": breed_for_query[row["query"]]} for row in evaluated["per_item"]]
+
+    aggregates = {**evaluated["aggregates"],
+                  "items_without_filter": sum(1 for row in per_item if row["breed_filter"] is None)}
     result = {
         "part": "B",
         "mode": "breed filter taken from the expected chunk ID (best case: the breed is known and correct)",
-        "golden_sha256": hashlib.sha256(args.golden.read_bytes()).hexdigest(),  # same hash as eval/run_eval.py
-        "aggregates": {"num_items": n, "hit@1": round(hit1_count / n, 4), "hit@3": round(hit3_count / n, 4),
-                       "items_without_filter": sum(1 for i in per_item if i["breed_filter"] is None)},
+        "golden_sha256": golden_sha256(args.golden),  # line endings normalised; eval/run_eval.py hashes raw bytes
+        "aggregates": aggregates,
         "per_item": per_item,
     }
     args.output.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"Part B with breed filter ({n} items): hit@1 {result['aggregates']['hit@1']:.1%}, "
+    print(f"Part B with breed filter ({aggregates['num_items']} items): hit@1 {result['aggregates']['hit@1']:.1%}, "
           f"hit@3 {result['aggregates']['hit@3']:.1%}. Written to {args.output}")
 
 
