@@ -63,7 +63,7 @@ async def test_stdio_resource_and_errors(tmp_path):
             assert not dingo.isError and dingo.structuredContent["status"] == "no_akc_data"
 
             # Bad arguments come back as a tool error the agent can show the SLM, not a crash
-            bad = await session.call_tool("search_knowledge", {"query": "x", "section": "Diet"})
+            bad = await session.call_tool("search_knowledge", {"query": "x", "section": "Nonsense"})
             assert bad.isError and "Unknown section" in bad.content[0].text
             bad = await session.call_tool("identify_breed", {"image_id": "../etc/passwd"})
             assert bad.isError

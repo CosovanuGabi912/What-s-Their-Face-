@@ -28,6 +28,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:  # `mcp dev mcp_server/server.py` / `python mcp_server/server.py`
     sys.path.insert(0, str(ROOT))
 
+import anyio  # noqa: E402
 from mcp.server.fastmcp import FastMCP  # noqa: E402
 from pydantic import BaseModel, Field  # noqa: E402
 
@@ -70,7 +71,7 @@ def identify_breed(image_id: ImageId) -> IdentifyBreedOutput:
 
 
 @mcp.tool()
-def search_knowledge(
+async def search_knowledge(
     query: Annotated[str, Field(description="The question in plain words.")],
     breed: Annotated[Optional[str], Field(description="Breed name, when it is known.")] = None,
     section: Annotated[Optional[str], Field(description="Overview, Temperament, Exercise, Grooming, Health, "
@@ -78,8 +79,11 @@ def search_knowledge(
 ) -> SearchKnowledgeOutput:
     """Search breed profiles (facts, care, temperament, exercise). Use for any question about a breed.
     Pass `breed` when it is known. Cite returned chunks as [chunk_id].
-    Example: search_knowledge(query="how much exercise", breed="Siberian Husky", section="Exercise")"""
-    return _validated(SearchKnowledgeOutput, _impl(knowledge, "search_knowledge")(query, breed, section))
+    Example: search_knowledge(query="how much exercise", breed="Border Collie", section="Exercise")"""
+    # The embedding call can wait on LM Studio for up to a minute: run it in a worker thread so the stdio server
+    # keeps answering other tools and the breeds://list resource meanwhile.
+    return await anyio.to_thread.run_sync(
+        lambda: _validated(SearchKnowledgeOutput, _impl(knowledge, "search_knowledge")(query, breed, section)))
 
 
 @mcp.tool()

@@ -19,7 +19,7 @@ from typing import List, Literal, Optional
 from pydantic import BaseModel, ConfigDict, Field, RootModel, field_validator, model_validator
 
 import config
-from shared.breeds import closest_breeds, load_breeds_map, to_display
+from shared.breeds import closest_breeds, load_breeds_map, resolve_breed, to_display
 from shared.images import IMAGE_ID_PATTERN
 
 CHUNK_ID_RE = r"\[(kb:[a-z0-9-]+:[a-z0-9-]+:\d+)\]"     # finds citations in answer text
@@ -49,10 +49,11 @@ def _display_name(value: str) -> str:
 
 
 def _resolve_breed(value: Optional[str]) -> Optional[str]:
-    """Inputs may use any known spelling; it is turned into the display name or rejected."""
+    """Inputs may use any known spelling, or a partial name that fits one breed; it is turned into the display
+    name or rejected."""
     if value is None or value.strip() == "":
         return None
-    display = to_display(value)
+    display = resolve_breed(value)
     if display is None:
         raise ValueError(f"Unknown breed {value!r}. Closest breeds: {closest_breeds(value)}")
     return display
@@ -110,9 +111,12 @@ class SearchKnowledgeInput(Contract):
     def _known_section(cls, value: Optional[str]) -> Optional[str]:
         if value is None or value.strip() == "":
             return None
+        wanted = value.strip().casefold()
         for section in config.KNOWLEDGE_SECTIONS:
-            if section.casefold() == value.strip().casefold():
+            if section.casefold() == wanted:
                 return section
+        if wanted in config.SECTION_SYNONYMS:  # "Diet" -> "Feeding"
+            return config.SECTION_SYNONYMS[wanted]
         raise ValueError(f"Unknown section {value!r}. Use one of {config.KNOWLEDGE_SECTIONS}")
 
 
