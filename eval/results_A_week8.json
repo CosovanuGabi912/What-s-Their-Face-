@@ -1,0 +1,1614 @@
+{
+  "part": "A",
+  "golden_sha256": "40a3e8bd524cc38e34e1a00ebefdc8fc6df479ddbd3c3bac68a438f64afff64d",
+  "aggregates": {
+    "num_items": 100,
+    "top1_accuracy": 0.88,
+    "top3_accuracy": 0.99,
+    "coverage": 0.87,
+    "selective_accuracy": 0.9425,
+    "wrong_flagged_rate": 0.5833
+  },
+  "per_item": [
+    {
+      "id": "A_001",
+      "image_id": "A_001.jpg",
+      "expected_breed": "Japanese Chin",
+      "top1_guess": "Japanese Chin",
+      "top3_guesses": [
+        "Japanese Chin",
+        "Cavalier King Charles Spaniel",
+        "Papillon"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_002",
+      "image_id": "A_002.jpg",
+      "expected_breed": "Japanese Chin",
+      "top1_guess": "Japanese Chin",
+      "top3_guesses": [
+        "Japanese Chin",
+        "Cavalier King Charles Spaniel",
+        "Papillon"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_003",
+      "image_id": "A_003.jpg",
+      "expected_breed": "Papillon",
+      "top1_guess": "Papillon",
+      "top3_guesses": [
+        "Papillon",
+        "Japanese Chin",
+        "Soft Coated Wheaten Terrier"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_004",
+      "image_id": "A_004.jpg",
+      "expected_breed": "Papillon",
+      "top1_guess": "Papillon",
+      "top3_guesses": [
+        "Papillon",
+        "Soft Coated Wheaten Terrier",
+        "Bedlington Terrier"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_005",
+      "image_id": "A_005.jpg",
+      "expected_breed": "Rhodesian Ridgeback",
+      "top1_guess": "Rhodesian Ridgeback",
+      "top3_guesses": [
+        "Rhodesian Ridgeback",
+        "Redbone Coonhound",
+        "Bedlington Terrier"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_006",
+      "image_id": "A_006.jpg",
+      "expected_breed": "Rhodesian Ridgeback",
+      "top1_guess": "Rhodesian Ridgeback",
+      "top3_guesses": [
+        "Rhodesian Ridgeback",
+        "American Staffordshire Terrier",
+        "Redbone Coonhound"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_007",
+      "image_id": "A_007.jpg",
+      "expected_breed": "Afghan Hound",
+      "top1_guess": "Afghan Hound",
+      "top3_guesses": [
+        "Afghan Hound",
+        "Old English Sheepdog",
+        "Poodle (Standard)"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_008",
+      "image_id": "A_008.jpg",
+      "expected_breed": "Afghan Hound",
+      "top1_guess": "Afghan Hound",
+      "top3_guesses": [
+        "Afghan Hound",
+        "Briard",
+        "Kerry Blue Terrier"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_009",
+      "image_id": "A_009.jpg",
+      "expected_breed": "Basset Hound",
+      "top1_guess": "Basset Hound",
+      "top3_guesses": [
+        "Basset Hound",
+        "Bloodhound",
+        "Yorkshire Terrier"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_010",
+      "image_id": "A_010.jpg",
+      "expected_breed": "Basset Hound",
+      "top1_guess": "Basset Hound",
+      "top3_guesses": [
+        "Basset Hound",
+        "Bloodhound",
+        "Beagle"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_011",
+      "image_id": "A_011.jpg",
+      "expected_breed": "Treeing Walker Coonhound",
+      "top1_guess": "Treeing Walker Coonhound",
+      "top3_guesses": [
+        "Treeing Walker Coonhound",
+        "English Foxhound",
+        "Beagle"
+      ],
+      "decision": "top2",
+      "is_confident": false,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_012",
+      "image_id": "A_012.jpg",
+      "expected_breed": "Treeing Walker Coonhound",
+      "top1_guess": "Treeing Walker Coonhound",
+      "top3_guesses": [
+        "Treeing Walker Coonhound",
+        "Beagle",
+        "English Foxhound"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_013",
+      "image_id": "A_013.jpg",
+      "expected_breed": "English Foxhound",
+      "top1_guess": "Treeing Walker Coonhound",
+      "top3_guesses": [
+        "Treeing Walker Coonhound",
+        "English Foxhound",
+        "Beagle"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": true,
+      "pass": false
+    },
+    {
+      "id": "A_014",
+      "image_id": "A_014.jpg",
+      "expected_breed": "English Foxhound",
+      "top1_guess": "Treeing Walker Coonhound",
+      "top3_guesses": [
+        "Treeing Walker Coonhound",
+        "English Foxhound",
+        "Beagle"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": true,
+      "pass": false
+    },
+    {
+      "id": "A_015",
+      "image_id": "A_015.jpg",
+      "expected_breed": "Whippet",
+      "top1_guess": "Whippet",
+      "top3_guesses": [
+        "Whippet",
+        "Italian Greyhound",
+        "Treeing Walker Coonhound"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_016",
+      "image_id": "A_016.jpg",
+      "expected_breed": "Whippet",
+      "top1_guess": "Whippet",
+      "top3_guesses": [
+        "Whippet",
+        "Borzoi",
+        "Scottish Deerhound"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_017",
+      "image_id": "A_017.jpg",
+      "expected_breed": "Ibizan Hound",
+      "top1_guess": "Ibizan Hound",
+      "top3_guesses": [
+        "Ibizan Hound",
+        "Brittany",
+        "Australian Terrier"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_018",
+      "image_id": "A_018.jpg",
+      "expected_breed": "Ibizan Hound",
+      "top1_guess": "Ibizan Hound",
+      "top3_guesses": [
+        "Ibizan Hound",
+        "Brittany",
+        "Manchester Terrier (Toy)"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_019",
+      "image_id": "A_019.jpg",
+      "expected_breed": "Scottish Deerhound",
+      "top1_guess": "Scottish Deerhound",
+      "top3_guesses": [
+        "Scottish Deerhound",
+        "Irish Wolfhound",
+        "Borzoi"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_020",
+      "image_id": "A_020.jpg",
+      "expected_breed": "Scottish Deerhound",
+      "top1_guess": "Scottish Deerhound",
+      "top3_guesses": [
+        "Scottish Deerhound",
+        "Irish Wolfhound",
+        "Affenpinscher"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_021",
+      "image_id": "A_021.jpg",
+      "expected_breed": "Bedlington Terrier",
+      "top1_guess": "Bedlington Terrier",
+      "top3_guesses": [
+        "Bedlington Terrier",
+        "Poodle (Miniature)",
+        "Brussels Griffon"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_022",
+      "image_id": "A_022.jpg",
+      "expected_breed": "Bedlington Terrier",
+      "top1_guess": "Bedlington Terrier",
+      "top3_guesses": [
+        "Bedlington Terrier",
+        "Poodle (Miniature)",
+        "Wire Fox Terrier"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_023",
+      "image_id": "A_023.jpg",
+      "expected_breed": "Kerry Blue Terrier",
+      "top1_guess": "Kerry Blue Terrier",
+      "top3_guesses": [
+        "Kerry Blue Terrier",
+        "Lakeland Terrier",
+        "Poodle (Miniature)"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_024",
+      "image_id": "A_024.jpg",
+      "expected_breed": "Kerry Blue Terrier",
+      "top1_guess": "Kerry Blue Terrier",
+      "top3_guesses": [
+        "Kerry Blue Terrier",
+        "Bouvier des Flandres",
+        "Lakeland Terrier"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_025",
+      "image_id": "A_025.jpg",
+      "expected_breed": "Wire Fox Terrier",
+      "top1_guess": "Wire Fox Terrier",
+      "top3_guesses": [
+        "Wire Fox Terrier",
+        "Lakeland Terrier",
+        "Sealyham Terrier"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_026",
+      "image_id": "A_026.jpg",
+      "expected_breed": "Wire Fox Terrier",
+      "top1_guess": "Lakeland Terrier",
+      "top3_guesses": [
+        "Lakeland Terrier",
+        "Wire Fox Terrier",
+        "Dandie Dinmont Terrier"
+      ],
+      "decision": "top2",
+      "is_confident": false,
+      "top1_correct": false,
+      "top3_correct": true,
+      "pass": false
+    },
+    {
+      "id": "A_027",
+      "image_id": "A_027.jpg",
+      "expected_breed": "Lakeland Terrier",
+      "top1_guess": "Lakeland Terrier",
+      "top3_guesses": [
+        "Lakeland Terrier",
+        "Wire Fox Terrier",
+        "Sealyham Terrier"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_028",
+      "image_id": "A_028.jpg",
+      "expected_breed": "Lakeland Terrier",
+      "top1_guess": "Lakeland Terrier",
+      "top3_guesses": [
+        "Lakeland Terrier",
+        "Wire Fox Terrier",
+        "Sealyham Terrier"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_029",
+      "image_id": "A_029.jpg",
+      "expected_breed": "Cairn Terrier",
+      "top1_guess": "Cairn Terrier",
+      "top3_guesses": [
+        "Cairn Terrier",
+        "Norwich Terrier",
+        "Australian Terrier"
+      ],
+      "decision": "top2",
+      "is_confident": false,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_030",
+      "image_id": "A_030.jpg",
+      "expected_breed": "Cairn Terrier",
+      "top1_guess": "Cairn Terrier",
+      "top3_guesses": [
+        "Cairn Terrier",
+        "Dandie Dinmont Terrier",
+        "West Highland White Terrier"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_031",
+      "image_id": "A_031.jpg",
+      "expected_breed": "Standard Schnauzer",
+      "top1_guess": "Giant Schnauzer",
+      "top3_guesses": [
+        "Giant Schnauzer",
+        "Standard Schnauzer",
+        "Bouvier des Flandres"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": true,
+      "pass": false
+    },
+    {
+      "id": "A_032",
+      "image_id": "A_032.jpg",
+      "expected_breed": "Standard Schnauzer",
+      "top1_guess": "Standard Schnauzer",
+      "top3_guesses": [
+        "Standard Schnauzer",
+        "Giant Schnauzer",
+        "Miniature Schnauzer"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_033",
+      "image_id": "A_033.jpg",
+      "expected_breed": "Tibetan Terrier",
+      "top1_guess": "Tibetan Terrier",
+      "top3_guesses": [
+        "Tibetan Terrier",
+        "Lhasa Apso",
+        "Shih Tzu"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_034",
+      "image_id": "A_034.jpg",
+      "expected_breed": "Tibetan Terrier",
+      "top1_guess": "Tibetan Terrier",
+      "top3_guesses": [
+        "Tibetan Terrier",
+        "Old English Sheepdog",
+        "Tibetan Mastiff"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_035",
+      "image_id": "A_035.jpg",
+      "expected_breed": "Silky Terrier",
+      "top1_guess": "Silky Terrier",
+      "top3_guesses": [
+        "Silky Terrier",
+        "Yorkshire Terrier",
+        "Norfolk Terrier"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_036",
+      "image_id": "A_036.jpg",
+      "expected_breed": "Silky Terrier",
+      "top1_guess": "Silky Terrier",
+      "top3_guesses": [
+        "Silky Terrier",
+        "Australian Terrier",
+        "Manchester Terrier (Toy)"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_037",
+      "image_id": "A_037.jpg",
+      "expected_breed": "West Highland White Terrier",
+      "top1_guess": "West Highland White Terrier",
+      "top3_guesses": [
+        "West Highland White Terrier",
+        "Norfolk Terrier",
+        "Scottish Terrier"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_038",
+      "image_id": "A_038.jpg",
+      "expected_breed": "West Highland White Terrier",
+      "top1_guess": "West Highland White Terrier",
+      "top3_guesses": [
+        "West Highland White Terrier",
+        "Scottish Terrier",
+        "Miniature Schnauzer"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_039",
+      "image_id": "A_039.jpg",
+      "expected_breed": "Golden Retriever",
+      "top1_guess": "Golden Retriever",
+      "top3_guesses": [
+        "Golden Retriever",
+        "Irish Setter",
+        "Gordon Setter"
+      ],
+      "decision": "top2",
+      "is_confident": false,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_040",
+      "image_id": "A_040.jpg",
+      "expected_breed": "Golden Retriever",
+      "top1_guess": "Golden Retriever",
+      "top3_guesses": [
+        "Golden Retriever",
+        "Flat-Coated Retriever",
+        "Labrador Retriever"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_041",
+      "image_id": "A_041.jpg",
+      "expected_breed": "Chesapeake Bay Retriever",
+      "top1_guess": "Chesapeake Bay Retriever",
+      "top3_guesses": [
+        "Chesapeake Bay Retriever",
+        "Labrador Retriever",
+        "Vizsla"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_042",
+      "image_id": "A_042.jpg",
+      "expected_breed": "Chesapeake Bay Retriever",
+      "top1_guess": "Labrador Retriever",
+      "top3_guesses": [
+        "Labrador Retriever",
+        "Chesapeake Bay Retriever",
+        "Bullmastiff"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": true,
+      "pass": false
+    },
+    {
+      "id": "A_043",
+      "image_id": "A_043.jpg",
+      "expected_breed": "German Shorthaired Pointer",
+      "top1_guess": "German Shorthaired Pointer",
+      "top3_guesses": [
+        "German Shorthaired Pointer",
+        "Australian Kelpie",
+        "Yorkshire Terrier"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_044",
+      "image_id": "A_044.jpg",
+      "expected_breed": "German Shorthaired Pointer",
+      "top1_guess": "German Shorthaired Pointer",
+      "top3_guesses": [
+        "German Shorthaired Pointer",
+        "Bluetick Coonhound",
+        "English Foxhound"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_045",
+      "image_id": "A_045.jpg",
+      "expected_breed": "Vizsla",
+      "top1_guess": "Vizsla",
+      "top3_guesses": [
+        "Vizsla",
+        "Bloodhound",
+        "Rhodesian Ridgeback"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_046",
+      "image_id": "A_046.jpg",
+      "expected_breed": "Vizsla",
+      "top1_guess": "Vizsla",
+      "top3_guesses": [
+        "Vizsla",
+        "Staffordshire Bull Terrier",
+        "Australian Kelpie"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_047",
+      "image_id": "A_047.jpg",
+      "expected_breed": "Irish Setter",
+      "top1_guess": "Irish Setter",
+      "top3_guesses": [
+        "Irish Setter",
+        "Gordon Setter",
+        "Redbone Coonhound"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_048",
+      "image_id": "A_048.jpg",
+      "expected_breed": "Irish Setter",
+      "top1_guess": "Irish Setter",
+      "top3_guesses": [
+        "Irish Setter",
+        "Golden Retriever",
+        "Gordon Setter"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_049",
+      "image_id": "A_049.jpg",
+      "expected_breed": "Gordon Setter",
+      "top1_guess": "Gordon Setter",
+      "top3_guesses": [
+        "Gordon Setter",
+        "Flat-Coated Retriever",
+        "Cocker Spaniel"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_050",
+      "image_id": "A_050.jpg",
+      "expected_breed": "Gordon Setter",
+      "top1_guess": "Border Collie",
+      "top3_guesses": [
+        "Border Collie",
+        "Gordon Setter",
+        "Appenzeller Sennenhund"
+      ],
+      "decision": "retry",
+      "is_confident": false,
+      "top1_correct": false,
+      "top3_correct": true,
+      "pass": false
+    },
+    {
+      "id": "A_051",
+      "image_id": "A_051.jpg",
+      "expected_breed": "Welsh Springer Spaniel",
+      "top1_guess": "Welsh Springer Spaniel",
+      "top3_guesses": [
+        "Welsh Springer Spaniel",
+        "Cocker Spaniel",
+        "Cavalier King Charles Spaniel"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_052",
+      "image_id": "A_052.jpg",
+      "expected_breed": "Welsh Springer Spaniel",
+      "top1_guess": "Welsh Springer Spaniel",
+      "top3_guesses": [
+        "Welsh Springer Spaniel",
+        "Brittany",
+        "Basset Hound"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_053",
+      "image_id": "A_053.jpg",
+      "expected_breed": "Cocker Spaniel",
+      "top1_guess": "Cocker Spaniel",
+      "top3_guesses": [
+        "Cocker Spaniel",
+        "Sussex Spaniel",
+        "Cavalier King Charles Spaniel"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_054",
+      "image_id": "A_054.jpg",
+      "expected_breed": "Cocker Spaniel",
+      "top1_guess": "Cocker Spaniel",
+      "top3_guesses": [
+        "Cocker Spaniel",
+        "Sussex Spaniel",
+        "Dandie Dinmont Terrier"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_055",
+      "image_id": "A_055.jpg",
+      "expected_breed": "Irish Water Spaniel",
+      "top1_guess": "Irish Water Spaniel",
+      "top3_guesses": [
+        "Irish Water Spaniel",
+        "Poodle (Standard)",
+        "Curly-Coated Retriever"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_056",
+      "image_id": "A_056.jpg",
+      "expected_breed": "Irish Water Spaniel",
+      "top1_guess": "Irish Water Spaniel",
+      "top3_guesses": [
+        "Irish Water Spaniel",
+        "West Highland White Terrier",
+        "Poodle (Standard)"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_057",
+      "image_id": "A_057.jpg",
+      "expected_breed": "Schipperke",
+      "top1_guess": "Schipperke",
+      "top3_guesses": [
+        "Schipperke",
+        "Australian Kelpie",
+        "Miniature Pinscher"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_058",
+      "image_id": "A_058.jpg",
+      "expected_breed": "Schipperke",
+      "top1_guess": "Schipperke",
+      "top3_guesses": [
+        "Schipperke",
+        "Belgian Sheepdog",
+        "Australian Kelpie"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_059",
+      "image_id": "A_059.jpg",
+      "expected_breed": "Australian Kelpie",
+      "top1_guess": "Australian Kelpie",
+      "top3_guesses": [
+        "Australian Kelpie",
+        "German Shepherd Dog",
+        "Vizsla"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_060",
+      "image_id": "A_060.jpg",
+      "expected_breed": "Australian Kelpie",
+      "top1_guess": "Dingo",
+      "top3_guesses": [
+        "Dingo",
+        "Australian Kelpie",
+        "Basenji"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": false,
+      "top3_correct": true,
+      "pass": false
+    },
+    {
+      "id": "A_061",
+      "image_id": "A_061.jpg",
+      "expected_breed": "Shetland Sheepdog",
+      "top1_guess": "Shetland Sheepdog",
+      "top3_guesses": [
+        "Shetland Sheepdog",
+        "Collie",
+        "Otterhound"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_062",
+      "image_id": "A_062.jpg",
+      "expected_breed": "Shetland Sheepdog",
+      "top1_guess": "Shetland Sheepdog",
+      "top3_guesses": [
+        "Shetland Sheepdog",
+        "Collie",
+        "Pomeranian"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_063",
+      "image_id": "A_063.jpg",
+      "expected_breed": "Collie",
+      "top1_guess": "Collie",
+      "top3_guesses": [
+        "Collie",
+        "Shetland Sheepdog",
+        "Border Collie"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_064",
+      "image_id": "A_064.jpg",
+      "expected_breed": "Collie",
+      "top1_guess": "Pomeranian",
+      "top3_guesses": [
+        "Pomeranian",
+        "Samoyed",
+        "Great Pyrenees"
+      ],
+      "decision": "top2",
+      "is_confident": false,
+      "top1_correct": false,
+      "top3_correct": false,
+      "pass": false
+    },
+    {
+      "id": "A_065",
+      "image_id": "A_065.jpg",
+      "expected_breed": "German Shepherd Dog",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Tibetan Mastiff"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_066",
+      "image_id": "A_066.jpg",
+      "expected_breed": "German Shepherd Dog",
+      "top1_guess": "German Shepherd Dog",
+      "top3_guesses": [
+        "German Shepherd Dog",
+        "Belgian Malinois",
+        "Tibetan Mastiff"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_067",
+      "image_id": "A_067.jpg",
+      "expected_breed": "Doberman Pinscher",
+      "top1_guess": "Doberman Pinscher",
+      "top3_guesses": [
+        "Doberman Pinscher",
+        "Rottweiler",
+        "Black and Tan Coonhound"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_068",
+      "image_id": "A_068.jpg",
+      "expected_breed": "Doberman Pinscher",
+      "top1_guess": "Doberman Pinscher",
+      "top3_guesses": [
+        "Doberman Pinscher",
+        "Miniature Pinscher",
+        "Italian Greyhound"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_069",
+      "image_id": "A_069.jpg",
+      "expected_breed": "Greater Swiss Mountain Dog",
+      "top1_guess": "Greater Swiss Mountain Dog",
+      "top3_guesses": [
+        "Greater Swiss Mountain Dog",
+        "Appenzeller Sennenhund",
+        "Great Dane"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_070",
+      "image_id": "A_070.jpg",
+      "expected_breed": "Greater Swiss Mountain Dog",
+      "top1_guess": "Greater Swiss Mountain Dog",
+      "top3_guesses": [
+        "Greater Swiss Mountain Dog",
+        "Appenzeller Sennenhund",
+        "Entlebucher Mountain Dog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_071",
+      "image_id": "A_071.jpg",
+      "expected_breed": "Bernese Mountain Dog",
+      "top1_guess": "Bernese Mountain Dog",
+      "top3_guesses": [
+        "Bernese Mountain Dog",
+        "Appenzeller Sennenhund",
+        "Entlebucher Mountain Dog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_072",
+      "image_id": "A_072.jpg",
+      "expected_breed": "Bernese Mountain Dog",
+      "top1_guess": "Bernese Mountain Dog",
+      "top3_guesses": [
+        "Bernese Mountain Dog",
+        "Entlebucher Mountain Dog",
+        "Appenzeller Sennenhund"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_073",
+      "image_id": "A_073.jpg",
+      "expected_breed": "Appenzeller Sennenhund",
+      "top1_guess": "Appenzeller Sennenhund",
+      "top3_guesses": [
+        "Appenzeller Sennenhund",
+        "Entlebucher Mountain Dog",
+        "Saluki"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_074",
+      "image_id": "A_074.jpg",
+      "expected_breed": "Appenzeller Sennenhund",
+      "top1_guess": "Appenzeller Sennenhund",
+      "top3_guesses": [
+        "Appenzeller Sennenhund",
+        "Entlebucher Mountain Dog",
+        "Greater Swiss Mountain Dog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_075",
+      "image_id": "A_075.jpg",
+      "expected_breed": "Eskimo Dog",
+      "top1_guess": "Eskimo Dog",
+      "top3_guesses": [
+        "Eskimo Dog",
+        "Siberian Husky",
+        "Alaskan Malamute"
+      ],
+      "decision": "top2",
+      "is_confident": false,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_076",
+      "image_id": "A_076.jpg",
+      "expected_breed": "Eskimo Dog",
+      "top1_guess": "Eskimo Dog",
+      "top3_guesses": [
+        "Eskimo Dog",
+        "Siberian Husky",
+        "Alaskan Malamute"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_077",
+      "image_id": "A_077.jpg",
+      "expected_breed": "Alaskan Malamute",
+      "top1_guess": "Alaskan Malamute",
+      "top3_guesses": [
+        "Alaskan Malamute",
+        "Eskimo Dog",
+        "Siberian Husky"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_078",
+      "image_id": "A_078.jpg",
+      "expected_breed": "Alaskan Malamute",
+      "top1_guess": "Alaskan Malamute",
+      "top3_guesses": [
+        "Alaskan Malamute",
+        "Tibetan Mastiff",
+        "Eskimo Dog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_079",
+      "image_id": "A_079.jpg",
+      "expected_breed": "Siberian Husky",
+      "top1_guess": "Siberian Husky",
+      "top3_guesses": [
+        "Siberian Husky",
+        "Eskimo Dog",
+        "Alaskan Malamute"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_080",
+      "image_id": "A_080.jpg",
+      "expected_breed": "Siberian Husky",
+      "top1_guess": "Eskimo Dog",
+      "top3_guesses": [
+        "Eskimo Dog",
+        "Siberian Husky",
+        "Alaskan Malamute"
+      ],
+      "decision": "top2",
+      "is_confident": false,
+      "top1_correct": false,
+      "top3_correct": true,
+      "pass": false
+    },
+    {
+      "id": "A_081",
+      "image_id": "A_081.jpg",
+      "expected_breed": "Leonberger",
+      "top1_guess": "Leonberger",
+      "top3_guesses": [
+        "Leonberger",
+        "Golden Retriever",
+        "Tibetan Mastiff"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_082",
+      "image_id": "A_082.jpg",
+      "expected_breed": "Leonberger",
+      "top1_guess": "Leonberger",
+      "top3_guesses": [
+        "Leonberger",
+        "Chesapeake Bay Retriever",
+        "Newfoundland"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_083",
+      "image_id": "A_083.jpg",
+      "expected_breed": "Samoyed",
+      "top1_guess": "Samoyed",
+      "top3_guesses": [
+        "Samoyed",
+        "Border Collie",
+        "Keeshond"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_084",
+      "image_id": "A_084.jpg",
+      "expected_breed": "Samoyed",
+      "top1_guess": "Samoyed",
+      "top3_guesses": [
+        "Samoyed",
+        "Keeshond",
+        "Great Pyrenees"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_085",
+      "image_id": "A_085.jpg",
+      "expected_breed": "Chow Chow",
+      "top1_guess": "Chow Chow",
+      "top3_guesses": [
+        "Chow Chow",
+        "Tibetan Mastiff",
+        "Pomeranian"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_086",
+      "image_id": "A_086.jpg",
+      "expected_breed": "Chow Chow",
+      "top1_guess": "Chow Chow",
+      "top3_guesses": [
+        "Chow Chow",
+        "Labrador Retriever",
+        "Cairn Terrier"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_087",
+      "image_id": "A_087.jpg",
+      "expected_breed": "Poodle (Toy)",
+      "top1_guess": "Poodle (Miniature)",
+      "top3_guesses": [
+        "Poodle (Miniature)",
+        "Poodle (Toy)",
+        "Pekingese"
+      ],
+      "decision": "top2",
+      "is_confident": false,
+      "top1_correct": false,
+      "top3_correct": true,
+      "pass": false
+    },
+    {
+      "id": "A_088",
+      "image_id": "A_088.jpg",
+      "expected_breed": "Poodle (Toy)",
+      "top1_guess": "Dandie Dinmont Terrier",
+      "top3_guesses": [
+        "Dandie Dinmont Terrier",
+        "Poodle (Miniature)",
+        "Poodle (Toy)"
+      ],
+      "decision": "top2",
+      "is_confident": false,
+      "top1_correct": false,
+      "top3_correct": true,
+      "pass": false
+    },
+    {
+      "id": "A_089",
+      "image_id": "A_089.jpg",
+      "expected_breed": "Poodle (Miniature)",
+      "top1_guess": "Poodle (Miniature)",
+      "top3_guesses": [
+        "Poodle (Miniature)",
+        "Poodle (Toy)",
+        "Poodle (Standard)"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_090",
+      "image_id": "A_090.jpg",
+      "expected_breed": "Poodle (Miniature)",
+      "top1_guess": "Maltese",
+      "top3_guesses": [
+        "Maltese",
+        "Poodle (Miniature)",
+        "Poodle (Toy)"
+      ],
+      "decision": "top2",
+      "is_confident": false,
+      "top1_correct": false,
+      "top3_correct": true,
+      "pass": false
+    },
+    {
+      "id": "A_091",
+      "image_id": "A_091.jpg",
+      "expected_breed": "Poodle (Standard)",
+      "top1_guess": "Poodle (Standard)",
+      "top3_guesses": [
+        "Poodle (Standard)",
+        "Irish Water Spaniel",
+        "Newfoundland"
+      ],
+      "decision": "top2",
+      "is_confident": false,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_092",
+      "image_id": "A_092.jpg",
+      "expected_breed": "Poodle (Standard)",
+      "top1_guess": "Poodle (Standard)",
+      "top3_guesses": [
+        "Poodle (Standard)",
+        "Poodle (Miniature)",
+        "Poodle (Toy)"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_093",
+      "image_id": "A_093.jpg",
+      "expected_breed": "Xoloitzcuintli",
+      "top1_guess": "Xoloitzcuintli",
+      "top3_guesses": [
+        "Xoloitzcuintli",
+        "Staffordshire Bull Terrier",
+        "Basset Hound"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_094",
+      "image_id": "A_094.jpg",
+      "expected_breed": "Xoloitzcuintli",
+      "top1_guess": "Xoloitzcuintli",
+      "top3_guesses": [
+        "Xoloitzcuintli",
+        "Chihuahua",
+        "Boston Terrier"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_095",
+      "image_id": "A_095.jpg",
+      "expected_breed": "Dingo",
+      "top1_guess": "Dingo",
+      "top3_guesses": [
+        "Dingo",
+        "Eskimo Dog",
+        "Basenji"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_096",
+      "image_id": "A_096.jpg",
+      "expected_breed": "Dingo",
+      "top1_guess": "Dingo",
+      "top3_guesses": [
+        "Dingo",
+        "Basenji",
+        "Golden Retriever"
+      ],
+      "decision": "retry",
+      "is_confident": false,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_097",
+      "image_id": "A_097.jpg",
+      "expected_breed": "Dhole",
+      "top1_guess": "Dhole",
+      "top3_guesses": [
+        "Dhole",
+        "Dingo",
+        "Eskimo Dog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_098",
+      "image_id": "A_098.jpg",
+      "expected_breed": "Dhole",
+      "top1_guess": "Dhole",
+      "top3_guesses": [
+        "Dhole",
+        "Dingo",
+        "African Wild Dog"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_099",
+      "image_id": "A_099.jpg",
+      "expected_breed": "African Wild Dog",
+      "top1_guess": "African Wild Dog",
+      "top3_guesses": [
+        "African Wild Dog",
+        "Tibetan Terrier",
+        "Dhole"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    },
+    {
+      "id": "A_100",
+      "image_id": "A_100.jpg",
+      "expected_breed": "African Wild Dog",
+      "top1_guess": "African Wild Dog",
+      "top3_guesses": [
+        "African Wild Dog",
+        "Pug",
+        "Labrador Retriever"
+      ],
+      "decision": "confident",
+      "is_confident": true,
+      "top1_correct": true,
+      "top3_correct": true,
+      "pass": true
+    }
+  ]
+}

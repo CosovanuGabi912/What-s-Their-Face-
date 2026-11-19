@@ -21,7 +21,7 @@ pytestmark = pytest.mark.skipif(
 
 @pytest.fixture(scope="module")
 def checkpoint():
-    return torch.load(CHECKPOINT, map_location="cpu")
+    return torch.load(CHECKPOINT, map_location="cpu", weights_only=True)
 
 
 def test_checkpoint_has_contract_keys(checkpoint):

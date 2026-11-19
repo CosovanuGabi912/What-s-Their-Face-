@@ -3,8 +3,9 @@
 Everything runs on the validation split from issue #6 (data/splits/stanford_dogs_val.json):
 2,400 train images the model never trained on. Golden Part A is never used here.
 
-1. Always: fit one temperature T so that softmax(logits / T) gives honest confidences
-   (accuracy does not change) and write temperature.json.
+1. --fit-temperature (or when temperature.json is missing): fit one temperature T so that
+   softmax(logits / T) gives honest confidences (accuracy does not change) and write
+   temperature.json. Otherwise the saved T is reused, so --sweep never changes a committed file.
 2. --sweep: print, for a grid of candidate thresholds, the numbers the team uses to choose them
    by trial and error (no F1):
      confident share, accuracy of confident answers, share of wrong guesses flagged;
@@ -14,6 +15,7 @@ Everything runs on the validation split from issue #6 (data/splits/stanford_dogs
    threshold.json (read by config.py as CONFIDENCE_HIGH / CONFIDENCE_LOW).
 
 Usage:
+    python scripts/calibrate_classifier.py --fit-temperature
     python scripts/calibrate_classifier.py --sweep
     python scripts/calibrate_classifier.py --confidence-threshold 0.82 --top2-threshold 0.5 --reason "..."
 """
@@ -33,6 +35,7 @@ sys.path.insert(0, str(ROOT))
 
 from mcp_server.tools.breed_id import (  # noqa: E402
     CHECKPOINT_PATH, MODEL_DIR, PREPROCESS, TEMPERATURE_PATH, THRESHOLD_PATH, get_device, load_classifier,
+    read_temperature,
 )
 
 SPLIT_FILE = ROOT / "data" / "splits" / "stanford_dogs_val.json"
@@ -42,7 +45,7 @@ SPLIT_FILE = ROOT / "data" / "splits" / "stanford_dogs_val.json"
 def validation_logits(data_dir: Path, batch_size: int = 64) -> tuple[torch.Tensor, torch.Tensor]:
     device = get_device()
     model, _ = load_classifier(device)
-    stanford_labels = torch.load(CHECKPOINT_PATH, map_location="cpu")["stanford_labels"]
+    stanford_labels = torch.load(CHECKPOINT_PATH, map_location="cpu", weights_only=True)["stanford_labels"]
     label_index = {label: i for i, label in enumerate(stanford_labels)}
     files = json.loads(SPLIT_FILE.read_text(encoding="utf-8"))["val_files"]
 
@@ -115,22 +118,11 @@ def print_sweep(probs: torch.Tensor, labels: torch.Tensor, confidence_threshold:
                   f"{share(retry):5.1%} | {share(in_top2[retry]):32.1%}")
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--data-dir", type=Path, default=ROOT / "data" / "raw" / "stanford_dogs")
-    parser.add_argument("--sweep", action="store_true", help="print the tables used to choose the thresholds")
-    parser.add_argument("--confidence-threshold", type=float, help="value to save in threshold.json")
-    parser.add_argument("--top2-threshold", type=float, help="value to save in threshold.json")
-    parser.add_argument("--reason", help="one line: why these values")
-    args = parser.parse_args()
-
-    logits, labels = validation_logits(args.data_dir)
-    temperature = fit_temperature(logits, labels)
+def save_temperature(logits: torch.Tensor, labels: torch.Tensor, temperature: float) -> None:
     before = torch.softmax(logits, dim=1)
     after = torch.softmax(logits / temperature, dim=1)
     correct = before.argmax(dim=1) == labels
     nll = torch.nn.functional.cross_entropy
-
     TEMPERATURE_PATH.write_text(json.dumps({
         "temperature": round(temperature, 4),
         "fitted_on": f"validation split ({len(labels)} images, {SPLIT_FILE.name})",
@@ -141,6 +133,24 @@ def main() -> None:
         "top1_accuracy": round(correct.float().mean().item(), 4),
     }, indent=1), encoding="utf-8")
     print(json.loads(TEMPERATURE_PATH.read_text(encoding="utf-8")))
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--data-dir", type=Path, default=ROOT / "data" / "raw" / "stanford_dogs")
+    parser.add_argument("--fit-temperature", action="store_true", help="refit T and overwrite temperature.json")
+    parser.add_argument("--sweep", action="store_true", help="print the tables used to choose the thresholds")
+    parser.add_argument("--confidence-threshold", type=float, help="value to save in threshold.json")
+    parser.add_argument("--top2-threshold", type=float, help="value to save in threshold.json")
+    parser.add_argument("--reason", help="one line: why these values")
+    args = parser.parse_args()
+
+    logits, labels = validation_logits(args.data_dir)
+    if args.fit_temperature or not TEMPERATURE_PATH.exists():
+        save_temperature(logits, labels, fit_temperature(logits, labels))
+    temperature = read_temperature()
+    print(f"Temperature T = {temperature} ({TEMPERATURE_PATH.name})")
+    after = torch.softmax(logits / temperature, dim=1)
 
     if args.sweep:
         current = json.loads(THRESHOLD_PATH.read_text(encoding="utf-8")) if THRESHOLD_PATH.exists() else {}

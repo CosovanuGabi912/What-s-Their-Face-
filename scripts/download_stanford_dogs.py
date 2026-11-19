@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import shutil
 import json
 import sys
 import urllib.request
@@ -54,17 +55,28 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+TIMEOUT_SECONDS = 60  # per network read, so a dead connection fails instead of hanging
+
+
 def download(remote: str, expected_sha: str, dest: Path) -> None:
+    """Download to a .part file and move it into place only after the SHA-256 check."""
     if dest.exists() and sha256(dest) == expected_sha:
         print(f"Already downloaded: {dest.name}")
         return
     url = f"https://huggingface.co/datasets/{MIRROR}/resolve/{REVISION}/{remote}"
     dest.parent.mkdir(parents=True, exist_ok=True)
+    partial = dest.with_suffix(dest.suffix + ".part")
     print(f"Downloading {url}")
-    urllib.request.urlretrieve(url, dest)
-    if sha256(dest) != expected_sha:
-        dest.unlink()
-        sys.exit(f"SHA-256 mismatch for {dest.name}; the file was deleted.")
+    try:
+        with urllib.request.urlopen(url, timeout=TIMEOUT_SECONDS) as response, partial.open("wb") as file:
+            shutil.copyfileobj(response, file, 1 << 20)
+    except OSError as error:
+        partial.unlink(missing_ok=True)
+        sys.exit(f"Download failed: {error}")
+    if sha256(partial) != expected_sha:
+        partial.unlink()
+        sys.exit(f"SHA-256 mismatch for {dest.name}; the download was deleted.")
+    partial.replace(dest)
 
 
 def label_names(parquet: pq.ParquetFile) -> list[str]:

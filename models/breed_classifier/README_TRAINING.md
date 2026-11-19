@@ -20,8 +20,12 @@ ConvNeXt-Tiny (ImageNet weights from torchvision) fine-tuned on Stanford Dogs, 1
 - Check on the full test split (8,580 images): 87% of answers are confident and 95.7% of those are correct. 61% of the wrong answers are flagged "not sure"; 92% of the right answers are confident.
 - Typical mistake: Siberian Husky vs Eskimo Dog, two very similar breeds. These mistakes usually fall under the threshold.
 
+- Golden Part A (100 photos from the test split, chosen by Part D, #8), with the thresholds above: top-1 88%, top-3 99% (target 70% / 85%). 87% of answers are confident and 94% of those are correct; 58% of the wrong answers are flagged "not sure". Saved in `eval/results_A_week8.json` by `python eval/run_eval.py --part A --golden eval/golden.jsonl --output eval/results_A_week8.json`. The 12 mistakes are look-alike breeds (English Foxhound vs Treeing Walker Coonhound, Toy vs Miniature Poodle, Siberian Husky vs Eskimo Dog); 11 of the 12 still have the right breed in the top 3. One Australian Kelpie is confidently called a Dingo.
+- `identify_breed` turns phone photos upright from their EXIF orientation tag before the model sees them, and checks the `image_id` before loading the model.
+
 ```bash
-python scripts/calibrate_classifier.py --sweep
+python scripts/calibrate_classifier.py --fit-temperature   # writes temperature.json
+python scripts/calibrate_classifier.py --sweep             # tables only, reuses the saved temperature
 python scripts/calibrate_classifier.py --confidence-threshold 0.82 --top2-threshold 0.40 --reason "..."
 ```
 
@@ -47,7 +51,7 @@ python scripts/download_classifier.py
 - Stanford Dogs, official split: 12,000 train images (100 per breed) and 8,580 test images.
 - The official server (vision.stanford.edu) was down in November 2026, so `scripts/download_stanford_dogs.py` uses a Hugging Face mirror with the same split. The files are pinned to one revision and checked with SHA-256.
 - 20% of the train images (2,400, 20 per breed) are held out as a validation split, listed in `data/splits/stanford_dogs_val.json`. The model never trains on them; issue #10 uses them for temperature scaling.
-- The test split is used once, at the end, for `metrics.json`. Golden Part A is taken from the test split, so its photos are never used for training either.
+- The test split is never used to train or tune anything. It gives the accuracy in `metrics.json`, and the thresholds chosen on the validation split were afterwards checked on it (checked, not tuned). Golden Part A is taken from the test split, so its photos are never used for training either.
 
 ## Run it locally
 

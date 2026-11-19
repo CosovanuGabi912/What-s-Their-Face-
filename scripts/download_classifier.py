@@ -12,6 +12,7 @@ Usage:
 from __future__ import annotations
 
 import hashlib
+import shutil
 import sys
 import urllib.request
 from pathlib import Path
@@ -37,8 +38,12 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+TIMEOUT_SECONDS = 60  # per network read, so a dead connection fails instead of hanging
+
+
 def fetch(url: str, dest: Path) -> None:
-    urllib.request.urlretrieve(url, dest)
+    with urllib.request.urlopen(url, timeout=TIMEOUT_SECONDS) as response, dest.open("wb") as file:
+        shutil.copyfileobj(response, file, 1 << 20)
 
 
 def download(dest: Path = DEST) -> bool:

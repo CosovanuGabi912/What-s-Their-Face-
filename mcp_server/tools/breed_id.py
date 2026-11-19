@@ -17,7 +17,7 @@ from functools import lru_cache
 from pathlib import Path
 
 import torch
-from PIL import Image
+from PIL import Image, ImageOps
 from torch import nn
 from torchvision import models, transforms
 
@@ -45,7 +45,7 @@ PREPROCESS = transforms.Compose([
 def load_classifier(device: torch.device) -> tuple[nn.Module, list[str]]:
     if not CHECKPOINT_PATH.exists():
         raise FileNotFoundError(f"{CHECKPOINT_PATH} is missing: run python scripts/download_classifier.py")
-    checkpoint = torch.load(CHECKPOINT_PATH, map_location="cpu")
+    checkpoint = torch.load(CHECKPOINT_PATH, map_location="cpu", weights_only=True)
     model = models.convnext_tiny(weights=None)
     model.classifier[2] = nn.Linear(768, checkpoint["num_classes"])
     model.load_state_dict(checkpoint["state_dict"])
@@ -72,16 +72,19 @@ def image_path(image_id: str) -> Path:
 
 
 @torch.no_grad()
-def identify_breed(image_id: str) -> dict:
+def identify_breed(image_id: str) -> IdentifyBreedOutput:
     """Identify the dog breed in an uploaded photo.
 
     Returns the 3 most likely breeds with calibrated confidence, the decision
     (confident / top2 / retry) and whether the top breed is a real breed or a wild canid.
     Example: identify_breed(image_id="abc123.jpg")
     """
+    path = image_path(image_id)  # reject a bad image_id before the slow model load
     model, class_names, device, temperature = _classifier()
-    with Image.open(image_path(image_id)) as image:
-        batch = PREPROCESS(image.convert("RGB")).unsqueeze(0).to(device)
+    with Image.open(path) as image:
+        # Phone photos store their rotation as an EXIF tag; without this they reach the model sideways
+        upright = ImageOps.exif_transpose(image)
+        batch = PREPROCESS(upright.convert("RGB")).unsqueeze(0).to(device)
     probabilities = torch.softmax(model(batch).float() / temperature, dim=1)[0]
     values, indices = probabilities.topk(3)
     top3 = [{"breed": to_display(class_names[i]), "confidence": round(v, 4)}
@@ -92,4 +95,4 @@ def identify_breed(image_id: str) -> dict:
         "decision": decision,
         "is_confident": decision == "confident",
         "kind": load_breeds_map()[top3[0]["breed"]]["kind"],
-    }).model_dump()
+    })

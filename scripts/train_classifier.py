@@ -58,12 +58,12 @@ EVAL_TRANSFORM = transforms.Compose([
 ])
 
 
-def display_names(stanford_labels: list[str]) -> tuple[list[str], str]:
+def display_names(stanford_labels: list[str]) -> list[str]:
     """Canonical breed names from data/breeds_map.json, in model output order."""
     names = [to_display(label) for label in stanford_labels]
     if None in names or len(set(names)) != len(names):
         sys.exit("Every Stanford label must map to its own breeds_map display name")
-    return names, "breeds_map"
+    return names
 
 
 def stratified_split(dataset: datasets.ImageFolder, val_fraction: float, seed: int) -> tuple[list[int], list[int]]:
@@ -149,6 +149,7 @@ def main() -> None:
     test_set = datasets.ImageFolder(test_root, transform=EVAL_TRANSFORM)
     if train_full.classes != test_set.classes or len(train_full.classes) != NUM_CLASSES:
         sys.exit("Train and test folders must contain the same 120 breed folders")
+    class_names = display_names(train_full.classes)  # before training, so a bad name never wastes a run
 
     train_idx, val_idx = stratified_split(eval_full, args.val_fraction, args.seed)
     loader_args = dict(batch_size=args.batch_size, num_workers=args.num_workers,
@@ -204,14 +205,13 @@ def main() -> None:
     test = evaluate(model, test_loader, device, autocast)
     print(f"Best epoch {best_epoch} | test top-1 {test['top1']:.4f} top-3 {test['top3']:.4f}", flush=True)
 
-    class_names, names_source = display_names(train_full.classes)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     torch.save({
         "state_dict": {k: v.cpu() for k, v in model.state_dict().items()},
         "class_names": class_names,
         "num_classes": NUM_CLASSES,
         "stanford_labels": train_full.classes,
-        "class_names_source": names_source,
+        "class_names_source": "breeds_map",
         "model": args.model,
         "image_size": 224,
     }, args.output_dir / "convnext_tiny_stanford120.pt")
@@ -223,7 +223,7 @@ def main() -> None:
         "val_top1_accuracy": round(val["top1"], 4),
         "val_top3_accuracy": round(val["top3"], 4),
         "best_epoch": best_epoch,
-        "class_names_source": names_source,
+        "class_names_source": "breeds_map",
         "config": {"model": args.model, "epochs": args.epochs, "batch_size": args.batch_size, "lr": args.lr,
                    "weight_decay": args.weight_decay, "label_smoothing": 0.1, "seed": args.seed,
                    "train_images": len(train_idx), "val_images": len(val_idx)},
