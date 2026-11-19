@@ -109,9 +109,11 @@ def extract(split: str, parquet_path: Path, out_dir: Path, expected: int) -> Non
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--out-dir", type=Path, default=DEFAULT_OUT)
+    parser.add_argument("--splits", nargs="+", choices=list(SPLITS.keys()), default=list(SPLITS.keys()))
     args = parser.parse_args()
 
-    for split, (remote, expected_sha, expected) in SPLITS.items():
+    for split in args.splits:
+        remote, expected_sha, expected = SPLITS[split]
         parquet_path = args.out_dir / "_parquet" / Path(remote).name
         download(remote, expected_sha, parquet_path)
         extract(split, parquet_path, args.out_dir, expected)
