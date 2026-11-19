@@ -8,6 +8,12 @@ Tool bodies live in mcp_server/tools/ and are owned by each part; this file owns
 the descriptions the SLM reads, and the contract check: every result is validated against
 shared/schemas.py before it is returned, so a tool that drifts from the contract fails here.
 Tools named in WTF_STUB_TOOLS (or all, with "all") are served from mcp_server/tools/stubs.py.
+
+Rules for tool code:
+- Never write to stdout (no print): over stdio, stdout carries the MCP protocol and any other
+  output breaks it. Use logging, which goes to stderr.
+- Clients start this server with shared.mcp_client.server_params(), so WTF_* and model variables
+  set in code or in the terminal reach the tools.
 """
 
 from __future__ import annotations
@@ -28,6 +34,7 @@ from pydantic import BaseModel, Field  # noqa: E402
 import config  # noqa: E402
 from mcp_server.tools import breed_id, knowledge, names, stubs, traits  # noqa: E402
 from shared.breeds import display_names  # noqa: E402
+from shared.images import IMAGE_ID_PATTERN  # noqa: E402
 from shared.schemas import (BREEDS_LIST_URI, BreedsList, Colour, DescribePetOutput,  # noqa: E402
                             GetBreedTraitsOutput, IdentifyBreedOutput, RecommendBreedsOutput,
                             SearchKnowledgeOutput, Species, SuggestNamesOutput)
@@ -35,7 +42,8 @@ from shared.schemas import (BREEDS_LIST_URI, BreedsList, Colour, DescribePetOutp
 mcp = FastMCP("pet-advisor")
 
 M = TypeVar("M", bound=BaseModel)
-ImageId = Annotated[str, Field(description="ID of the uploaded photo, e.g. 'abc123.jpg'. Never a path or base64.")]
+ImageId = Annotated[str, Field(pattern=IMAGE_ID_PATTERN,
+                               description="ID of the uploaded photo, e.g. 'abc123.jpg'. Never a path or base64.")]
 
 
 def _impl(module: ModuleType, name: str) -> Callable:

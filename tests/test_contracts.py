@@ -70,6 +70,17 @@ def test_breeds_map_passes_the_validator():
     assert validate(breeds.load_breeds_map(), akc, None) == []
 
 
+def test_validator_rejects_a_spelling_shared_by_two_breeds():
+    import copy
+    import csv
+    with config.AKC_TABLE_PATH.open(encoding="utf-8", newline="") as file:
+        akc = {row[0] for row in list(csv.reader(file))[1:] if row}
+    broken = copy.deepcopy(breeds.load_breeds_map())
+    broken["Beagle"]["petfinder_name"] = "Basset Hound"  # e.g. a wrong match when PetFinder names are added
+    errors = validate(broken, akc, None)
+    assert any("'basset hound' points to several breeds" in error for error in errors), errors
+
+
 @pytest.mark.parametrize("name", WILD)
 def test_wild_canids_have_no_akc_name(name):
     entry = breeds.load_breeds_map()[name]

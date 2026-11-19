@@ -16,8 +16,10 @@ from pathlib import Path
 import config
 
 IMAGE_EXTENSIONS = (".jpg", ".jpeg", ".png", ".webp")
-# A plain file name: no folders, no "..", one of the extensions above.
-IMAGE_ID_PATTERN = r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}\.(?i:jpg|jpeg|png|webp)$"
+# A plain file name: no folders, no "..", one of the extensions above (any case).
+# Spelled without (?i:...) so it is also valid in JSON Schema (ECMA-262): it is advertised to
+# MCP clients / LM Studio, which may reject Python-only regex syntax.
+IMAGE_ID_PATTERN = r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}\.([Jj][Pp][Ee]?[Gg]|[Pp][Nn][Gg]|[Ww][Ee][Bb][Pp])$"
 _IMAGE_ID_RE = re.compile(IMAGE_ID_PATTERN)
 
 
