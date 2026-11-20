@@ -40,6 +40,7 @@ from shared.schemas import (BREEDS_LIST_URI, BreedsList, Colour, DescribePetOutp
                             SearchKnowledgeOutput, Species, SuggestNamesOutput)
 
 mcp = FastMCP("pet-advisor")
+traits.akc_table()  # load the AKC CSV once at startup (get_breed_traits, recommend_breeds)
 
 M = TypeVar("M", bound=BaseModel)
 ImageId = Annotated[str, Field(pattern=IMAGE_ID_PATTERN,
