@@ -1,18 +1,31 @@
-"""Guards that run in code, not in the prompt (issues #7 and #11; citation check in #16).
+"""Guards that run in code, not in the prompt (issues #7, #11 and #16). The SLM cannot overrule them.
 
-- vet_check runs BEFORE the SLM: when it fires, the agent replies with VET_REPLY and calls no tools.
-  The SLM cannot overrule it (agent decision 6 in docs/milestone2.md).
-- citation_check runs on every final answer: each cited [chunk_id] must have been returned by
-  search_knowledge in this turn. Stub for now: always passes.
+Before the SLM:
+- vet_check: vet or danger question -> the agent replies VET_REPLY and calls no tools
+  (agent decision 6 in docs/milestone2.md).
+- out_of_scope_check: another animal (cats, birds, wild animals) or adoption -> OUT_OF_SCOPE_REPLY.
+
+On every final answer:
+- citation_check: each cited [chunk_id] must have been returned by search_knowledge in this turn.
+- safety_claim_check: a sentence saying something is safe ("X is safe", "X is not toxic") must cite a
+  chunk retrieved in this turn.
 """
 
 from __future__ import annotations
 
 import re
+from functools import lru_cache
+from typing import Iterable
+
+from shared.breeds import aliases, load_breeds_map, normalise
+from shared.schemas import CHUNK_ID_RE
 
 VET_REPLY = ("This sounds like it could be a health emergency, and I can't give medical advice. "
              "Please contact your vet or an emergency animal clinic right away.")
+OUT_OF_SCOPE_REPLY = ("Sorry, that's outside what I can help with: I only cover dog breeds, breed "
+                      "recommendations and pet names.")
 
+# --- vet_check ------------------------------------------------------------------------------------
 # Phrases that mean "see a vet", matched case-insensitively anywhere in the message, but only when the
 # message is about the user's own animal (OWN_PET_RE): "What bleeding disorder is inherited in Dobermans?"
 # and "What emergency is common in Great Danes?" (golden Part B) are breed questions for search_knowledge,
@@ -44,10 +57,85 @@ def vet_check(message: str) -> bool:
     return any(pattern.search(text) for pattern in VET_PATTERNS)
 
 
-def citation_check(answer: str, retrieved_ids: set[str] | list[str]) -> bool:
-    """True when every [chunk_id] cited in `answer` is in `retrieved_ids`.
+# --- out_of_scope_check ---------------------------------------------------------------------------
+# Animals we do not cover. Only out of scope when the message is not also about dogs:
+# "Is a Beagle good with cats?" is a breed question, "Where can I adopt a kitten?" is not.
+OTHER_ANIMAL_RE = re.compile(
+    r"\b(cats?|kittens?|kitty|parrots?|birds?|budgies?|canar(y|ies)|hamsters?|guinea pigs?|rabbits?|bunn(y|ies)|"
+    r"ferrets?|horses?|ponies|pony|fish|goldfish|turtles?|tortoises?|snakes?|lizards?|reptiles?|"
+    r"cheetahs?|lions?|tigers?|leopards?|bears?|wolf|wolves|foxes|fox|jackals?|hyenas?|coyotes?)\b")
+# Adoption and shelters are out of scope whatever the animal (docs/milestone2.md).
+ADOPTION_RE = re.compile(r"\b(adopt|adopting|adoption|shelters?)\b")
+# Pet names are in scope for cats too (suggest_names takes species "cat").
+NAMES_RE = re.compile(r"\bnames?\b")
+DOG_WORDS_RE = re.compile(r"\b(dogs?|doggy|pupp(y|ies)|pups?|canines?|breeds?|hounds?|terriers?)\b")
 
-    Stub until #16: always True. The real version will find citations with
-    shared.schemas.CHUNK_ID_RE and also flag "X is safe" claims made without any citation.
-    """
-    return True
+
+@lru_cache(maxsize=1)
+def _breed_name_re() -> re.Pattern[str]:
+    """Every display name and alias in breeds_map (normalised), as words, with an optional plural s."""
+    names = set()
+    for display, entry in load_breeds_map().items():
+        for name in (display, *aliases(entry)):
+            normalised = normalise(name)
+            if len(normalised) > 3 and not normalised.startswith("n0"):   # skip WordNet ids
+                names.add(normalised)
+    alternatives = "|".join(re.escape(name) for name in sorted(names, key=len, reverse=True))
+    return re.compile(rf"\b({alternatives})s?\b")
+
+
+def mentions_dogs(message: str) -> bool:
+    """True when the message talks about dogs: a dog word or any breed name we know."""
+    text = normalise(message)
+    return bool(DOG_WORDS_RE.search(text) or _breed_name_re().search(text))
+
+
+def out_of_scope_check(message: str) -> bool:
+    """True for adoption questions and for questions about animals other than dogs (not name requests)."""
+    text = message.casefold()
+    if ADOPTION_RE.search(text):
+        return True
+    return bool(OTHER_ANIMAL_RE.search(text)) and not NAMES_RE.search(text) and not mentions_dogs(message)
+
+
+# --- citation_check / safety_claim_check ----------------------------------------------------------
+def cited_ids(answer: str) -> list[str]:
+    """Chunk ids cited as [kb:...] in the answer, in order, without duplicates."""
+    return list(dict.fromkeys(re.findall(CHUNK_ID_RE, answer)))
+
+
+def unretrieved_ids(answer: str, retrieved_chunk_ids: Iterable[str]) -> list[str]:
+    """Cited chunk ids that search_knowledge did not return in this turn (invented or from an old turn)."""
+    retrieved = set(retrieved_chunk_ids)
+    return [chunk_id for chunk_id in cited_ids(answer) if chunk_id not in retrieved]
+
+
+def citation_check(answer: str, retrieved_chunk_ids: Iterable[str]) -> bool:
+    """True if every chunk id mentioned in `answer` was actually retrieved this turn."""
+    return not unretrieved_ids(answer, retrieved_chunk_ids)
+
+
+# "X is safe", "grapes are not toxic", "it's harmless", "safe for dogs to eat", "won't hurt him", ...
+SAFETY_CLAIM_RE = re.compile(
+    r"\b(is|are|it's|its|they're|be)\s+(perfectly\s+|completely\s+|totally\s+|generally\s+|usually\s+)?"
+    r"(safe|harmless|non-?toxic|not\s+(toxic|poisonous|dangerous|harmful))\b"
+    r"|\bsafe\s+(for|to)\b"
+    r"|\b(won't|will\s+not|doesn't|does\s+not|can't|cannot)\s+(hurt|harm)\b")
+_SENTENCE_RE = re.compile(r"[^.!?\n]+[.!?]*")
+
+
+def safety_claims(answer: str) -> list[str]:
+    """Sentences of the answer that claim something is safe."""
+    return [s.strip() for s in _SENTENCE_RE.findall(answer) if SAFETY_CLAIM_RE.search(s.casefold())]
+
+
+def unbacked_safety_claims(answer: str, retrieved_chunk_ids: Iterable[str]) -> list[str]:
+    """Safety-claim sentences without a citation of a chunk retrieved in this turn."""
+    retrieved = set(retrieved_chunk_ids)
+    return [claim for claim in safety_claims(answer) if not any(c in retrieved for c in cited_ids(claim))]
+
+
+def safety_claim_check(answer: str, retrieved_chunk_ids: Iterable[str]) -> bool:
+    """True if every safety claim ("X is safe", "X is not toxic") is backed by a retrieved source.
+    An answer without safety claims passes."""
+    return not unbacked_safety_claims(answer, retrieved_chunk_ids)

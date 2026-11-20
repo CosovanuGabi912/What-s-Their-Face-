@@ -1,14 +1,20 @@
-"""Evaluation harness for Parts A, B, and C of the Golden Dataset (issue #8).
+"""Evaluation harness for Parts A, B, and C of the Golden Dataset (issues #8 and #16).
 
 Usage:
     python eval/run_eval.py --part A --golden eval/golden.jsonl --output eval/results_A.json
     python eval/run_eval.py --part B --golden eval/golden.jsonl --output eval/results_B.json
     python eval/run_eval.py --part C --golden eval/golden.jsonl --output eval/results_C.json
+
+Part C runs the real agent (agent/loop.py: code guards + the SLM in LM Studio + the MCP server) on
+each message, in a fresh conversation, and scores the kind of reply it gave (agent.last_reply_kind).
+--mode router scores the keyword router instead (no LM Studio needed; baseline for #21).
+--model overrides AGENT_MODEL, e.g. --model qwen3.5-4b.
 """
 
 from __future__ import annotations
 
 import argparse
+import asyncio
 import hashlib
 import json
 import os
@@ -170,16 +176,38 @@ def classify_message_route(message: str) -> str:
     return "i_dont_know"
 
 
-def eval_part_c(items: List[dict]) -> Dict[str, Any]:
+async def agent_routes(messages: List[str], model: str) -> List[Dict[str, Any]]:
+    """Run each message through the real agent, each in a fresh conversation (one MCP server for all)."""
+    from agent.loop import AgentLoop
+
+    routes = []
+    async with AgentLoop(model_id=model, session_id="eval_part_c") as server:
+        for message in messages:
+            agent = AgentLoop(model_id=model, session=server.session, llm_client=server.llm,
+                              session_id="eval_part_c")
+            agent.tools, agent._tool_names = server.tools, server._tool_names
+            reply = await agent.run_turn(message)
+            routes.append({"predicted_response_type": agent.last_reply_kind, "reply": reply,
+                           "tools": [log.tool for log in agent.trace]})
+    return routes
+
+
+def eval_part_c(items: List[dict], mode: str = "agent", model: str = config.AGENT_MODEL_ID) -> Dict[str, Any]:
     per_item = []
     type_totals: Dict[str, int] = {}
     type_correct: Dict[str, int] = {}
 
-    for item in items:
+    messages = [item["input"]["message"] for item in items]
+    if mode == "agent":
+        routes = asyncio.run(agent_routes(messages, model))
+    else:
+        routes = [{"predicted_response_type": classify_message_route(m)} for m in messages]
+
+    for item, route in zip(items, routes):
         item_id = item["id"]
         msg = item["input"]["message"]
         expected_type = item["expected"]["response_type"]
-        predicted_type = classify_message_route(msg)
+        predicted_type = route["predicted_response_type"]
         is_pass = (predicted_type == expected_type)
 
         type_totals[expected_type] = type_totals.get(expected_type, 0) + 1
@@ -191,6 +219,7 @@ def eval_part_c(items: List[dict]) -> Dict[str, Any]:
             "message": msg,
             "expected_response_type": expected_type,
             "predicted_response_type": predicted_type,
+            **{key: value for key, value in route.items() if key != "predicted_response_type"},
             "pass": is_pass,
         })
 
@@ -203,6 +232,8 @@ def eval_part_c(items: List[dict]) -> Dict[str, Any]:
     total_correct = sum(type_correct.values())
     aggregates = {
         "num_items": n,
+        "mode": mode,
+        **({"model": model, "stub_tools": sorted(config.STUB_TOOLS)} if mode == "agent" else {}),
         "overall_decline_rate": round(total_correct / n, 4) if n else 0.0,
         "decline_rate_per_response_type": decline_rate_per_type,
     }
@@ -214,6 +245,9 @@ def main() -> None:
     parser.add_argument("--part", required=True, choices=["A", "B", "C", "all"], help="Golden part to evaluate")
     parser.add_argument("--golden", type=Path, default=config.GOLDEN_PATH, help="Path to eval/golden.jsonl")
     parser.add_argument("--output", type=Path, default=None, help="Path to write evaluation results JSON")
+    parser.add_argument("--mode", choices=["agent", "router"], default="agent",
+                        help="Part C: run the real agent (LM Studio) or the keyword router baseline")
+    parser.add_argument("--model", default=config.AGENT_MODEL_ID, help="Part C agent model id in LM Studio")
     args = parser.parse_args()
 
     if not args.golden.exists():
@@ -229,12 +263,12 @@ def main() -> None:
     elif args.part == "B":
         results = eval_part_b(items)
     elif args.part == "C":
-        results = eval_part_c(items)
+        results = eval_part_c(items, args.mode, args.model)
     else:
         results = {
             "part_A": eval_part_a([i for i in items if i["part"] == "A"]),
             "part_B": eval_part_b([i for i in items if i["part"] == "B"]),
-            "part_C": eval_part_c([i for i in items if i["part"] == "C"]),
+            "part_C": eval_part_c([i for i in items if i["part"] == "C"], args.mode, args.model),
         }
 
     output_data = {
