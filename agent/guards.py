@@ -1,4 +1,4 @@
-"""Guards that run in code, not in the prompt (issue #7; real logic in #16).
+"""Guards that run in code, not in the prompt (issues #7 and #11; citation check in #16).
 
 - vet_check runs BEFORE the SLM: when it fires, the agent replies with VET_REPLY and calls no tools.
   The SLM cannot overrule it (agent decision 6 in docs/milestone2.md).
@@ -15,18 +15,24 @@ VET_REPLY = ("This sounds like it could be a health emergency, and I can't give 
 
 # Phrases that mean "see a vet", matched case-insensitively anywhere in the message, but only when the
 # message is about the user's own animal (OWN_PET_RE): "What bleeding disorder is inherited in Dobermans?"
-# is a breed question for search_knowledge, "my dog is bleeding" is an emergency.
+# and "What emergency is common in Great Danes?" (golden Part B) are breed questions for search_knowledge,
+# "my dog is bleeding" is an emergency.
 OWN_PET_RE = re.compile(r"\b(my|our)\b")
 VET_KEYWORDS = (
-    "bleeding", "not breathing", "can't breathe", "cannot breathe", "seizure", "collapsed",
-    "unconscious", "poison", "vomiting blood", "blood in", "hit by a car", "choking",
-    "broken leg", "swallowed",
+    "bleeding", "not breathing", "can't breathe", "cannot breathe", "seizure", "collapse",
+    "unconscious", "poison", "toxic", "overdose", "emergency", "vomiting blood", "throwing up",
+    "blood in", "hit by a car", "choking", "broken leg", "swallowed",
 )
 
-# "my dog ate chocolate", "she has eaten grapes", ...: an eating verb followed by something toxic.
+# Patterns from issue #11. They fire without "my"/"our":
+#   "he ate chocolate", "she has eaten grapes": an eating verb followed by something toxic;
+#   "my dog is sick", "our puppy has diarrhoea": an own pet with symptoms.
 _TOXIC = r"(chocolate|grapes?|raisins?|xylitol|onions?|garlic|ibuprofen|paracetamol|medicine|pills?|antifreeze|rat bait)"
+_PET = r"(dog|puppy|pup|pet|cat|kitten)"
+_SYMPTOM = r"(sick|vomiting|diarrh(o)?ea|unconscious)"
 VET_PATTERNS = (
     re.compile(rf"\b(ate|eaten|eating|eat|chewed|licked)\b.*\b{_TOXIC}\b"),
+    re.compile(rf"\b(my|our)\b.*\b{_PET}\b.*\b{_SYMPTOM}\b"),
 )
 
 
