@@ -9,11 +9,22 @@ WTF_IMAGE_UPLOAD_DIR=eval/images.
 
 from __future__ import annotations
 
+import io
 import re
 import uuid
 from pathlib import Path
 
+from PIL import Image, ImageOps, UnidentifiedImageError
+
 import config
+
+try:  # HEIC/HEIF (iPhone photos) needs the optional pillow-heif plugin
+    from pillow_heif import register_heif_opener
+    register_heif_opener()
+except ImportError:  # pragma: no cover - HEIC uploads are then rejected with a clear error
+    pass
+
+JPEG_QUALITY = 90
 
 IMAGE_EXTENSIONS = (".jpg", ".jpeg", ".png", ".webp")
 # A plain file name: no folders, no "..", one of the extensions above (any case).
@@ -51,4 +62,28 @@ def save_upload(data: bytes, original_name: str = "upload.jpg", upload_dir: Path
     folder = upload_dir or config.IMAGE_UPLOAD_DIR
     folder.mkdir(parents=True, exist_ok=True)
     (folder / image_id).write_bytes(data)
+    return image_id
+
+
+def save_as_jpeg(data: bytes, upload_dir: Path | None = None) -> str:
+    """Re-encode any uploaded photo (JPEG, PNG, WebP, HEIC) to an RGB JPEG and return its new image_id.
+
+    Tools only ever see ".jpg". The EXIF rotation of phone photos is applied before it is dropped, and
+    transparency is flattened onto white. ValueError if the bytes are not an image Pillow can read.
+    """
+    try:
+        with Image.open(io.BytesIO(data)) as source:
+            image = ImageOps.exif_transpose(source)
+            if image.mode in ("RGBA", "LA") or (image.mode == "P" and "transparency" in image.info):
+                rgba = image.convert("RGBA")
+                image = Image.new("RGB", rgba.size, "white")
+                image.paste(rgba, mask=rgba.getchannel("A"))
+            else:
+                image = image.convert("RGB")
+            image_id = uuid.uuid4().hex + ".jpg"
+            folder = upload_dir or config.IMAGE_UPLOAD_DIR
+            folder.mkdir(parents=True, exist_ok=True)
+            image.save(folder / image_id, "JPEG", quality=JPEG_QUALITY)
+    except (UnidentifiedImageError, OSError) as exc:
+        raise ValueError(f"Not a readable image (JPEG, PNG, WebP or HEIC expected): {exc}") from exc
     return image_id
