@@ -18,6 +18,7 @@ torch>=2.2.0
 torchvision>=0.17.0
 transformers>=4.40.0
 pillow>=10.0.0
+pillow-heif>=0.16.0   # HEIC photos from iPhones (#13)
 open-clip-torch>=2.24.0  # Experiment 4 CLIP zero-shot (#20)
 
 # Data
