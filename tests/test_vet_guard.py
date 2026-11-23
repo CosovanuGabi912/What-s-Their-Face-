@@ -26,6 +26,10 @@ from agent.guards import vet_check
     "my puppies have diarrhoea",
     "My German Shepherd is lethargic and has diarrhea",
     "My 3 year old lab threw up and now he is sick",
+    "My dog has two broken legs after a fall",
+    "our puppy has broken bones",
+    "My dog threw up twice tonight",
+    "My lovely 3 year old female lab is vomiting",
 ])
 def test_vet_check_fires(message):
     assert vet_check(message)
@@ -48,6 +52,18 @@ def test_vet_check_fires(message):
 ])
 def test_vet_check_does_not_fire(message):
     assert not vet_check(message)
+
+
+def test_vet_check_falls_back_to_pet_words_without_breeds_map(monkeypatch):
+    from agent import guards
+
+    def missing():
+        raise FileNotFoundError("breeds_map.json")
+
+    monkeypatch.setattr(guards, "_breed_name_re", missing)
+    assert vet_check("my dog is sick")
+    assert not vet_check("my Bernese is sick")    # breed names need breeds_map
+    assert not vet_check("Is a Beagle good with kids?")
 
 
 def _golden(part):
