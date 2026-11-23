@@ -21,6 +21,11 @@ from agent.guards import vet_check
     "our puppy has diarrhoea",
     "My dog is unconscious",
     "This is an emergency, my dog is bleeding",
+    "My Labrador has been vomiting all night",
+    "our dogs keep vomiting",
+    "my puppies have diarrhoea",
+    "My German Shepherd is lethargic and has diarrhea",
+    "My 3 year old lab threw up and now he is sick",
 ])
 def test_vet_check_fires(message):
     assert vet_check(message)
@@ -33,6 +38,13 @@ def test_vet_check_fires(message):
     "What bleeding disorder is genetically inherited in Dobermans?",
     "What acute gastrointestinal emergency is common in Great Danes?",
     "Which veterinary emergency clinic in downtown Cluj-Napoca is open right now?",
+    "What emergency is common in my Great Dane?",
+    "Is chocolate toxic for my dog?",
+    "Which chew toys are non-toxic for my puppy?",
+    "Is ivy poisonous to my dog?",
+    "Will my puppy get car sick on long car trips?",
+    "My dog loves the car. My son gets sick on trips though.",
+    "My son is often sick, which dog breed is calm?",
 ])
 def test_vet_check_does_not_fire(message):
     assert not vet_check(message)

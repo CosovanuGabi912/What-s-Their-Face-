@@ -102,10 +102,16 @@ def get_breed_traits(breed: str) -> GetBreedTraitsOutput:
 
 
 # --- recommend_breeds --------------------------------------------------------------------------
-def _breeds_with_knowledge() -> set[str] | None:
+# Coverage is re-read when the collection's chunk count changes, so ingesting while the server runs
+# is picked up without a restart. A missing collection is never cached: the next call checks again.
+_coverage: tuple[int, frozenset[str]] | None = None   # (chunk count, breeds with chunks)
+
+
+def _breeds_with_knowledge() -> frozenset[str] | None:
     """Display names with at least one chunk in the Chroma knowledge collection, so the agent can
     cite a reason for every recommended breed. None when the collection has not been ingested yet
     (then no breed is dropped for this reason; every AKC breed has a raw Wikipedia profile)."""
+    global _coverage
     if not config.CHROMA_KNOWLEDGE_DIR.exists():
         logger.warning("knowledge collection not found at %s; recommend_breeds skips the coverage check",
                        config.CHROMA_KNOWLEDGE_DIR)
@@ -114,19 +120,28 @@ def _breeds_with_knowledge() -> set[str] | None:
         import chromadb
 
         collection = chromadb.PersistentClient(path=str(config.CHROMA_KNOWLEDGE_DIR)).get_collection("knowledge")
-        metadatas = collection.get(include=["metadatas"])["metadatas"] or []
+        count = collection.count()
+        if _coverage is None or _coverage[0] != count:
+            metadatas = collection.get(include=["metadatas"])["metadatas"] or []
+            _coverage = (count, frozenset(meta["breed"] for meta in metadatas if meta and meta.get("breed")))
+            logger.info("knowledge collection: %d chunks covering %d breeds", count, len(_coverage[1]))
     except Exception:  # noqa: BLE001  (missing collection, chromadb not installed, ...)
         logger.warning("could not read the knowledge collection; recommend_breeds skips the coverage check",
                        exc_info=True)
         return None
-    return {meta["breed"] for meta in metadatas if meta and meta.get("breed")}
+    return _coverage[1]
 
 
-@lru_cache(maxsize=1)
 def candidate_pool() -> tuple[BreedTraits, ...]:
     """Breeds recommend_breeds may return: kind "breed", an AKC row, and the energy, shedding and
-    max-weight values the hard filters need (a breed missing one can never be checked, so it is out)."""
+    max-weight values the hard filters need (a breed missing one can never be checked, so it is out).
+    Breeds without knowledge chunks are dropped once the collection exists."""
     covered = _breeds_with_knowledge()
+    return _pool(None if covered is None else frozenset(covered))
+
+
+@lru_cache(maxsize=4)
+def _pool(covered: frozenset[str] | None) -> tuple[BreedTraits, ...]:
     pool = []
     for display, entry in sorted(load_breeds_map().items()):
         if entry["kind"] != "breed" or not entry["akc_name"]:
@@ -220,6 +235,12 @@ def recommend_breeds(home: str, hours_alone: int, daily_walks_min: int, kids_at_
         score, matched, close = _score_and_reasons(traits, args)
         ranked.append((score, traits.breed, matched, close))
     ranked.sort(key=lambda item: (-item[0], item[1]))
+    if not ranked:
+        logger.warning("recommend_breeds: no breed passes the hard filters for %s", args.model_dump())
+        return RecommendBreedsOutput(top3=[], message=(
+            "No breed in our data meets all of these needs together (flat: up to "
+            f"{config.FLAT_MAX_WEIGHT_KG:.0f} kg; {config.LONG_HOURS_ALONE}+ hours alone: not the highest "
+            "energy; allergies: low shedding). Tell the user and ask which requirement could be relaxed."))
     return RecommendBreedsOutput(top3=[
         RecommendedBreed(breed=breed, score=score, matched_traits=matched, close_traits=close)
         for score, breed, matched, close in ranked[:3]

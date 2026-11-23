@@ -19,6 +19,7 @@ Rules for tool code:
 from __future__ import annotations
 
 import json
+import logging
 import sys
 from pathlib import Path
 from types import ModuleType
@@ -40,7 +41,12 @@ from shared.schemas import (BREEDS_LIST_URI, BreedsList, Colour, DescribePetOutp
                             SearchKnowledgeOutput, Species, SuggestNamesOutput)
 
 mcp = FastMCP("pet-advisor")
-traits.akc_table()  # load the AKC CSV once at startup (get_breed_traits, recommend_breeds)
+
+try:  # load the AKC CSV and the recommend_breeds pool once at startup; a missing CSV only breaks those tools
+    traits.candidate_pool()
+except Exception:  # noqa: BLE001
+    logging.getLogger(__name__).exception("could not warm the AKC table; get_breed_traits and "
+                                          "recommend_breeds will fail until it is readable")
 
 M = TypeVar("M", bound=BaseModel)
 ImageId = Annotated[str, Field(pattern=IMAGE_ID_PATTERN,

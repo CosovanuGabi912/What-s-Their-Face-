@@ -10,6 +10,12 @@ from mcp_server.tools import traits as traits_tool
 from mcp_server.tools.traits import candidate_pool, get_breed_traits, recommend_breeds, target_energy
 
 
+@pytest.fixture(autouse=True)
+def no_knowledge_coverage(monkeypatch):
+    """The rules are tested on every AKC breed, whatever the local Chroma ingestion state."""
+    monkeypatch.setattr(traits_tool, "_breeds_with_knowledge", lambda: None)
+
+
 def _traits(name):
     return get_breed_traits(name).traits
 
@@ -79,12 +85,47 @@ def test_candidate_pool_only_has_dog_breeds_with_the_filter_fields():
 
 
 def test_candidate_pool_drops_breeds_without_knowledge_chunks(monkeypatch):
-    candidate_pool.cache_clear()
-    monkeypatch.setattr(traits_tool, "_breeds_with_knowledge", lambda: {"Beagle", "Pug"})
-    try:
-        assert {t.breed for t in candidate_pool()} == {"Beagle", "Pug"}
-    finally:
-        candidate_pool.cache_clear()
+    monkeypatch.setattr(traits_tool, "_breeds_with_knowledge", lambda: frozenset({"Beagle", "Pug"}))
+    assert {t.breed for t in candidate_pool()} == {"Beagle", "Pug"}
+
+
+def test_candidate_pool_follows_the_collection_after_ingestion(monkeypatch):
+    coverage = [None]
+    monkeypatch.setattr(traits_tool, "_breeds_with_knowledge", lambda: coverage[0])
+    assert len(candidate_pool()) > 2                        # not ingested yet: every AKC breed
+    coverage[0] = frozenset({"Beagle", "Pug"})              # ingested while the server runs
+    assert {t.breed for t in candidate_pool()} == {"Beagle", "Pug"}
+
+
+class _FakeCollection:
+    def __init__(self, breeds):
+        self.breeds = breeds
+
+    def count(self):
+        return len(self.breeds)
+
+    def get(self, include):
+        return {"metadatas": [{"breed": breed} for breed in self.breeds]}
+
+
+def test_coverage_is_reread_when_the_chunk_count_changes(monkeypatch, tmp_path):
+    import chromadb
+
+    collection = _FakeCollection(["Beagle"])
+    monkeypatch.undo()   # drop the autouse fixture: test the real _breeds_with_knowledge
+    monkeypatch.setattr(config, "CHROMA_KNOWLEDGE_DIR", tmp_path)
+    monkeypatch.setattr(traits_tool, "_coverage", None)
+    monkeypatch.setattr(chromadb, "PersistentClient",
+                        lambda path: type("Client", (), {"get_collection": lambda self, name: collection})())
+    assert traits_tool._breeds_with_knowledge() == {"Beagle"}
+    collection.breeds = ["Beagle", "Pug"]
+    assert traits_tool._breeds_with_knowledge() == {"Beagle", "Pug"}
+
+
+def test_no_qualifying_breed_returns_a_message(monkeypatch):
+    monkeypatch.setattr(traits_tool, "_breeds_with_knowledge", lambda: frozenset({"Great Dane"}))
+    result = recommend_breeds("flat", 2, 30, False, False, "none")
+    assert result.top3 == [] and "relaxed" in result.message
 
 
 def test_invalid_answers_raise():
