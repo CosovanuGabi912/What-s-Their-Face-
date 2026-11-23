@@ -199,6 +199,7 @@ class RecommendedBreed(Contract):
 
 class RecommendBreedsOutput(Contract):
     top3: List[RecommendedBreed] = Field(max_length=3)
+    message: Optional[str] = None    # only when top3 is empty: no breed passes the hard filters
 
 
 # --- 5. describe_pet ---------------------------------------------------------------------
