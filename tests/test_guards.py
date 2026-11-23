@@ -63,10 +63,23 @@ def test_each_safety_claim_needs_its_own_citation():
     assert not safety_claim_check(answer, ["kb:beagle:feeding:0"])
 
 
+def test_citation_right_after_the_full_stop_backs_the_claim():
+    answer = "Rice is safe for Beagles. [kb:beagle:feeding:0] Grapes are toxic."
+    assert safety_claim_check(answer, ["kb:beagle:feeding:0"])
+
+
+def test_warning_and_claim_in_one_sentence_is_still_a_claim():
+    assert not safety_claim_check("Bones are not always safe, but rice is safe for dogs.", [])
+
+
 @pytest.mark.parametrize("answer", [
     "Beagles need about an hour of exercise a day [kb:beagle:exercise:0].",
     "Chocolate is toxic to dogs; please contact your vet.",
     "I don't know.",
+    "Grapes are not safe for dogs, contact your vet.",       # a warning, not a safety claim
+    "Grapes aren\u2019t safe for dogs.",
+    "Cooked bones are never safe to give.",
+    "It won't hurt to ask your vet.",
 ])
 def test_answers_without_safety_claims_pass(answer):
     assert safety_claim_check(answer, [])
@@ -116,3 +129,13 @@ def test_out_of_scope_only_fires_on_golden_out_of_scope_items():
     for item in _golden("C"):
         if out_of_scope_check(item["input"]["message"]):
             assert item["expected"]["response_type"] == "out_of_scope", item["id"]
+
+
+@pytest.mark.parametrize("message", ["Can he eat fish?", "Is he OK around cats?", "Will she chase birds?"])
+def test_out_of_scope_lets_follow_ups_about_the_users_dog_through(message):
+    assert out_of_scope_check(message)                       # no dog in the message alone
+    assert not out_of_scope_check(message, dog_context=True)
+
+
+def test_adoption_stays_out_of_scope_in_a_dog_conversation():
+    assert out_of_scope_check("Where can I adopt a cat?", dog_context=True)

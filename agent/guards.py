@@ -125,12 +125,16 @@ def mentions_dogs(message: str) -> bool:
     return bool(DOG_WORDS_RE.search(text) or _breed_name_re().search(text))
 
 
-def out_of_scope_check(message: str) -> bool:
-    """True for adoption questions and for questions about animals other than dogs (not name requests)."""
+def out_of_scope_check(message: str, dog_context: bool = False) -> bool:
+    """True for adoption questions and for questions about animals other than dogs (not name requests).
+    dog_context: the conversation is already about a dog, so a follow-up like "Can he eat fish?" or
+    "Is he OK around cats?" is about that dog, not about the other animal."""
     text = message.casefold()
     if ADOPTION_RE.search(text):
         return True
-    return bool(OTHER_ANIMAL_RE.search(text)) and not NAMES_RE.search(text) and not mentions_dogs(message)
+    if dog_context or NAMES_RE.search(text):
+        return False
+    return bool(OTHER_ANIMAL_RE.search(text)) and not mentions_dogs(message)
 
 
 # --- citation_check / safety_claim_check ----------------------------------------------------------
@@ -155,13 +159,21 @@ SAFETY_CLAIM_RE = re.compile(
     r"\b(is|are|it's|its|they're|be)\s+(perfectly\s+|completely\s+|totally\s+|generally\s+|usually\s+)?"
     r"(safe|harmless|non-?toxic|not\s+(toxic|poisonous|dangerous|harmful))\b"
     r"|\bsafe\s+(for|to)\b"
-    r"|\b(won't|will\s+not|doesn't|does\s+not|can't|cannot)\s+(hurt|harm)\b")
-_SENTENCE_RE = re.compile(r"[^.!?\n]+[.!?]*")
+    r"|\b(won't|will\s+not|doesn't|does\s+not|can't|cannot)\s+(hurt|harm)\b(?!\s+to\b)")   # not "won't hurt to ask"
+# Warnings are not safety claims: "Grapes are not safe for dogs", "it is never safe to", "isn't always safe".
+_NEGATED_SAFE_RE = re.compile(r"\b(not|never|isn't|aren't|no\s+longer)\s+(\w+\s+)?safe\b")
+# A sentence keeps the citations right after its full stop: "Rice is safe for Beagles. [kb:beagle:feeding:0]"
+_SENTENCE_RE = re.compile(r"[^.!?\n]+[.!?]*(?:[ \t]*\[kb:[^\]\n]*\])*")
 
 
 def safety_claims(answer: str) -> list[str]:
-    """Sentences of the answer that claim something is safe."""
-    return [s.strip() for s in _SENTENCE_RE.findall(answer) if SAFETY_CLAIM_RE.search(s.casefold())]
+    """Sentences of the answer that claim something is safe (warnings that it is not safe are skipped)."""
+    claims = []
+    for sentence in _SENTENCE_RE.findall(answer):
+        text = _NEGATED_SAFE_RE.sub(" ", sentence.casefold().replace("\u2019", "'"))
+        if SAFETY_CLAIM_RE.search(text):
+            claims.append(sentence.strip())
+    return claims
 
 
 def unbacked_safety_claims(answer: str, retrieved_chunk_ids: Iterable[str]) -> list[str]:

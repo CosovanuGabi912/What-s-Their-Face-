@@ -87,6 +87,23 @@ async def test_tool_results_are_dropped_from_history_when_a_turn_ends():
 
 # --- Guards ------------------------------------------------------------------------------------
 @pytest.mark.asyncio
+async def test_follow_up_about_another_animal_reaches_the_slm_in_a_dog_conversation():
+    llm = FakeLLM(reply("Beagles are friendly hounds."), reply("Plain cooked fish is fine in small amounts."))
+    agent, _ = make_agent(llm)
+    await agent.run_turn("Tell me about Beagles")
+    assert await agent.run_turn("Can he eat fish?") != OUT_OF_SCOPE_REPLY
+    assert len(llm.requests) == 2
+
+
+@pytest.mark.asyncio
+async def test_other_animal_question_without_a_dog_is_out_of_scope():
+    llm = FakeLLM()
+    agent, _ = make_agent(llm)
+    assert await agent.run_turn("Can my parrot eat fish?") == OUT_OF_SCOPE_REPLY
+    assert llm.requests == []
+
+
+@pytest.mark.asyncio
 async def test_vet_check_runs_before_the_slm():
     llm = FakeLLM()
     agent, session = make_agent(llm)

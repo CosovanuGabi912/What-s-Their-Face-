@@ -39,8 +39,8 @@ from mcp.types import CallToolResult, Tool
 from openai import AsyncOpenAI
 
 import config
-from agent.guards import (OUT_OF_SCOPE_REPLY, VET_REPLY, citation_check, out_of_scope_check, safety_claim_check,
-                          unbacked_safety_claims, unretrieved_ids, vet_check)
+from agent.guards import (OUT_OF_SCOPE_REPLY, VET_REPLY, citation_check, mentions_dogs, out_of_scope_check,
+                          safety_claim_check, unbacked_safety_claims, unretrieved_ids, vet_check)
 from agent.state import QUESTIONNAIRE_FIELDS, ConversationState, extract_answers
 from shared.mcp_client import project_env, server_params
 from shared.schemas import ToolCallLog
@@ -225,9 +225,11 @@ class AgentLoop:
         if vet_check(user_message):
             logger.info("turn %d: vet_check fired", self.turn)
             return self._reply(VET_REPLY, "vet_referral")
-        if out_of_scope_check(user_message):
+        if out_of_scope_check(user_message, dog_context=self.state.about_a_dog()):
             logger.info("turn %d: out_of_scope_check fired", self.turn)
             return self._reply(OUT_OF_SCOPE_REPLY, "out_of_scope")
+        if mentions_dogs(user_message):
+            self.state.talked_about_dogs = True
 
         answers = extract_answers(user_message)       # "I live in a flat" -> the home question is skipped
         if answers:

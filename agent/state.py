@@ -24,6 +24,11 @@ class ConversationState:
     chosen_breed: str | None = None
     pet_description: str | None = None
     rejected_names: list[str] = field(default_factory=list)
+    talked_about_dogs: bool = False   # an earlier user message named a dog or breed (out_of_scope_check)
+
+    def about_a_dog(self) -> bool:
+        """The conversation is already about a dog: follow-ups about other animals are about that dog."""
+        return self.talked_about_dogs or bool(self.current_breed or self.chosen_breed)
 
     def missing_answers(self) -> list[str]:
         return [name for name in QUESTIONNAIRE_FIELDS if name not in self.questionnaire]
