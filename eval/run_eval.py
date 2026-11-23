@@ -1,10 +1,13 @@
-"""Evaluation harness for Parts A, B, and C of the Golden Dataset (issues #8 and #16).
+"""Evaluation harness for Parts A, B, C and D of the Golden Dataset (issues #8, #12 and #16).
 
 Usage:
     python eval/run_eval.py --part A --golden eval/golden.jsonl --output eval/results_A.json
     python eval/run_eval.py --part B --golden eval/golden.jsonl --output eval/results_B.json
     python eval/run_eval.py --part C --golden eval/golden.jsonl --output eval/results_C.json
+    python eval/run_eval.py --part D --golden eval/golden.jsonl --output eval/results_D_week8.json
 
+Part D calls recommend_breeds directly (no SLM, no LM Studio) and scores its top 3 against the
+expected breeds from scripts/validate_golden_d.py.
 Part C runs the real agent (agent/loop.py: code guards + the SLM in LM Studio + the MCP server) on
 each message, in a fresh conversation, and scores the kind of reply it gave (agent.last_reply_kind).
 --mode router scores the keyword router instead (no LM Studio needed; baseline for #21).
@@ -33,6 +36,8 @@ config.IMAGE_UPLOAD_DIR = config.EVAL_IMAGES_DIR
 
 from mcp_server.tools.breed_id import identify_breed
 from mcp_server.tools.knowledge import search_knowledge
+from mcp_server.tools.traits import recommend_breeds
+from scripts.validate_golden_d import score_top3
 from shared.schemas import GoldenItem
 
 
@@ -240,9 +245,31 @@ def eval_part_c(items: List[dict], mode: str = "agent", model: str = config.AGEN
     return {"aggregates": aggregates, "per_item": per_item}
 
 
+def eval_part_d(items: List[dict]) -> Dict[str, Any]:
+    per_item = []
+    for item in items:
+        top3 = [candidate.breed for candidate in recommend_breeds(**item["input"]).top3]
+        per_item.append({"id": item["id"], "input": item["input"], "top3": top3,
+                         "hard_filters": item["expected"].get("hard_filters", []),
+                         **score_top3(top3, item["expected"])})
+
+    n = len(per_item)
+
+    def rate(count: int) -> float:
+        return round(count / n, 4) if n else 0.0
+
+    aggregates = {
+        "num_items": n,
+        "pass_rate": rate(sum(entry["pass"] for entry in per_item)),
+        "no_forbidden_rate": rate(sum(not entry["forbidden_in_top3"] for entry in per_item)),
+        "acceptable_in_top3_rate": rate(sum(bool(entry["acceptable_in_top3"]) for entry in per_item)),
+    }
+    return {"aggregates": aggregates, "per_item": per_item}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--part", required=True, choices=["A", "B", "C", "all"], help="Golden part to evaluate")
+    parser.add_argument("--part", required=True, choices=["A", "B", "C", "D", "all"], help="Golden part to evaluate")
     parser.add_argument("--golden", type=Path, default=config.GOLDEN_PATH, help="Path to eval/golden.jsonl")
     parser.add_argument("--output", type=Path, default=None, help="Path to write evaluation results JSON")
     parser.add_argument("--mode", choices=["agent", "router"], default="agent",
@@ -264,11 +291,14 @@ def main() -> None:
         results = eval_part_b(items)
     elif args.part == "C":
         results = eval_part_c(items, args.mode, args.model)
+    elif args.part == "D":
+        results = eval_part_d(items)
     else:
         results = {
             "part_A": eval_part_a([i for i in items if i["part"] == "A"]),
             "part_B": eval_part_b([i for i in items if i["part"] == "B"]),
             "part_C": eval_part_c([i for i in items if i["part"] == "C"], args.mode, args.model),
+            "part_D": eval_part_d([i for i in items if i["part"] == "D"]),
         }
 
     output_data = {

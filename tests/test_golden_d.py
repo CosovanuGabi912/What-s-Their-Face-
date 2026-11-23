@@ -66,6 +66,22 @@ def test_validator_catches_a_wrong_item(items, akc):
     assert any("does not pass every hard filter" in error for error in gd.validate(broken, akc))
 
 
+def test_score_top3_follows_the_milestone_metric():
+    expected = {"forbidden_breeds": ["Bad"], "acceptable_breeds": ["Good", "Fine"]}
+    assert gd.score_top3(["Good", "Fine", "Unknown"], expected)["pass"] is True
+    assert gd.score_top3(["Good", "Bad", "Fine"], expected) == {
+        "forbidden_in_top3": ["Bad"], "acceptable_in_top3": ["Fine", "Good"], "pass": False}
+    assert gd.score_top3(["Unknown"], expected)["pass"] is False     # no acceptable breed
+    assert gd.score_top3([], expected)["pass"] is False
+
+
+def test_recommend_breeds_passes_every_part_d_item(items):
+    from mcp_server.tools.traits import recommend_breeds
+    for item in (i for i in items if i["part"] == "D"):
+        top3 = [candidate.breed for candidate in recommend_breeds(**item["input"]).top3]
+        assert gd.score_top3(top3, item["expected"])["pass"], (item["id"], top3)
+
+
 def test_rules_are_written_independently_of_the_tool():
     source = Path(gd.__file__).read_text(encoding="utf-8")
     assert "tools.traits" not in source and "tools import traits" not in source

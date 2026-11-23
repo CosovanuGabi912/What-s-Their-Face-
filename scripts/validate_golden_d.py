@@ -114,6 +114,14 @@ def expected_breeds(answers: dict, akc: dict[str, dict]) -> dict:
             "hard_filters": list(filters)}
 
 
+def score_top3(top3: list[str], expected: dict) -> dict:
+    """Milestone2 metric for Part D: no forbidden breed in the top 3, at least one acceptable breed."""
+    forbidden = sorted(set(top3) & set(expected["forbidden_breeds"]))
+    acceptable = sorted(set(top3) & set(expected["acceptable_breeds"]))
+    return {"forbidden_in_top3": forbidden, "acceptable_in_top3": acceptable,
+            "pass": not forbidden and bool(acceptable)}
+
+
 def read_golden(path: Path) -> list[dict]:
     if not path.exists():
         return []
