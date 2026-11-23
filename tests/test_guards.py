@@ -139,3 +139,24 @@ def test_out_of_scope_lets_follow_ups_about_the_users_dog_through(message):
 
 def test_adoption_stays_out_of_scope_in_a_dog_conversation():
     assert out_of_scope_check("Where can I adopt a cat?", dog_context=True)
+
+
+@pytest.mark.parametrize("message", ["Which cat breeds shed the least?", "What are the best rabbit breeds for kids?"])
+def test_other_animal_breeds_are_out_of_scope(message):
+    assert out_of_scope_check(message)
+
+
+def test_breed_question_that_mentions_a_cat_stays_in_scope():
+    assert not out_of_scope_check("Which breed is best for a flat with a cat?")
+
+
+def test_mentions_dogs_falls_back_to_dog_words_without_breeds_map(monkeypatch):
+    from agent import guards
+
+    def missing():
+        raise FileNotFoundError("breeds_map.json")
+
+    monkeypatch.setattr(guards, "_breed_name_re", missing)
+    assert guards.mentions_dogs("Is my dog OK with cats?")
+    assert not guards.mentions_dogs("Tell me about beagles")    # breed names need breeds_map
+

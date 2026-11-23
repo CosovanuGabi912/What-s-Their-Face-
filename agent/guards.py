@@ -119,10 +119,16 @@ def _breed_name_re() -> re.Pattern[str]:
     return re.compile(rf"\b({alternatives})s?\b")
 
 
+# "breed" after another animal is that animal's breed: "Which cat breeds shed the least?" is not about dogs.
+_OTHER_ANIMAL_BREED_RE = re.compile(OTHER_ANIMAL_RE.pattern + r"\s+breeds?\b")
+
+
 def mentions_dogs(message: str) -> bool:
-    """True when the message talks about dogs: a dog word or any breed name we know."""
-    text = normalise(message)
-    return bool(DOG_WORDS_RE.search(text) or _breed_name_re().search(text))
+    """True when the message talks about dogs: a dog word or any breed name we know. Falls back to the
+    dog words alone when breeds_map cannot be loaded, so the turn does not crash."""
+    text = _OTHER_ANIMAL_BREED_RE.sub(" ", normalise(message))
+    breed_re = _breed_names()
+    return bool(DOG_WORDS_RE.search(text) or (breed_re and breed_re.search(text)))
 
 
 def out_of_scope_check(message: str, dog_context: bool = False) -> bool:

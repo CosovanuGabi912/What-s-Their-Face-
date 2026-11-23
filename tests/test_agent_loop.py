@@ -96,6 +96,15 @@ async def test_follow_up_about_another_animal_reaches_the_slm_in_a_dog_conversat
 
 
 @pytest.mark.asyncio
+async def test_other_animal_breed_question_does_not_unlock_later_turns():
+    llm = FakeLLM()
+    agent, _ = make_agent(llm)
+    assert await agent.run_turn("Which cat breeds shed the least?") == OUT_OF_SCOPE_REPLY
+    assert await agent.run_turn("Can my parrot eat fish?") == OUT_OF_SCOPE_REPLY
+    assert llm.requests == []
+
+
+@pytest.mark.asyncio
 async def test_other_animal_question_without_a_dog_is_out_of_scope():
     llm = FakeLLM()
     agent, _ = make_agent(llm)
