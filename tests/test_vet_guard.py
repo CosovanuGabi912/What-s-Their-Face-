@@ -1,0 +1,83 @@
+"""vet_check: the code-enforced vet/danger guard (issue #11)."""
+
+import json
+
+import pytest
+
+import config
+from agent.guards import vet_check
+
+
+@pytest.mark.parametrize("message", [
+    "my dog ate chocolate",
+    "He ate grapes this morning",
+    "My dog is not breathing!",
+    "our puppy had a seizure",
+    "My dog collapsed in the park",
+    "I think my dog was poisoned",
+    "My dog overdosed on his pills",
+    "my dog is sick and won't eat",
+    "My cat keeps vomiting",
+    "our puppy has diarrhoea",
+    "My dog is unconscious",
+    "This is an emergency, my dog is bleeding",
+    "My Labrador has been vomiting all night",
+    "our dogs keep vomiting",
+    "my puppies have diarrhoea",
+    "My German Shepherd is lethargic and has diarrhea",
+    "My 3 year old lab threw up and now he is sick",
+    "My dog has two broken legs after a fall",
+    "our puppy has broken bones",
+    "My dog threw up twice tonight",
+    "My lovely 3 year old female lab is vomiting",
+])
+def test_vet_check_fires(message):
+    assert vet_check(message)
+
+
+@pytest.mark.parametrize("message", [
+    "how much exercise",
+    "How much exercise does a Siberian Husky need?",
+    "Is a Beagle good with kids?",
+    "What bleeding disorder is genetically inherited in Dobermans?",
+    "What acute gastrointestinal emergency is common in Great Danes?",
+    "Which veterinary emergency clinic in downtown Cluj-Napoca is open right now?",
+    "What emergency is common in my Great Dane?",
+    "Is chocolate toxic for my dog?",
+    "Which chew toys are non-toxic for my puppy?",
+    "Is ivy poisonous to my dog?",
+    "Will my puppy get car sick on long car trips?",
+    "My dog loves the car. My son gets sick on trips though.",
+    "My son is often sick, which dog breed is calm?",
+])
+def test_vet_check_does_not_fire(message):
+    assert not vet_check(message)
+
+
+def test_vet_check_falls_back_to_pet_words_without_breeds_map(monkeypatch):
+    from agent import guards
+
+    def missing():
+        raise FileNotFoundError("breeds_map.json")
+
+    monkeypatch.setattr(guards, "_breed_name_re", missing)
+    assert vet_check("my dog is sick")
+    assert not vet_check("my Bernese is sick")    # breed names need breeds_map
+    assert not vet_check("Is a Beagle good with kids?")
+
+
+def _golden(part):
+    with config.GOLDEN_PATH.open(encoding="utf-8") as file:
+        items = [json.loads(line) for line in file if line.strip()]
+    return [item for item in items if item["part"] == part]
+
+
+def test_golden_part_c_vet_referrals_fire_and_the_rest_do_not():
+    for item in _golden("C"):
+        expected = item["expected"]["response_type"] == "vet_referral"
+        assert vet_check(item["input"]["message"]) == expected, item["id"]
+
+
+def test_golden_part_b_breed_questions_are_never_blocked():
+    for item in _golden("B"):
+        assert not vet_check(item["input"]["query"]), item["id"]

@@ -1,0 +1,8 @@
+{
+ "confidence_threshold": 0.82,
+ "top2_threshold": 0.4,
+ "top2_rule": "top-1 >= top2_threshold (shared.schemas.breed_decision)",
+ "tuned_on": "validation split",
+ "method": "trial and error",
+ "reason": "0.82: 95% of confident answers are correct and 88% of answers are confident. 0.40: only 1.2% of answers become retry and the true breed is one of the 2 shown 92% of the time; a higher value mostly sends photos to retry whose breed was already in the top 2 (74% at 0.50)."
+}

@@ -1,0 +1,9 @@
+{
+ "temperature": 0.7888,
+ "fitted_on": "validation split (2400 images, stanford_dogs_val.json)",
+ "nll_before": 0.4285,
+ "nll_after": 0.3679,
+ "ece_before": 0.0774,
+ "ece_after": 0.0247,
+ "top1_accuracy": 0.9042
+}

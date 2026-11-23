@@ -77,6 +77,12 @@ def _threshold(key: str, default: float) -> float:
 CONFIDENCE_HIGH = _threshold("confidence_threshold", 0.82)  # 0.82 = #10 result (95% precision on val)
 CONFIDENCE_LOW  = _threshold("top2_threshold", 0.50)        # provisional until #10 tunes it
 
+# --- recommend_breeds hard filters (docs/milestone2.md "remove" rules; golden Part D uses the same) ---
+FLAT_MAX_WEIGHT_KG  = 25   # home == "flat": remove breeds whose maximum weight is over this
+LONG_HOURS_ALONE    = 8    # hours_alone >= this: remove breeds with energy >= HIGH_ENERGY_SCORE
+HIGH_ENERGY_SCORE   = 5
+HIGH_SHEDDING_SCORE = 4    # has_allergies: remove breeds with shedding >= this
+
 # --- Stub tools ------------------------------------------------------------------------------
 # Tools listed here are served from mcp_server/tools/stubs.py instead of the real implementation,
 # e.g. WTF_STUB_TOOLS=identify_breed,describe_pet on a laptop without the classifier weights,
