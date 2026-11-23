@@ -42,11 +42,8 @@ from shared.schemas import GoldenItem
 
 
 def compute_sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as f:
-        for chunk in iter(lambda: f.read(1 << 20), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+    """Hash with LF line endings, so Windows and macOS checkouts of the same file agree."""
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def load_golden(golden_path: Path, part: str) -> List[dict]:

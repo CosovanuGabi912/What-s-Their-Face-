@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import copy
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -80,6 +82,16 @@ def test_recommend_breeds_passes_every_part_d_item(items):
     for item in (i for i in items if i["part"] == "D"):
         top3 = [candidate.breed for candidate in recommend_breeds(**item["input"]).top3]
         assert gd.score_top3(top3, item["expected"])["pass"], (item["id"], top3)
+
+
+def test_golden_hash_is_the_same_on_windows_and_macos(tmp_path):
+    (tmp_path / "lf.jsonl").write_bytes(b'{"id": 1}\n{"id": 2}\n')
+    (tmp_path / "crlf.jsonl").write_bytes(b'{"id": 1}\r\n{"id": 2}\r\n')
+    code = ("import sys; from pathlib import Path; from eval.run_eval import compute_sha256 as h; "
+            "print(h(Path(sys.argv[1])) == h(Path(sys.argv[2])))")
+    done = subprocess.run([sys.executable, "-c", code, str(tmp_path / "lf.jsonl"), str(tmp_path / "crlf.jsonl")],
+                          cwd=config.ROOT, capture_output=True, text=True, check=True)
+    assert done.stdout.strip().endswith("True")
 
 
 def test_rules_are_written_independently_of_the_tool():

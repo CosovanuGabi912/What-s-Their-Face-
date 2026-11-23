@@ -1,6 +1,6 @@
 {
   "part": "D",
-  "golden_sha256": "b4e2508174118f03873b614c24854595be0ab5a5b19f5d70e4517636af364bda",
+  "golden_sha256": "c462c8c5f786a74f2254715257bc63ea9a14cecca63cfea38852a9dc1d98d09b",
   "aggregates": {
     "num_items": 20,
     "pass_rate": 1.0,
