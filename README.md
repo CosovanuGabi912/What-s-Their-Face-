@@ -65,6 +65,22 @@ commit it and share a new `data_<commit>.zip`.
 - `shared/mcp_client.py`: start the server with `server_params()`. The MCP stdio client does not pass the parent's environment to the server, so without it `WTF_*`, `LM_STUDIO_*`, model and ML runtime variables (`HF_*`, `TORCH_*`, `PYTORCH_*`, `CUDA_VISIBLE_DEVICES`) set in code or in the terminal never reach the tools (values in `.env` still work). `tests/test_server_hygiene.py` enforces the stdout rule below and JSON-Schema-safe regex patterns.
 - Tool code must never print to stdout: over stdio, stdout carries the MCP protocol. Use `logging` (stderr).
 
+## Chat UI (issue #13)
+
+Quick start, from the repository root, with LM Studio running and the agent model loaded (see below):
+
+```bash
+chainlit run app/app.py          # opens http://localhost:8000
+# No classifier weights or data on this laptop? Serve the tools from fixed sample data:
+#   WTF_STUB_TOOLS=all chainlit run app/app.py    (Windows PowerShell: $env:WTF_STUB_TOOLS="all"; chainlit run app/app.py)
+```
+
+- Send text, or attach a photo. Every photo is re-encoded to an RGB JPEG (PNG, WebP and HEIC from phones are accepted)
+  and saved as `IMAGE_UPLOAD_DIR/<uuid>.jpg`. Only that file name (the `image_id`) goes to the agent and the MCP tools.
+- A photo sent without text is asked as "What breed is this dog?".
+- One `AgentLoop` (and one MCP server process) per chat session. `app/app.py` holds it in `cl.user_session`.
+- Tests: `python -m pytest tests/test_chainlit_upload.py`.
+
 ## Agent SLM (issue #7)
 
 - In LM Studio load **Qwen3-4B** (id `qwen3-4b`, or set `AGENT_MODEL` in `.env`) with **Context Length 8192**

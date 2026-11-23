@@ -120,6 +120,32 @@ def test_coverage_is_reread_when_the_chunk_count_changes(monkeypatch, tmp_path):
     assert traits_tool._breeds_with_knowledge() == {"Beagle"}
     collection.breeds = ["Beagle", "Pug"]
     assert traits_tool._breeds_with_knowledge() == {"Beagle", "Pug"}
+    collection.breeds = []                                   # empty after a failed ingest
+    assert traits_tool._breeds_with_knowledge() is None      # skip the check, don't drop every breed
+
+
+def test_partial_coverage_is_logged(monkeypatch, caplog):
+    monkeypatch.setattr(traits_tool, "_breeds_with_knowledge", lambda: frozenset({"Beagle", "Pug"}))
+    traits_tool._pool.cache_clear()
+    candidate_pool()
+    assert "is the ingestion complete" in caplog.text
+
+
+def test_duplicate_akc_rows_keep_the_last_one(monkeypatch, tmp_path):
+    original = traits_tool.akc_table()
+    name = original.index[0]
+    duplicated = original.iloc[[0]].copy()
+    duplicated["energy_level_value"] = 0.2
+    csv = tmp_path / "akc.csv"
+    traits_tool.pd.concat([original, duplicated]).to_csv(csv)
+    monkeypatch.setattr(config, "AKC_TABLE_PATH", csv)
+    traits_tool.akc_table.cache_clear()
+    try:
+        table = traits_tool.akc_table()
+        assert table.index.is_unique
+        assert table.loc[name, "energy_level_value"] == 0.2
+    finally:
+        traits_tool.akc_table.cache_clear()
 
 
 def test_no_qualifying_breed_returns_a_message(monkeypatch):

@@ -13,12 +13,15 @@ On every final answer:
 
 from __future__ import annotations
 
+import logging
 import re
 from functools import lru_cache
 from typing import Iterable
 
 from shared.breeds import aliases, load_breeds_map, normalise
 from shared.schemas import CHUNK_ID_RE
+
+logger = logging.getLogger(__name__)
 
 VET_REPLY = ("This sounds like it could be a health emergency, and I can't give medical advice. "
              "Please contact your vet or an emergency animal clinic right away.")
@@ -36,8 +39,8 @@ OWN_PET_RE = re.compile(r"\b(my|our)\b")
 # ("What emergency is common in my Great Dane?"); "my dog ate X" and the symptom check below cover those.
 VET_KEYWORDS_RE = re.compile(
     r"\b(bleeding|not breathing|can[’']?t breathe|cannot breathe|seizures?|collaps(e|es|ed|ing)|unconscious|"
-    r"poison(ed|ing)?|overdos(e|es|ed|ing)|vomiting blood|throwing up|blood in|hit by a (car|bike|truck)|"
-    r"choking|broken (leg|bone)|swallowed)\b")
+    r"poison(ed|ing)?|overdos(e|es|ed|ing)|vomiting blood|throwing up|thr(ew|ows|own) up|blood in|hit by a (car|bike|truck)|"
+    r"choking|broken (legs?|bones?)|swallowed)\b")
 
 # Patterns from issue #11. They fire without "my"/"our":
 #   "he ate chocolate", "she has eaten grapes": an eating verb followed by something toxic.
@@ -47,24 +50,35 @@ VET_PATTERNS = (
 )
 
 # Own pet with symptoms: "my dog is sick", "our dogs keep vomiting", "my Labrador has diarrhoea".
-# Checked per clause (no match across sentences), with the pet named within a few words of "my"/"our"
+# Checked per clause (no match across sentences), with the pet named within 8 words of "my"/"our"
 # ("my son is sick, which dog breed ..." is not about the dog) and the symptom after it.
 _CLAUSE_RE = re.compile(r"[^.?!;\n]+")
-_OWNER_RE = re.compile(r"\b(my|our)\b((?: \w+){1,5})")
+_OWNER_RE = re.compile(r"\b(my|our)\b((?: \w+){1,8})")   # "my lovely 3 year old female lab"
 _PET_WORDS_RE = re.compile(
     r"\b(dogs?|doggy|doggies|pupp(y|ies)|pups?|pets?|cats?|kittens?|labs?|labradors?|goldens?|frenchies|frenchie|"
     r"retrievers?|terriers?|spaniels?|shepherds?|hounds?|collies?|poodles?|bulldogs?|pointers?|setters?)\b")
 # "car sick", "travel sick", "motion sick", "sea sick" are not symptoms to send to a vet.
 _SYMPTOM_RE = re.compile(r"(?<!car )(?<!travel )(?<!motion )(?<!sea )\bsick\b|\bvomit(s|ed|ing)?\b|"
-                         r"\bdiarrh(o)?ea\b|\bunconscious\b|\blethargic\b|\bthrowing up\b")
+                         r"\bdiarrh(o)?ea\b|\bunconscious\b|\blethargic\b|\bthr(ow|owing|ew|ows|own) up\b")
+
+
+def _breed_names() -> re.Pattern[str] | None:
+    """_breed_name_re(), or None when breeds_map cannot be loaded: the vet guard then falls back to the
+    plain pet words instead of crashing the turn. A failure is not cached, so a fixed file is picked up."""
+    try:
+        return _breed_name_re()
+    except Exception:  # noqa: BLE001  (missing or malformed breeds_map.json)
+        logger.warning("vet_check: could not load breed names; matching pet words only", exc_info=True)
+        return None
 
 
 def _own_pet_has_symptoms(message: str) -> bool:
+    breed_re = _breed_names()
     for clause in _CLAUSE_RE.findall(message.casefold()):
         text = normalise(clause)
         for owner in _OWNER_RE.finditer(text):
             subject = owner.group(2)
-            pets = [m for m in (_PET_WORDS_RE.search(subject), _breed_name_re().search(subject)) if m]
+            pets = [m for m in (_PET_WORDS_RE.search(subject), breed_re and breed_re.search(subject)) if m]
             if pets and _SYMPTOM_RE.search(text, owner.start(2) + min(m.end() for m in pets)):
                 return True
     return False

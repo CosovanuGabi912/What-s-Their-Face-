@@ -55,8 +55,14 @@ _RANGE_COLUMNS = {  # the CSV already stores cm and kg
 # --- AKC table ---------------------------------------------------------------------------------
 @lru_cache(maxsize=1)
 def akc_table() -> pd.DataFrame:
-    """The AKC CSV, indexed by AKC breed name (its first, unnamed column)."""
-    return pd.read_csv(config.AKC_TABLE_PATH, index_col=0)
+    """The AKC CSV, indexed by AKC breed name (its first, unnamed column). A duplicated name keeps its
+    last row: with two rows, table.loc[name] would be a DataFrame and every trait would read as None."""
+    table = pd.read_csv(config.AKC_TABLE_PATH, index_col=0)
+    duplicated = table.index.duplicated(keep="last")
+    if duplicated.any():
+        logger.warning("AKC table: duplicate rows for %s; keeping the last one",
+                       sorted(set(table.index[duplicated])))
+    return table[~duplicated]
 
 
 def _float(value) -> float | None:
@@ -109,8 +115,9 @@ _coverage: tuple[int, frozenset[str]] | None = None   # (chunk count, breeds wit
 
 def _breeds_with_knowledge() -> frozenset[str] | None:
     """Display names with at least one chunk in the Chroma knowledge collection, so the agent can
-    cite a reason for every recommended breed. None when the collection has not been ingested yet
-    (then no breed is dropped for this reason; every AKC breed has a raw Wikipedia profile)."""
+    cite a reason for every recommended breed. None when the collection has not been ingested yet or
+    has no breed chunks (then no breed is dropped for this reason; every AKC breed has a raw Wikipedia
+    profile): an empty collection after a failed ingest must not empty every recommendation."""
     global _coverage
     if not config.CHROMA_KNOWLEDGE_DIR.exists():
         logger.warning("knowledge collection not found at %s; recommend_breeds skips the coverage check",
@@ -128,6 +135,10 @@ def _breeds_with_knowledge() -> frozenset[str] | None:
     except Exception:  # noqa: BLE001  (missing collection, chromadb not installed, ...)
         logger.warning("could not read the knowledge collection; recommend_breeds skips the coverage check",
                        exc_info=True)
+        return None
+    if not _coverage[1]:
+        logger.warning("knowledge collection at %s has no breed chunks; recommend_breeds skips the coverage "
+                       "check", config.CHROMA_KNOWLEDGE_DIR)
         return None
     return _coverage[1]
 
@@ -152,6 +163,9 @@ def _pool(covered: frozenset[str] | None) -> tuple[BreedTraits, ...]:
         if traits is None or None in (traits.energy, traits.shedding, traits.weight_kg_max):
             continue
         pool.append(traits)
+    if covered is not None and len(pool) < len(_pool(None)) / 2:   # logged once per coverage state
+        logger.warning("knowledge coverage keeps only %d of %d AKC breeds for recommend_breeds; is the "
+                       "ingestion complete?", len(pool), len(_pool(None)))
     return tuple(pool)
 
 
