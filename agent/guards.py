@@ -9,6 +9,9 @@
 from __future__ import annotations
 
 import re
+from functools import lru_cache
+
+from shared.breeds import aliases, load_breeds_map, normalise
 
 VET_REPLY = ("This sounds like it could be a health emergency, and I can't give medical advice. "
              "Please contact your vet or an emergency animal clinic right away.")
@@ -19,7 +22,7 @@ VET_REPLY = ("This sounds like it could be a health emergency, and I can't give 
 # "my dog is bleeding" is an emergency.
 OWN_PET_RE = re.compile(r"\b(my|our)\b")
 # Whole words only. No "toxic"/"poisonous" ("Is chocolate toxic for my dog?", "non-toxic chew toys for my
-# puppy" are questions for search_knowledge, whose answers safety_claim_check guards) and no "emergency"
+# puppy" are questions for search_knowledge, answered with citations) and no "emergency"
 # ("What emergency is common in my Great Dane?"); "my dog ate X" and the symptom check below cover those.
 VET_KEYWORDS_RE = re.compile(
     r"\b(bleeding|not breathing|can[’']?t breathe|cannot breathe|seizures?|collaps(e|es|ed|ing)|unconscious|"
@@ -44,6 +47,19 @@ _PET_WORDS_RE = re.compile(
 # "car sick", "travel sick", "motion sick", "sea sick" are not symptoms to send to a vet.
 _SYMPTOM_RE = re.compile(r"(?<!car )(?<!travel )(?<!motion )(?<!sea )\bsick\b|\bvomit(s|ed|ing)?\b|"
                          r"\bdiarrh(o)?ea\b|\bunconscious\b|\blethargic\b|\bthrowing up\b")
+
+
+@lru_cache(maxsize=1)
+def _breed_name_re() -> re.Pattern[str]:
+    """Every display name and alias in breeds_map (normalised), as words, with an optional plural s."""
+    names = set()
+    for display, entry in load_breeds_map().items():
+        for name in (display, *aliases(entry)):
+            normalised = normalise(name)
+            if len(normalised) > 3 and not normalised.startswith("n0"):   # skip WordNet ids
+                names.add(normalised)
+    alternatives = "|".join(re.escape(name) for name in sorted(names, key=len, reverse=True))
+    return re.compile(rf"\b({alternatives})s?\b")
 
 
 def _own_pet_has_symptoms(message: str) -> bool:
