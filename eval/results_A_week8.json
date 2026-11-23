@@ -1,6 +1,6 @@
 {
   "part": "A",
-  "golden_sha256": "40a3e8bd524cc38e34e1a00ebefdc8fc6df479ddbd3c3bac68a438f64afff64d",
+  "golden_sha256": "c462c8c5f786a74f2254715257bc63ea9a14cecca63cfea38852a9dc1d98d09b",
   "aggregates": {
     "num_items": 100,
     "top1_accuracy": 0.88,

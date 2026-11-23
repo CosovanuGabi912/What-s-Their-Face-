@@ -1,0 +1,535 @@
+{
+  "part": "D",
+  "golden_sha256": "c462c8c5f786a74f2254715257bc63ea9a14cecca63cfea38852a9dc1d98d09b",
+  "aggregates": {
+    "num_items": 20,
+    "pass_rate": 1.0,
+    "no_forbidden_rate": 1.0,
+    "acceptable_in_top3_rate": 1.0
+  },
+  "per_item": [
+    {
+      "id": "D_001",
+      "input": {
+        "home": "flat",
+        "hours_alone": 9,
+        "daily_walks_min": 20,
+        "kids_at_home": false,
+        "has_allergies": true,
+        "experience": "none"
+      },
+      "top3": [
+        "Cavalier King Charles Spaniel",
+        "American Water Spaniel",
+        "Boston Terrier"
+      ],
+      "hard_filters": [
+        "flat: max weight > 25 kg",
+        "8+ hours alone: energy 5/5",
+        "allergies: shedding 4-5/5"
+      ],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "American Water Spaniel",
+        "Boston Terrier",
+        "Cavalier King Charles Spaniel"
+      ],
+      "pass": true
+    },
+    {
+      "id": "D_002",
+      "input": {
+        "home": "flat",
+        "hours_alone": 8,
+        "daily_walks_min": 30,
+        "kids_at_home": false,
+        "has_allergies": false,
+        "experience": "none"
+      },
+      "top3": [
+        "American Water Spaniel",
+        "Boston Terrier",
+        "Boykin Spaniel"
+      ],
+      "hard_filters": [
+        "flat: max weight > 25 kg",
+        "8+ hours alone: energy 5/5"
+      ],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "American Water Spaniel",
+        "Boston Terrier",
+        "Boykin Spaniel"
+      ],
+      "pass": true
+    },
+    {
+      "id": "D_003",
+      "input": {
+        "home": "flat",
+        "hours_alone": 4,
+        "daily_walks_min": 45,
+        "kids_at_home": true,
+        "has_allergies": false,
+        "experience": "some"
+      },
+      "top3": [
+        "Affenpinscher",
+        "Basset Fauve de Bretagne",
+        "Bearded Collie"
+      ],
+      "hard_filters": [
+        "flat: max weight > 25 kg"
+      ],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "Affenpinscher",
+        "Basset Fauve de Bretagne",
+        "Bearded Collie"
+      ],
+      "pass": true
+    },
+    {
+      "id": "D_004",
+      "input": {
+        "home": "flat",
+        "hours_alone": 2,
+        "daily_walks_min": 60,
+        "kids_at_home": false,
+        "has_allergies": true,
+        "experience": "experienced"
+      },
+      "top3": [
+        "American Eskimo Dog",
+        "Australian Stumpy Tail Cattle Dog",
+        "Australian Terrier"
+      ],
+      "hard_filters": [
+        "flat: max weight > 25 kg",
+        "allergies: shedding 4-5/5"
+      ],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "American Eskimo Dog",
+        "Australian Stumpy Tail Cattle Dog",
+        "Australian Terrier"
+      ],
+      "pass": true
+    },
+    {
+      "id": "D_005",
+      "input": {
+        "home": "flat",
+        "hours_alone": 7,
+        "daily_walks_min": 30,
+        "kids_at_home": false,
+        "has_allergies": false,
+        "experience": "none"
+      },
+      "top3": [
+        "American Water Spaniel",
+        "Boston Terrier",
+        "Boykin Spaniel"
+      ],
+      "hard_filters": [
+        "flat: max weight > 25 kg"
+      ],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "American Water Spaniel",
+        "Boston Terrier",
+        "Boykin Spaniel"
+      ],
+      "pass": true
+    },
+    {
+      "id": "D_006",
+      "input": {
+        "home": "house",
+        "hours_alone": 10,
+        "daily_walks_min": 30,
+        "kids_at_home": true,
+        "has_allergies": false,
+        "experience": "some"
+      },
+      "top3": [
+        "Affenpinscher",
+        "Basset Fauve de Bretagne",
+        "Bearded Collie"
+      ],
+      "hard_filters": [
+        "8+ hours alone: energy 5/5"
+      ],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "Affenpinscher",
+        "Basset Fauve de Bretagne",
+        "Bearded Collie"
+      ],
+      "pass": true
+    },
+    {
+      "id": "D_007",
+      "input": {
+        "home": "house",
+        "hours_alone": 8,
+        "daily_walks_min": 90,
+        "kids_at_home": false,
+        "has_allergies": true,
+        "experience": "experienced"
+      },
+      "top3": [
+        "Afghan Hound",
+        "Akita",
+        "Alaskan Malamute"
+      ],
+      "hard_filters": [
+        "8+ hours alone: energy 5/5",
+        "allergies: shedding 4-5/5"
+      ],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "Afghan Hound",
+        "Akita",
+        "Alaskan Malamute"
+      ],
+      "pass": true
+    },
+    {
+      "id": "D_008",
+      "input": {
+        "home": "house",
+        "hours_alone": 3,
+        "daily_walks_min": 120,
+        "kids_at_home": true,
+        "has_allergies": false,
+        "experience": "experienced"
+      },
+      "top3": [
+        "Irish Setter",
+        "Labrador Retriever",
+        "American Eskimo Dog"
+      ],
+      "hard_filters": [],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "American Eskimo Dog",
+        "Irish Setter",
+        "Labrador Retriever"
+      ],
+      "pass": true
+    },
+    {
+      "id": "D_009",
+      "input": {
+        "home": "house",
+        "hours_alone": 5,
+        "daily_walks_min": 40,
+        "kids_at_home": true,
+        "has_allergies": true,
+        "experience": "none"
+      },
+      "top3": [
+        "Boston Terrier",
+        "Cocker Spaniel",
+        "Papillon"
+      ],
+      "hard_filters": [
+        "allergies: shedding 4-5/5"
+      ],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "Boston Terrier",
+        "Cocker Spaniel",
+        "Papillon"
+      ],
+      "pass": true
+    },
+    {
+      "id": "D_010",
+      "input": {
+        "home": "house_with_garden",
+        "hours_alone": 1,
+        "daily_walks_min": 150,
+        "kids_at_home": true,
+        "has_allergies": false,
+        "experience": "experienced"
+      },
+      "top3": [
+        "Irish Setter",
+        "Labrador Retriever",
+        "American Eskimo Dog"
+      ],
+      "hard_filters": [],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "American Eskimo Dog",
+        "Irish Setter",
+        "Labrador Retriever"
+      ],
+      "pass": true
+    },
+    {
+      "id": "D_011",
+      "input": {
+        "home": "house_with_garden",
+        "hours_alone": 9,
+        "daily_walks_min": 60,
+        "kids_at_home": true,
+        "has_allergies": false,
+        "experience": "some"
+      },
+      "top3": [
+        "American Eskimo Dog",
+        "Boxer",
+        "Pembroke Welsh Corgi"
+      ],
+      "hard_filters": [
+        "8+ hours alone: energy 5/5"
+      ],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "American Eskimo Dog",
+        "Boxer",
+        "Pembroke Welsh Corgi"
+      ],
+      "pass": true
+    },
+    {
+      "id": "D_012",
+      "input": {
+        "home": "house_with_garden",
+        "hours_alone": 6,
+        "daily_walks_min": 20,
+        "kids_at_home": false,
+        "has_allergies": true,
+        "experience": "none"
+      },
+      "top3": [
+        "Cavalier King Charles Spaniel",
+        "Airedale Terrier",
+        "American Water Spaniel"
+      ],
+      "hard_filters": [
+        "allergies: shedding 4-5/5"
+      ],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "Airedale Terrier",
+        "American Water Spaniel",
+        "Cavalier King Charles Spaniel"
+      ],
+      "pass": true
+    },
+    {
+      "id": "D_013",
+      "input": {
+        "home": "house_with_garden",
+        "hours_alone": 0,
+        "daily_walks_min": 180,
+        "kids_at_home": false,
+        "has_allergies": false,
+        "experience": "experienced"
+      },
+      "top3": [
+        "Appenzeller Sennenhund",
+        "Australian Cattle Dog",
+        "Beauceron"
+      ],
+      "hard_filters": [],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "Appenzeller Sennenhund",
+        "Australian Cattle Dog",
+        "Beauceron"
+      ],
+      "pass": true
+    },
+    {
+      "id": "D_014",
+      "input": {
+        "home": "flat",
+        "hours_alone": 10,
+        "daily_walks_min": 15,
+        "kids_at_home": false,
+        "has_allergies": false,
+        "experience": "none"
+      },
+      "top3": [
+        "Cavalier King Charles Spaniel",
+        "American Water Spaniel",
+        "Boston Terrier"
+      ],
+      "hard_filters": [
+        "flat: max weight > 25 kg",
+        "8+ hours alone: energy 5/5"
+      ],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "American Water Spaniel",
+        "Boston Terrier",
+        "Cavalier King Charles Spaniel"
+      ],
+      "pass": true
+    },
+    {
+      "id": "D_015",
+      "input": {
+        "home": "flat",
+        "hours_alone": 0,
+        "daily_walks_min": 120,
+        "kids_at_home": false,
+        "has_allergies": true,
+        "experience": "some"
+      },
+      "top3": [
+        "Border Collie",
+        "Braque Francais Pyrenean",
+        "Brittany"
+      ],
+      "hard_filters": [
+        "flat: max weight > 25 kg",
+        "allergies: shedding 4-5/5"
+      ],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "Border Collie",
+        "Braque Francais Pyrenean",
+        "Brittany"
+      ],
+      "pass": true
+    },
+    {
+      "id": "D_016",
+      "input": {
+        "home": "house",
+        "hours_alone": 12,
+        "daily_walks_min": 0,
+        "kids_at_home": false,
+        "has_allergies": false,
+        "experience": "none"
+      },
+      "top3": [
+        "Cavalier King Charles Spaniel",
+        "Airedale Terrier",
+        "American Water Spaniel"
+      ],
+      "hard_filters": [
+        "8+ hours alone: energy 5/5"
+      ],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "Airedale Terrier",
+        "American Water Spaniel",
+        "Cavalier King Charles Spaniel"
+      ],
+      "pass": true
+    },
+    {
+      "id": "D_017",
+      "input": {
+        "home": "house_with_garden",
+        "hours_alone": 8,
+        "daily_walks_min": 45,
+        "kids_at_home": true,
+        "has_allergies": true,
+        "experience": "some"
+      },
+      "top3": [
+        "Affenpinscher",
+        "Basset Fauve de Bretagne",
+        "Bearded Collie"
+      ],
+      "hard_filters": [
+        "8+ hours alone: energy 5/5",
+        "allergies: shedding 4-5/5"
+      ],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "Affenpinscher",
+        "Basset Fauve de Bretagne",
+        "Bearded Collie"
+      ],
+      "pass": true
+    },
+    {
+      "id": "D_018",
+      "input": {
+        "home": "flat",
+        "hours_alone": 5,
+        "daily_walks_min": 90,
+        "kids_at_home": true,
+        "has_allergies": true,
+        "experience": "experienced"
+      },
+      "top3": [
+        "American Eskimo Dog",
+        "Welsh Terrier",
+        "Affenpinscher"
+      ],
+      "hard_filters": [
+        "flat: max weight > 25 kg",
+        "allergies: shedding 4-5/5"
+      ],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "Affenpinscher",
+        "American Eskimo Dog",
+        "Welsh Terrier"
+      ],
+      "pass": true
+    },
+    {
+      "id": "D_019",
+      "input": {
+        "home": "house",
+        "hours_alone": 6,
+        "daily_walks_min": 60,
+        "kids_at_home": false,
+        "has_allergies": false,
+        "experience": "some"
+      },
+      "top3": [
+        "Afghan Hound",
+        "Akita",
+        "Alaskan Malamute"
+      ],
+      "hard_filters": [],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "Afghan Hound",
+        "Akita",
+        "Alaskan Malamute"
+      ],
+      "pass": true
+    },
+    {
+      "id": "D_020",
+      "input": {
+        "home": "flat",
+        "hours_alone": 8,
+        "daily_walks_min": 60,
+        "kids_at_home": true,
+        "has_allergies": true,
+        "experience": "some"
+      },
+      "top3": [
+        "American Eskimo Dog",
+        "Welsh Terrier",
+        "Affenpinscher"
+      ],
+      "hard_filters": [
+        "flat: max weight > 25 kg",
+        "8+ hours alone: energy 5/5",
+        "allergies: shedding 4-5/5"
+      ],
+      "forbidden_in_top3": [],
+      "acceptable_in_top3": [
+        "Affenpinscher",
+        "American Eskimo Dog",
+        "Welsh Terrier"
+      ],
+      "pass": true
+    }
+  ]
+}
