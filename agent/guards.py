@@ -18,30 +18,51 @@ VET_REPLY = ("This sounds like it could be a health emergency, and I can't give 
 # and "What emergency is common in Great Danes?" (golden Part B) are breed questions for search_knowledge,
 # "my dog is bleeding" is an emergency.
 OWN_PET_RE = re.compile(r"\b(my|our)\b")
-VET_KEYWORDS = (
-    "bleeding", "not breathing", "can't breathe", "cannot breathe", "seizure", "collapse",
-    "unconscious", "poison", "toxic", "overdose", "emergency", "vomiting blood", "throwing up",
-    "blood in", "hit by a car", "choking", "broken leg", "swallowed",
-)
+# Whole words only. No "toxic"/"poisonous" ("Is chocolate toxic for my dog?", "non-toxic chew toys for my
+# puppy" are questions for search_knowledge, whose answers safety_claim_check guards) and no "emergency"
+# ("What emergency is common in my Great Dane?"); "my dog ate X" and the symptom check below cover those.
+VET_KEYWORDS_RE = re.compile(
+    r"\b(bleeding|not breathing|can[’']?t breathe|cannot breathe|seizures?|collaps(e|es|ed|ing)|unconscious|"
+    r"poison(ed|ing)?|overdos(e|es|ed|ing)|vomiting blood|throwing up|blood in|hit by a (car|bike|truck)|"
+    r"choking|broken (leg|bone)|swallowed)\b")
 
 # Patterns from issue #11. They fire without "my"/"our":
-#   "he ate chocolate", "she has eaten grapes": an eating verb followed by something toxic;
-#   "my dog is sick", "our puppy has diarrhoea": an own pet with symptoms.
+#   "he ate chocolate", "she has eaten grapes": an eating verb followed by something toxic.
 _TOXIC = r"(chocolate|grapes?|raisins?|xylitol|onions?|garlic|ibuprofen|paracetamol|medicine|pills?|antifreeze|rat bait)"
-_PET = r"(dog|puppy|pup|pet|cat|kitten)"
-_SYMPTOM = r"(sick|vomiting|diarrh(o)?ea|unconscious)"
 VET_PATTERNS = (
     re.compile(rf"\b(ate|eaten|eating|eat|chewed|licked)\b.*\b{_TOXIC}\b"),
-    re.compile(rf"\b(my|our)\b.*\b{_PET}\b.*\b{_SYMPTOM}\b"),
 )
+
+# Own pet with symptoms: "my dog is sick", "our dogs keep vomiting", "my Labrador has diarrhoea".
+# Checked per clause (no match across sentences), with the pet named within a few words of "my"/"our"
+# ("my son is sick, which dog breed ..." is not about the dog) and the symptom after it.
+_CLAUSE_RE = re.compile(r"[^.?!;\n]+")
+_OWNER_RE = re.compile(r"\b(my|our)\b((?: \w+){1,5})")
+_PET_WORDS_RE = re.compile(
+    r"\b(dogs?|doggy|doggies|pupp(y|ies)|pups?|pets?|cats?|kittens?|labs?|labradors?|goldens?|frenchies|frenchie|"
+    r"retrievers?|terriers?|spaniels?|shepherds?|hounds?|collies?|poodles?|bulldogs?|pointers?|setters?)\b")
+# "car sick", "travel sick", "motion sick", "sea sick" are not symptoms to send to a vet.
+_SYMPTOM_RE = re.compile(r"(?<!car )(?<!travel )(?<!motion )(?<!sea )\bsick\b|\bvomit(s|ed|ing)?\b|"
+                         r"\bdiarrh(o)?ea\b|\bunconscious\b|\blethargic\b|\bthrowing up\b")
+
+
+def _own_pet_has_symptoms(message: str) -> bool:
+    for clause in _CLAUSE_RE.findall(message.casefold()):
+        text = normalise(clause)
+        for owner in _OWNER_RE.finditer(text):
+            subject = owner.group(2)
+            pets = [m for m in (_PET_WORDS_RE.search(subject), _breed_name_re().search(subject)) if m]
+            if pets and _SYMPTOM_RE.search(text, owner.start(2) + min(m.end() for m in pets)):
+                return True
+    return False
 
 
 def vet_check(message: str) -> bool:
     """True when the message looks like a vet or danger question (the agent must not answer it)."""
     text = message.casefold()
-    if OWN_PET_RE.search(text) and any(keyword in text for keyword in VET_KEYWORDS):
+    if OWN_PET_RE.search(text) and VET_KEYWORDS_RE.search(text):
         return True
-    return any(pattern.search(text) for pattern in VET_PATTERNS)
+    return any(pattern.search(text) for pattern in VET_PATTERNS) or _own_pet_has_symptoms(message)
 
 
 def citation_check(answer: str, retrieved_ids: set[str] | list[str]) -> bool:
