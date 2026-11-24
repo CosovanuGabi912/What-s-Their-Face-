@@ -1,4 +1,4 @@
-"""identify_breed (issue #10) and describe_pet (Week 9, still the stub).
+"""identify_breed (issue #10) and describe_pet (issue #15).
 
 identify_breed uses the fine-tuned ConvNeXt-Tiny from issue #6 with temperature scaling.
 Files read from models/breed_classifier/:
@@ -8,25 +8,37 @@ Files read from models/breed_classifier/:
 
 Calibrated probabilities are softmax(logits / T). shared.schemas.breed_decision() turns them into
 "confident" (name the breed), "top2" (show the two most likely) or "retry" (ask for a new photo).
+
+describe_pet sends the photo to Qwen2.5-VL-3B in LM Studio (docs/setup.md) and expects one JSON object.
+If the model is unavailable or its reply is unusable it returns FALLBACK_DESCRIPTION and never raises:
+species, main_colour and size are None there (and only there), so the agent knows to ask the user.
+A bad image_id or a missing file still raises, as in identify_breed.
 """
 
 from __future__ import annotations
 
+import base64
+import io
 import json
+import logging
+import re
 from functools import lru_cache
 from pathlib import Path
 
 import torch
+from openai import OpenAI, OpenAIError
 from PIL import Image, ImageOps
+from pydantic import ValidationError
 from torch import nn
 from torchvision import models, transforms
 
 import config
-from mcp_server.tools.stubs import describe_pet  # noqa: F401  (stub until Week 9)
 from shared import images
 from shared.breeds import load_breeds_map, to_display
-from shared.schemas import IdentifyBreedOutput, breed_decision
+from shared.schemas import DescribePetOutput, IdentifyBreedOutput, breed_decision
 from utils.device import get_device
+
+logger = logging.getLogger(__name__)  # stderr only: stdout carries the MCP protocol
 
 MODEL_DIR = config.BREED_CLASSIFIER_DIR
 CHECKPOINT_PATH = MODEL_DIR / "convnext_tiny_stanford120.pt"
@@ -96,3 +108,109 @@ def identify_breed(image_id: str) -> IdentifyBreedOutput:
         "is_confident": decision == "confident",
         "kind": load_breeds_map()[top3[0]["breed"]]["kind"],
     })
+
+
+# --- describe_pet (issue #15) --------------------------------------------------------------
+_COLOUR_CHOICES = ", ".join(f'"{colour}"' for colour in config.PET_COLOURS)
+VISION_PROMPT = (
+    "Describe this pet in JSON with exactly these fields:\n"
+    f'{{"species": "dog" or "cat", "main_colour": one of {_COLOUR_CHOICES}, '
+    '"size": "small" or "medium" or "large", "description": "one sentence max 20 words"}\n'
+    "Reply with only the JSON object."
+)
+# Nothing is guessed: None marks "unknown", so a cat photo is never turned into a medium-sized dog
+FALLBACK_DESCRIPTION = DescribePetOutput(species=None, main_colour=None, size=None,
+                                         description="Unable to describe pet from photo.")
+VISION_MAX_SIDE = 768             # pixels; enough for colour and size, and much faster on a laptop
+VISION_MAX_TOKENS = 120
+VISION_TIMEOUT_SECONDS = 120      # LM Studio may have to load the model on the first call
+MAX_DESCRIPTION_WORDS = 20
+_COLOUR_SPELLINGS = {"grey": "gray", "gold": "golden"}
+_THINK_BLOCK = re.compile(r"<think>.*?</think>", re.DOTALL)
+_SENTENCE_END = re.compile(r"(?<=[.!?])(?<!St\.)\s")   # "St. Bernard" is not a sentence end
+
+
+@lru_cache(maxsize=1)
+def _vision_client() -> OpenAI:
+    return OpenAI(base_url=config.LM_STUDIO_BASE_URL, api_key=config.LM_STUDIO_API_KEY,
+                  timeout=VISION_TIMEOUT_SECONDS, max_retries=0)
+
+
+def _photo_as_base64(path: Path) -> str:
+    """Upright RGB JPEG, longest side at most VISION_MAX_SIDE, as base64."""
+    with Image.open(path) as image:
+        photo = ImageOps.exif_transpose(image).convert("RGB")
+    photo.thumbnail((VISION_MAX_SIDE, VISION_MAX_SIDE))
+    buffer = io.BytesIO()
+    photo.save(buffer, "JPEG", quality=90)
+    return base64.b64encode(buffer.getvalue()).decode("ascii")
+
+
+def _one_short_sentence(text: object) -> str:
+    words = " ".join(str(text or "").split())
+    return " ".join(_SENTENCE_END.split(words, maxsplit=1)[0].split()[:MAX_DESCRIPTION_WORDS])
+
+
+def _first_json_object(text: str) -> dict | None:
+    """The first JSON object in the text, even with more text or braces after it."""
+    decoder = json.JSONDecoder()
+    for start in (index for index, char in enumerate(text) if char == "{"):
+        try:
+            value, _ = decoder.raw_decode(text, start)
+        except ValueError:
+            continue
+        if isinstance(value, dict):
+            return value
+    return None
+
+
+def parse_description(reply: str | None) -> DescribePetOutput | None:
+    """The VLM's reply as DescribePetOutput, or None when it is not usable.
+
+    Tolerates code fences and text around the JSON. A colour outside config.PET_COLOURS becomes None,
+    so the agent asks the user; a wrong species or size makes the whole reply unusable.
+    """
+    data = _first_json_object(_THINK_BLOCK.sub("", reply or ""))
+    if data is None:
+        return None
+    colour = str(data.get("main_colour") or data.get("main_color") or "").strip().casefold()
+    colour = _COLOUR_SPELLINGS.get(colour, colour)
+    try:
+        return DescribePetOutput(
+            species=str(data.get("species", "")).strip().casefold(),
+            main_colour=colour if colour in config.PET_COLOURS else None,
+            size=str(data.get("size", "")).strip().casefold(),
+            description=_one_short_sentence(data.get("description")),
+        )
+    except ValidationError:
+        return None
+
+
+def describe_pet(image_id: str) -> DescribePetOutput:
+    """Describe the pet in an uploaded photo: species, main colour, size and one short sentence.
+
+    Example: describe_pet(image_id="abc123.jpg")
+    """
+    path = image_path(image_id)
+    try:
+        photo = _photo_as_base64(path)
+        response = _vision_client().chat.completions.create(
+            model=config.VISION_MODEL_ID,
+            messages=[{"role": "user", "content": [
+                {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{photo}"}},
+                {"type": "text", "text": VISION_PROMPT},
+            ]}],
+            temperature=0,
+            max_tokens=VISION_MAX_TOKENS,
+        )
+        choices = getattr(response, "choices", None)   # null while LM Studio is still loading the model
+        reply = choices[0].message.content if choices else None
+    except (OpenAIError, OSError, ValueError, TypeError, IndexError, AttributeError,
+            Image.DecompressionBombError) as error:   # a decompression bomb is not an OSError
+        logger.warning("describe_pet: vision model failed for %s: %s", image_id, error)
+        return FALLBACK_DESCRIPTION
+    described = parse_description(reply)
+    if described is None:
+        logger.warning("describe_pet: unusable vision reply for %s: %r", image_id, (reply or "")[:200])
+        return FALLBACK_DESCRIPTION
+    return described

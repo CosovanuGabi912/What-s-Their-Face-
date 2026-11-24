@@ -208,9 +208,11 @@ class DescribePetInput(Contract):
 
 
 class DescribePetOutput(Contract):
-    species: Species
-    main_colour: Optional[Colour]   # None when the VLM fails; the agent then asks the user
-    size: Literal["small", "medium", "large"]
+    # species and size are None only when the photo could not be described (VLM off or its reply
+    # unusable): the agent must then ask the user instead of assuming a dog (#15)
+    species: Optional[Species]
+    main_colour: Optional[Colour]   # None when the VLM fails or names another colour; the agent then asks the user
+    size: Optional[Literal["small", "medium", "large"]]
     description: str                # one sentence, <= 20 words
 
     @field_validator("description")
