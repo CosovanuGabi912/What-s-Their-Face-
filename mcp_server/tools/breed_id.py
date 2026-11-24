@@ -10,8 +10,9 @@ Calibrated probabilities are softmax(logits / T). shared.schemas.breed_decision(
 "confident" (name the breed), "top2" (show the two most likely) or "retry" (ask for a new photo).
 
 describe_pet sends the photo to Qwen2.5-VL-3B in LM Studio (docs/setup.md) and expects one JSON object.
-If the model is unavailable or its reply is unusable it returns FALLBACK_DESCRIPTION and never raises;
-a bad image_id or a missing file still raises, as in identify_breed.
+If the model is unavailable or its reply is unusable it returns FALLBACK_DESCRIPTION and never raises:
+species, main_colour and size are None there (and only there), so the agent knows to ask the user.
+A bad image_id or a missing file still raises, as in identify_breed.
 """
 
 from __future__ import annotations
@@ -117,7 +118,8 @@ VISION_PROMPT = (
     '"size": "small" or "medium" or "large", "description": "one sentence max 20 words"}\n'
     "Reply with only the JSON object."
 )
-FALLBACK_DESCRIPTION = DescribePetOutput(species="dog", main_colour=None, size="medium",
+# Nothing is guessed: None marks "unknown", so a cat photo is never turned into a medium-sized dog
+FALLBACK_DESCRIPTION = DescribePetOutput(species=None, main_colour=None, size=None,
                                          description="Unable to describe pet from photo.")
 VISION_MAX_SIDE = 768             # pixels; enough for colour and size, and much faster on a laptop
 VISION_MAX_TOKENS = 120
@@ -125,7 +127,6 @@ VISION_TIMEOUT_SECONDS = 120      # LM Studio may have to load the model on the 
 MAX_DESCRIPTION_WORDS = 20
 _COLOUR_SPELLINGS = {"grey": "gray", "gold": "golden"}
 _THINK_BLOCK = re.compile(r"<think>.*?</think>", re.DOTALL)
-_JSON_OBJECT = re.compile(r"\{.*\}", re.DOTALL)
 _SENTENCE_END = re.compile(r"(?<=[.!?])(?<!St\.)\s")   # "St. Bernard" is not a sentence end
 
 
@@ -150,20 +151,27 @@ def _one_short_sentence(text: object) -> str:
     return " ".join(_SENTENCE_END.split(words, maxsplit=1)[0].split()[:MAX_DESCRIPTION_WORDS])
 
 
+def _first_json_object(text: str) -> dict | None:
+    """The first JSON object in the text, even with more text or braces after it."""
+    decoder = json.JSONDecoder()
+    for start in (index for index, char in enumerate(text) if char == "{"):
+        try:
+            value, _ = decoder.raw_decode(text, start)
+        except ValueError:
+            continue
+        if isinstance(value, dict):
+            return value
+    return None
+
+
 def parse_description(reply: str | None) -> DescribePetOutput | None:
     """The VLM's reply as DescribePetOutput, or None when it is not usable.
 
     Tolerates code fences and text around the JSON. A colour outside config.PET_COLOURS becomes None,
     so the agent asks the user; a wrong species or size makes the whole reply unusable.
     """
-    match = _JSON_OBJECT.search(_THINK_BLOCK.sub("", reply or ""))
-    if match is None:
-        return None
-    try:
-        data = json.loads(match.group())
-    except ValueError:
-        return None
-    if not isinstance(data, dict):
+    data = _first_json_object(_THINK_BLOCK.sub("", reply or ""))
+    if data is None:
         return None
     colour = str(data.get("main_colour") or data.get("main_color") or "").strip().casefold()
     colour = _COLOUR_SPELLINGS.get(colour, colour)
@@ -195,8 +203,10 @@ def describe_pet(image_id: str) -> DescribePetOutput:
             temperature=0,
             max_tokens=VISION_MAX_TOKENS,
         )
-        reply = response.choices[0].message.content
-    except (OpenAIError, OSError, ValueError, IndexError, AttributeError) as error:
+        choices = getattr(response, "choices", None)   # null while LM Studio is still loading the model
+        reply = choices[0].message.content if choices else None
+    except (OpenAIError, OSError, ValueError, TypeError, IndexError, AttributeError,
+            Image.DecompressionBombError) as error:   # a decompression bomb is not an OSError
         logger.warning("describe_pet: vision model failed for %s: %s", image_id, error)
         return FALLBACK_DESCRIPTION
     described = parse_description(reply)

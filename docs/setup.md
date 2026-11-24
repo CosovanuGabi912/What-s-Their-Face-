@@ -1,6 +1,6 @@
 # Setup: vision model for `describe_pet` (issue #15)
 
-`describe_pet` sends the photo to **Qwen2.5-VL-3B** in LM Studio and reads back the species, main colour, size and one short sentence. Without the model the tool still works: it returns a neutral answer (`main_colour: null`) and the agent asks the user for the colour.
+`describe_pet` sends the photo to **Qwen2.5-VL-3B** in LM Studio and reads back the species, main colour, size and one short sentence. Without the model the tool still works: it returns `species`, `main_colour` and `size` as `null` (unknown) with the description "Unable to describe pet from photo.", and the agent asks the user instead of guessing.
 
 ## 1. Download the model
 
@@ -32,7 +32,7 @@ Start the LM Studio server (default `http://localhost:1234`), then check that th
 curl http://localhost:1234/v1/models
 ```
 
-If the identifier is wrong or the server is off, `describe_pet` does not crash: it logs a warning to stderr and returns the neutral answer. So if every photo comes back as "Unable to describe pet from photo.", check this step first.
+If the identifier is wrong or the server is off, `describe_pet` does not crash: it logs a warning to stderr and returns the unknown answer. So if every photo comes back as "Unable to describe pet from photo.", check this step first.
 
 ## Tests
 

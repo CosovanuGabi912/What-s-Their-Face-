@@ -77,6 +77,9 @@ def test_prompt_lists_every_allowed_colour():
     f"```json\n{GOOD_REPLY}\n```",
     f"Here is the JSON:\n{GOOD_REPLY}\nHope this helps!",
     f"<think>Looks like a husky {{maybe}}.</think>{GOOD_REPLY}",
+    f"{GOOD_REPLY} (fields follow {{schema}})",            # braces after the answer (review on #41)
+    f"Fields: {{species, size}}. Answer: {GOOD_REPLY}",    # braces before it
+    f"{GOOD_REPLY}\n{GOOD_REPLY.replace('large', 'small')}",  # two objects: the first one wins
 ])
 def test_json_is_found_inside_extra_text(monkeypatch, reply):
     use(monkeypatch, reply=reply)
@@ -105,10 +108,30 @@ def test_lm_studio_failure_returns_the_fallback(monkeypatch, error):
     assert breed_id.describe_pet("test_husky.jpg") == breed_id.FALLBACK_DESCRIPTION
 
 
-def test_empty_choices_return_the_fallback(monkeypatch):
+@pytest.mark.parametrize("choices", [[], None])   # None: LM Studio answers 200 while loading a model
+def test_empty_or_null_choices_return_the_fallback(monkeypatch, choices):
     fake = use(monkeypatch)
-    fake.chat.completions.create = lambda **_: SimpleNamespace(choices=[])
+    fake.chat.completions.create = lambda **_: SimpleNamespace(choices=choices)
     assert breed_id.describe_pet("test_husky.jpg") == breed_id.FALLBACK_DESCRIPTION
+
+
+def test_fallback_marks_everything_unknown():
+    """A failed description must not look like a real one (a cat would become a medium-sized dog)."""
+    fallback = breed_id.FALLBACK_DESCRIPTION
+    assert (fallback.species, fallback.main_colour, fallback.size) == (None, None, None)
+    assert DescribePetOutput.model_validate(fallback.model_dump()) == fallback
+    for reply in ('{"species": null, "main_colour": "white", "size": "large", "description": "A dog."}',
+                  '{"species": "dog", "main_colour": "white", "size": null, "description": "A dog."}'):
+        assert breed_id.parse_description(reply) is None   # only the fallback has unknown values
+
+
+def test_decompression_bomb_returns_the_fallback(monkeypatch, tmp_path):
+    Image.new("RGB", (400, 400), "white").save(tmp_path / "huge.png")
+    monkeypatch.setattr(Image, "MAX_IMAGE_PIXELS", 1000)   # 400 x 400 is then far over the limit
+    monkeypatch.setattr(breed_id, "IMAGE_UPLOAD_DIR", tmp_path)
+    fake = use(monkeypatch)
+    assert breed_id.describe_pet("huge.png") == breed_id.FALLBACK_DESCRIPTION
+    assert fake.request is None
 
 
 def test_unreadable_photo_returns_the_fallback(monkeypatch, tmp_path):
