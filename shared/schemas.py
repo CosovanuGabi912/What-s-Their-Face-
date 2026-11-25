@@ -99,9 +99,30 @@ class IdentifyBreedOutput(Contract):
 
 # --- 2. search_knowledge -----------------------------------------------------------------
 class SearchKnowledgeInput(Contract):
+    """An unknown breed or section never raises (#9): the breed moves into the query, the section is dropped."""
     query: str = Field(min_length=1)
-    breed: Optional[str] = None     # any spelling; resolved to the display name (Chroma filter)
-    section: Optional[str] = None   # one of config.KNOWLEDGE_SECTIONS
+    breed: Optional[str] = None     # any known spelling; resolved to the display name (Chroma filter)
+    section: Optional[str] = None   # one of config.KNOWLEDGE_SECTIONS or config.SECTION_SYNONYMS
+
+    @model_validator(mode="before")
+    @classmethod
+    def _unknown_values_are_not_filters(cls, data):
+        """Runs before the field validators: an unresolved breed becomes "<breed>: <query>" so semantic search
+        can still match it (every chunk starts with "<Breed> - <Section>"), an unresolved section is removed."""
+        if not isinstance(data, dict):
+            return data
+        data = dict(data)
+        breed, query, section = data.get("breed"), data.get("query"), data.get("section")
+        if isinstance(breed, str) and breed.strip() and to_display(breed) is None:
+            data["breed"] = None
+            if isinstance(query, str) and query.strip():
+                data["query"] = f"{breed.strip()}: {query.strip()}"
+        if isinstance(section, str):
+            try:
+                cls._known_section(section)
+            except ValueError:
+                data["section"] = None
+        return data
 
     _breed = field_validator("breed")(_resolve_breed)
 
@@ -110,9 +131,12 @@ class SearchKnowledgeInput(Contract):
     def _known_section(cls, value: Optional[str]) -> Optional[str]:
         if value is None or value.strip() == "":
             return None
+        wanted = value.strip().casefold()
         for section in config.KNOWLEDGE_SECTIONS:
-            if section.casefold() == value.strip().casefold():
+            if section.casefold() == wanted:
                 return section
+        if wanted in config.SECTION_SYNONYMS:  # "Diet" -> "Feeding"
+            return config.SECTION_SYNONYMS[wanted]
         raise ValueError(f"Unknown section {value!r}. Use one of {config.KNOWLEDGE_SECTIONS}")
 
 

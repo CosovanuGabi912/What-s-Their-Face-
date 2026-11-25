@@ -57,6 +57,14 @@ EMBED_QUERY_PREFIX   = "search_query: "
 # --- Fixed vocabularies shared by tools, ingestion and golden items -------------------------
 KNOWLEDGE_SECTIONS   = ["Overview", "Temperament", "Exercise", "Grooming", "Health",
                         "Training", "Feeding", "Living Environment", "History", "Other"]  # Part A may revise before #5 merges
+# Other words a user or the SLM may use for a section (lower case); search_knowledge treats them as that section.
+SECTION_SYNONYMS     = {"diet": "Feeding", "food": "Feeding", "nutrition": "Feeding", "feeding and nutrition": "Feeding",
+                        "behavior": "Temperament", "behaviour": "Temperament", "personality": "Temperament",
+                        "character": "Temperament", "coat": "Grooming",
+                        "housing": "Living Environment", "living": "Living Environment", "environment": "Living Environment",
+                        "origin": "History", "origins": "History", "background": "History",
+                        "diseases": "Health", "health problems": "Health",
+                        "activity": "Exercise", "summary": "Overview", "about": "Overview"}
 PET_COLOURS          = ["black", "brown", "golden", "yellow", "cream", "gray", "white"]  # = PetFinder color_labels.csv
 
 

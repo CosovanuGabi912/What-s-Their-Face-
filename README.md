@@ -51,6 +51,9 @@ vectors, and search then quietly gets worse: no error, just worse answers. `vali
 4. `python scripts/ingest.py --all` (stops with an error if a raw file is missing or its checksum differs from the
    manifest; `--skip-thedogapi` ingests Wikipedia only, and the result will not match the manifest), then
    `python scripts/validate_ingestion.py`. Running `ingest.py --all` twice is safe: the second run adds nothing.
+   **Restart the MCP server (and the Chainlit app that starts it) after unzipping new data or re-running
+   `ingest.py --all`:** `search_knowledge` keeps the Chroma database open for the life of the process and would
+   keep serving the old chunks.
 
 Part A only: after changing raw data on purpose, `python scripts/ingest.py --all --update-manifest` rewrites the manifest;
 commit it and share a new `data_<commit>.zip`.

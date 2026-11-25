@@ -7,9 +7,11 @@ real AKC lookup is tested here. The stdio handshake with a real MCP client is in
 
 from __future__ import annotations
 
+import inspect
 import json
 import re
 
+import anyio
 import pytest
 from pydantic import ValidationError
 
@@ -19,7 +21,7 @@ from scripts.validate_breeds_map import validate
 from shared import breeds, images
 from shared.schemas import (CHUNK_ID_RE, TOOL_SCHEMAS, BreedCandidate, DescribePetOutput,
                             GetBreedTraitsOutput, GoldenItem, IdentifyBreedOutput, KnowledgeChunk,
-                            ToolCallLog, breed_decision)
+                            SearchKnowledgeInput, ToolCallLog, breed_decision)
 
 WILD = ["Dingo", "Dhole", "African Wild Dog"]
 
@@ -114,6 +116,8 @@ def test_unknown_breed_resolves_to_none():
 def test_every_tool_returns_schema_valid_output(tool):
     _, output_model = TOOL_SCHEMAS[tool]
     result = getattr(server, tool)(**SAMPLE_CALLS[tool])
+    if inspect.isawaitable(result):  # search_knowledge is async
+        result = anyio.run(lambda: result)
     assert isinstance(result, output_model)
     assert output_model.model_validate(json.loads(result.model_dump_json())) == result
 
@@ -175,8 +179,26 @@ def test_get_breed_traits_keeps_missing_scores_as_none():
     assert traits.shedding is None
 
 
+def search_knowledge(*args, **kwargs):
+    """server.search_knowledge is async (it runs the search in a worker thread)."""
+    return anyio.run(lambda: server.search_knowledge(*args, **kwargs))
+
+
+@pytest.mark.parametrize("breed, section", [("NonExistentBreed999", None), ("Labrador", "Diet"),
+                                            ("small", "Nonsense"), ("Beagle", "Nonsense"), (None, "Nonsense")])
+def test_search_knowledge_never_raises_on_an_unknown_breed_or_section(breed, section):
+    assert search_knowledge("nutrition", breed=breed, section=section).chunks
+
+
+def test_search_input_moves_an_unknown_breed_into_the_query_and_drops_an_unknown_section():
+    args = SearchKnowledgeInput(query="how much should I feed", breed="Labrador", section="Nonsense")
+    assert (args.query, args.breed, args.section) == ("Labrador: how much should I feed", None, None)
+    args = SearchKnowledgeInput(query="food", breed="german shepherd", section="Diet")
+    assert (args.query, args.breed, args.section) == ("food", "German Shepherd Dog", "Feeding")
+
+
 def test_search_knowledge_resolves_breed_and_section_and_returns_valid_ids():
-    result = server.search_knowledge("exercise", breed="German Shepherd", section="exercise")
+    result = search_knowledge("exercise", breed="German Shepherd", section="exercise")
     assert [c.chunk_id for c in result.chunks] == ["kb:german-shepherd-dog:exercise:0"]
     assert result.chunks[0].breed == "German Shepherd Dog" and result.chunks[0].section == "Exercise"
 
@@ -185,8 +207,6 @@ def test_search_knowledge_resolves_breed_and_section_and_returns_valid_ids():
     lambda: server.identify_breed("../secret.jpg"),
     lambda: server.identify_breed("sub/dir.jpg"),
     lambda: server.describe_pet(""),
-    lambda: server.search_knowledge("x", breed="Dragon Hound"),     # Chroma filter must never fail silently
-    lambda: server.search_knowledge("x", section="Diet"),
     lambda: server.recommend_breeds("flat", 30, 30, False, False, "none"),
     lambda: server.suggest_names("hamster", None, "x"),
 ])

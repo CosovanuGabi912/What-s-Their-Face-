@@ -62,9 +62,12 @@ async def test_stdio_resource_and_errors(tmp_path):
             dingo = await session.call_tool("get_breed_traits", {"breed": "Dingo"})
             assert not dingo.isError and dingo.structuredContent["status"] == "no_akc_data"
 
+            # An unknown breed or section is not an error: it is searched without that filter
+            loose = await session.call_tool("search_knowledge",
+                                            {"query": "x", "breed": "NonExistentBreed999", "section": "Nonsense"})
+            assert not loose.isError and loose.structuredContent["chunks"]
+
             # Bad arguments come back as a tool error the agent can show the SLM, not a crash
-            bad = await session.call_tool("search_knowledge", {"query": "x", "section": "Diet"})
-            assert bad.isError and "Unknown section" in bad.content[0].text
             bad = await session.call_tool("identify_breed", {"image_id": "../etc/passwd"})
             assert bad.isError
 
