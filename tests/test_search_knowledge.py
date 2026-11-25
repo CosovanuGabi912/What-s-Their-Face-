@@ -13,7 +13,7 @@ import anyio
 import pytest
 
 import config
-from mcp_server.tools import knowledge
+from mcp_server.tools import knowledge, stubs
 from shared.schemas import SearchKnowledgeOutput
 
 
@@ -81,17 +81,12 @@ def test_any_known_breed_spelling_is_resolved(small_db):
     assert ids(knowledge.search_knowledge("anything", breed="german shepherd")) == ["kb:german-shepherd-dog:overview:0"]
 
 
-def test_partial_breed_name_that_fits_one_breed_is_resolved(small_db, monkeypatch):
-    docs = [("kb:labrador-retriever:feeding:0", "Labrador Retriever", "Feeding")]
-    small_db.upsert(ids=[d[0] for d in docs], documents=["Labrador Retriever - Feeding text"],
-                    metadatas=[{"chunk_id": d[0], "breed": d[1], "section": d[2], "source": "wikipedia"} for d in docs],
-                    embeddings=[[0.9, 0.1]])
-    assert ids(knowledge.search_knowledge("anything", breed="Labrador")) == ["kb:labrador-retriever:feeding:0"]
-
-
 def test_section_synonym_is_resolved(small_db):
-    assert ids(knowledge.search_knowledge("anything", breed="Beagle", section="Wellbeing")) == []  # unknown: no chunks
     assert ids(knowledge.search_knowledge("anything", section="Diseases")) == ["kb:siberian-husky:health:0", "kb:beagle:health:0"]
+
+
+def test_section_synonyms_point_at_known_sections():
+    assert set(config.SECTION_SYNONYMS.values()) <= set(config.KNOWLEDGE_SECTIONS)
 
 
 def test_breed_and_section_without_a_chunk_falls_back_to_the_breed(small_db, caplog):
@@ -111,18 +106,41 @@ def test_breed_without_any_chunk_returns_nothing(small_db):
     assert ids(knowledge.search_knowledge("anything", breed="Beagle", section="Overview")) == []
 
 
-@pytest.mark.parametrize("breed, section", [("NonExistentBreed999", None), (None, "Nonsense"),
-                                            ("Beagle", "Nonsense"), ("NonExistentBreed999", "Health")])
-def test_unknown_breed_or_section_returns_no_chunks_and_never_embeds(small_db, monkeypatch, breed, section):
-    def no_embedding(text):
-        raise AssertionError("an unknown breed or section must not reach LM Studio")
+@pytest.mark.parametrize("breed, section, embedded, expected", [
+    # unknown breed: no filter, the name goes into the query
+    ("NonExistentBreed999", None, "NonExistentBreed999: nutrition",
+     ["kb:siberian-husky:overview:0", "kb:siberian-husky:health:0", "kb:german-shepherd-dog:overview:0"]),
+    ("Labrador", None, "Labrador: nutrition",
+     ["kb:siberian-husky:overview:0", "kb:siberian-husky:health:0", "kb:german-shepherd-dog:overview:0"]),
+    # unknown section: dropped
+    (None, "Nonsense", "nutrition",
+     ["kb:siberian-husky:overview:0", "kb:siberian-husky:health:0", "kb:german-shepherd-dog:overview:0"]),
+    ("Beagle", "Nonsense", "nutrition", ["kb:beagle:health:0"]),
+    # unknown breed, known section: only the section filters
+    ("NonExistentBreed999", "Health", "NonExistentBreed999: nutrition",
+     ["kb:siberian-husky:health:0", "kb:beagle:health:0"]),
+])
+def test_unknown_breed_or_section_is_not_a_filter(small_db, monkeypatch, breed, section, embedded, expected):
+    sent = []
+    monkeypatch.setattr(knowledge, "_embed", lambda text: sent.append(text) or [1.0, 0.0])
+    assert ids(knowledge.search_knowledge("nutrition", breed=breed, section=section)) == expected
+    assert sent == [embedded]
 
-    monkeypatch.setattr(knowledge, "_embed", no_embedding)
-    assert knowledge.search_knowledge("nutrition", breed=breed, section=section).chunks == []
+
+@pytest.mark.parametrize("tool", [stubs.search_knowledge, knowledge.search_knowledge], ids=["stub", "real"])
+@pytest.mark.parametrize("breed, section", [(None, None), ("NonExistentBreed999", None), ("Labrador", "Diet"),
+                                            ("small", "Nonsense"), ("Beagle", "Nonsense"), (None, "Nonsense")])
+def test_stub_and_real_tool_return_chunks_for_the_same_inputs(small_db, tool, breed, section):
+    small_db.upsert(ids=["kb:beagle:feeding:0"], documents=["Beagle - Feeding text"], embeddings=[[0.5, 0.5]],
+                    metadatas=[{"chunk_id": "kb:beagle:feeding:0", "breed": "Beagle", "section": "Feeding",
+                                "source": "wikipedia"}])
+    assert tool("nutrition", breed=breed, section=section).chunks
 
 
-def test_blank_query_returns_no_chunks(small_db):
-    assert knowledge.search_knowledge("   ").chunks == []
+@pytest.mark.parametrize("tool", [stubs.search_knowledge, knowledge.search_knowledge], ids=["stub", "real"])
+@pytest.mark.parametrize("query", ["", "   "])
+def test_stub_and_real_tool_return_nothing_for_a_blank_query(small_db, tool, query):
+    assert tool(query, breed="NonExistentBreed999").chunks == []
 
 
 def test_query_is_embedded_with_the_query_prefix(monkeypatch):
@@ -226,8 +244,6 @@ def test_lm_studio_down_raises_a_clear_error(small_db, monkeypatch):
 # --- Live: the real collection and LM Studio -----------------------------------------------------------------
 @pytest.fixture(scope="module")
 def live():
-    if "all" in config.STUB_TOOLS or "search_knowledge" in config.STUB_TOOLS:
-        pytest.skip("WTF_STUB_TOOLS serves the stub search_knowledge")
     knowledge._chroma_client.cache_clear()
     knowledge._collection.cache_clear()
     try:
@@ -252,8 +268,10 @@ def test_live_breed_and_section_filter_together(live):
     assert out.chunks and {(c.breed, c.section) for c in out.chunks} == {("Siberian Husky", "Overview")}
 
 
-def test_live_unknown_breed_returns_no_chunks_without_raising(live):
-    assert knowledge.search_knowledge(query="nutrition", breed="NonExistentBreed999").chunks == []
+def test_live_unknown_breed_is_searched_without_a_filter(live):
+    assert knowledge.search_knowledge(query="nutrition", breed="NonExistentBreed999").chunks
+    out = knowledge.search_knowledge(query="how much should I feed", breed="Labrador")
+    assert "Labrador Retriever" in {chunk.breed for chunk in out.chunks}
 
 
 def test_live_result_matches_the_contract_and_the_server_tool(live, monkeypatch):

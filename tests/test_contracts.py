@@ -21,7 +21,7 @@ from scripts.validate_breeds_map import validate
 from shared import breeds, images
 from shared.schemas import (CHUNK_ID_RE, TOOL_SCHEMAS, BreedCandidate, DescribePetOutput,
                             GetBreedTraitsOutput, GoldenItem, IdentifyBreedOutput, KnowledgeChunk,
-                            ToolCallLog, breed_decision)
+                            SearchKnowledgeInput, ToolCallLog, breed_decision)
 
 WILD = ["Dingo", "Dhole", "African Wild Dog"]
 
@@ -184,17 +184,17 @@ def search_knowledge(*args, **kwargs):
     return anyio.run(lambda: server.search_knowledge(*args, **kwargs))
 
 
-def test_search_knowledge_resolves_near_matches_and_synonyms():
-    """The same validators serve the stub and the real tool: "Labrador" fits one breed, "Diet" means Feeding."""
-    result = search_knowledge("x", breed="Labrador", section="Diet")
-    assert [(c.breed, c.section) for c in result.chunks] == [("Labrador Retriever", "Feeding")]
+@pytest.mark.parametrize("breed, section", [("NonExistentBreed999", None), ("Labrador", "Diet"),
+                                            ("small", "Nonsense"), ("Beagle", "Nonsense"), (None, "Nonsense")])
+def test_search_knowledge_never_raises_on_an_unknown_breed_or_section(breed, section):
+    assert search_knowledge("nutrition", breed=breed, section=section).chunks
 
 
-def test_resolve_breed_needs_exactly_one_match():
-    assert breeds.resolve_breed("Labrador") == "Labrador Retriever"
-    assert breeds.resolve_breed("german shepherd") == "German Shepherd Dog"
-    assert breeds.resolve_breed("Retriever") is None          # six breeds
-    assert breeds.resolve_breed("NonExistentBreed999") is None
+def test_search_input_moves_an_unknown_breed_into_the_query_and_drops_an_unknown_section():
+    args = SearchKnowledgeInput(query="how much should I feed", breed="Labrador", section="Nonsense")
+    assert (args.query, args.breed, args.section) == ("Labrador: how much should I feed", None, None)
+    args = SearchKnowledgeInput(query="food", breed="german shepherd", section="Diet")
+    assert (args.query, args.breed, args.section) == ("food", "German Shepherd Dog", "Feeding")
 
 
 def test_search_knowledge_resolves_breed_and_section_and_returns_valid_ids():
@@ -207,8 +207,6 @@ def test_search_knowledge_resolves_breed_and_section_and_returns_valid_ids():
     lambda: server.identify_breed("../secret.jpg"),
     lambda: server.identify_breed("sub/dir.jpg"),
     lambda: server.describe_pet(""),
-    lambda: search_knowledge("x", breed="Dragon Hound"),     # Chroma filter must never fail silently
-    lambda: search_knowledge("x", section="Nonsense"),
     lambda: server.recommend_breeds("flat", 30, 30, False, False, "none"),
     lambda: server.suggest_names("hamster", None, "x"),
 ])

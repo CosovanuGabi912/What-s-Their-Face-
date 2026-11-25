@@ -19,7 +19,7 @@ from typing import List, Literal, Optional
 from pydantic import BaseModel, ConfigDict, Field, RootModel, field_validator, model_validator
 
 import config
-from shared.breeds import closest_breeds, load_breeds_map, resolve_breed, to_display
+from shared.breeds import closest_breeds, load_breeds_map, to_display
 from shared.images import IMAGE_ID_PATTERN
 
 CHUNK_ID_RE = r"\[(kb:[a-z0-9-]+:[a-z0-9-]+:\d+)\]"     # finds citations in answer text
@@ -49,11 +49,10 @@ def _display_name(value: str) -> str:
 
 
 def _resolve_breed(value: Optional[str]) -> Optional[str]:
-    """Inputs may use any known spelling, or a partial name that fits one breed; it is turned into the display
-    name or rejected."""
+    """Inputs may use any known spelling; it is turned into the display name or rejected."""
     if value is None or value.strip() == "":
         return None
-    display = resolve_breed(value)
+    display = to_display(value)
     if display is None:
         raise ValueError(f"Unknown breed {value!r}. Closest breeds: {closest_breeds(value)}")
     return display
@@ -100,9 +99,30 @@ class IdentifyBreedOutput(Contract):
 
 # --- 2. search_knowledge -----------------------------------------------------------------
 class SearchKnowledgeInput(Contract):
+    """An unknown breed or section never raises (#9): the breed moves into the query, the section is dropped."""
     query: str = Field(min_length=1)
-    breed: Optional[str] = None     # any spelling; resolved to the display name (Chroma filter)
-    section: Optional[str] = None   # one of config.KNOWLEDGE_SECTIONS
+    breed: Optional[str] = None     # any known spelling; resolved to the display name (Chroma filter)
+    section: Optional[str] = None   # one of config.KNOWLEDGE_SECTIONS or config.SECTION_SYNONYMS
+
+    @model_validator(mode="before")
+    @classmethod
+    def _unknown_values_are_not_filters(cls, data):
+        """Runs before the field validators: an unresolved breed becomes "<breed>: <query>" so semantic search
+        can still match it (every chunk starts with "<Breed> - <Section>"), an unresolved section is removed."""
+        if not isinstance(data, dict):
+            return data
+        data = dict(data)
+        breed, query, section = data.get("breed"), data.get("query"), data.get("section")
+        if isinstance(breed, str) and breed.strip() and to_display(breed) is None:
+            data["breed"] = None
+            if isinstance(query, str) and query.strip():
+                data["query"] = f"{breed.strip()}: {query.strip()}"
+        if isinstance(section, str):
+            try:
+                cls._known_section(section)
+            except ValueError:
+                data["section"] = None
+        return data
 
     _breed = field_validator("breed")(_resolve_breed)
 

@@ -6,11 +6,11 @@ section arguments become a Chroma metadata filter. Chroma accepts one condition 
 conditions need {"$and": [{"breed": x}, {"section": y}]}; a dict with two keys is rejected (_build_where).
 
 Behaviour:
-- breed and section are validated with shared.schemas.SearchKnowledgeInput (one source of truth with the stub):
-  any known spelling, a partial name that fits exactly one breed ("Labrador") and section synonyms ("Diet")
-  are resolved.
-- A breed or section that still does not resolve ("NonExistentBreed999") returns 0 chunks, never an error.
-  The agent then says it does not know (acceptance criterion of issue #9).
+- The arguments go through shared.schemas.SearchKnowledgeInput (one source of truth with the stub). A breed in
+  any known spelling (shared.breeds.to_display) and a known section or synonym ("Diet") become filters.
+- An unknown breed never raises and is searched without a filter: its name is put in front of the query
+  ("Labrador: how much should I feed"). An unknown section is dropped. (Acceptance criterion of issue #9.)
+- A blank query returns 0 chunks.
 - A breed+section filter that matches nothing falls back to the breed filter alone (logged).
 - A broken setup (LM Studio not running or serving the wrong model, collection not ingested, wrong vector size,
   any other Chroma failure) raises a RuntimeError that says what actually failed, because an empty result would
@@ -29,8 +29,6 @@ from __future__ import annotations
 import logging
 from functools import lru_cache
 from typing import Optional
-
-from pydantic import ValidationError
 
 import config
 from shared.schemas import KnowledgeChunk, SearchKnowledgeInput, SearchKnowledgeOutput
@@ -111,16 +109,6 @@ def _build_where(breed: Optional[str], section: Optional[str]) -> Optional[dict]
     return conditions[0] if len(conditions) == 1 else {"$and": conditions}
 
 
-def _resolve_filters(breed: Optional[str], section: Optional[str]) -> Optional[tuple[Optional[str], Optional[str]]]:
-    """(breed, section) as stored in Chroma, resolved by the contract validators; None when one is unknown."""
-    try:
-        args = SearchKnowledgeInput.model_validate({"query": "x", "breed": breed, "section": section})
-    except ValidationError as error:
-        log.info("search_knowledge: %s -> returning no chunks", "; ".join(e["msg"] for e in error.errors()))
-        return None
-    return args.breed, args.section
-
-
 # --- The tool ---------------------------------------------------------------------------------------------
 def _query(collection, embedding: list[float], where: Optional[dict], top_k: int) -> list[KnowledgeChunk]:
     """collection.query as chunks, with Chroma failures turned into messages that say what failed."""
@@ -146,10 +134,8 @@ def _search(query: str, breed: Optional[str] = None, section: Optional[str] = No
     query = (query or "").strip()
     if not query:
         return SearchKnowledgeOutput(chunks=[])
-    filters = _resolve_filters(breed, section)
-    if filters is None:
-        return SearchKnowledgeOutput(chunks=[])
-    breed, section = filters
+    args = SearchKnowledgeInput(query=query, breed=breed, section=section)
+    query, breed, section = args.query, args.breed, args.section
 
     collection = _collection(collection_name)
     embedding = _embed(query)

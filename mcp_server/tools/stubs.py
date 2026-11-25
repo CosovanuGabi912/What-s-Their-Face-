@@ -69,7 +69,9 @@ _KB_TEXT = {
 
 
 def search_knowledge(query: str, breed: str | None = None, section: str | None = None) -> SearchKnowledgeOutput:
-    args = SearchKnowledgeInput(query=query, breed=breed, section=section)  # resolves breed / section
+    if not (query or "").strip():  # same as the real tool: nothing to search for
+        return SearchKnowledgeOutput(chunks=[])
+    args = SearchKnowledgeInput(query=query, breed=breed, section=section)  # same breed / section rules as the real tool
     target = args.breed or "German Shepherd Dog"
     sections = [args.section] if args.section else list(_KB_TEXT)
     return SearchKnowledgeOutput(chunks=[

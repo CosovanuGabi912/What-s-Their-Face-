@@ -1,6 +1,6 @@
 {
   "part": "B",
-  "golden_sha256": "40a3e8bd524cc38e34e1a00ebefdc8fc6df479ddbd3c3bac68a438f64afff64d",
+  "golden_sha256": "4916a2bca75cfc1aa2581e7cbb58952fdaf175301cf96882559c5b309c836d87",
   "aggregates": {
     "num_items": 60,
     "hit@1": 0.5333,

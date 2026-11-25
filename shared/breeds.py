@@ -81,23 +81,6 @@ def to_display(name: str | None) -> str | None:
     return _alias_index().get(normalise(name))
 
 
-def resolve_breed(name: str | None) -> str | None:
-    """`to_display()`, plus one forgiving step: a partial name that fits exactly one breed.
-
-    "Labrador" -> "Labrador Retriever" (every alias containing the word belongs to that one breed).
-    "Retriever" fits six breeds and "NonExistentBreed999" none, so both give None: a guess between
-    several breeds is worse than no breed.
-    """
-    exact = to_display(name)
-    if exact or not name:
-        return exact
-    words = set(normalise(name).split())
-    if not words or min(len(word) for word in words) < 3:
-        return None
-    matches = {display for alias, display in _alias_index().items() if words <= set(alias.split())}
-    return matches.pop() if len(matches) == 1 else None
-
-
 def closest_breeds(name: str, n: int = 3) -> list[str]:
     """Up to n display names that look most like `name` (for 'did you mean' replies)."""
     index = _alias_index()
