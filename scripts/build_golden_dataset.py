@@ -1,4 +1,4 @@
-"""Assemble the full golden dataset (Parts A, B, C) into eval/golden.jsonl (issue #8)."""
+"""Assemble the full golden dataset (Parts A, B, C, E, F) into eval/golden.jsonl (issues #8, #17)."""
 
 from __future__ import annotations
 
@@ -37,8 +37,22 @@ def build_all_golden() -> Path:
     print("Building Part C items (15 vet & scope items)...")
     part_c = list(PART_C_ITEMS)
 
-    all_items = part_a + part_b + part_c
-    print(f"Total items: {len(all_items)} (A: {len(part_a)}, B: {len(part_b)}, C: {len(part_c)})")
+    try:
+        from scripts.build_golden_e_f import build_part_e, build_part_f
+        print("Building Part E items (50 name items)...")
+        part_e, holdout_ids = build_part_e()
+        holdout_file = config.EVAL_DIR / "holdout_listing_ids.txt"
+        with holdout_file.open("w", encoding="utf-8") as f:
+            for hid in holdout_ids:
+                f.write(f"{hid}\n")
+        print("Building Part F items (10 journey items)...")
+        part_f = build_part_f()
+    except Exception as exc:
+        print(f"Warning: could not build Part E/F: {exc}")
+        part_e, part_f = [], []
+
+    all_items = part_a + part_b + part_c + part_e + part_f
+    print(f"Total items: {len(all_items)} (A: {len(part_a)}, B: {len(part_b)}, C: {len(part_c)}, E: {len(part_e)}, F: {len(part_f)})")
 
     # Validate all items
     for it in all_items:

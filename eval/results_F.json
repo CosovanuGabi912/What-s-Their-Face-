@@ -1,0 +1,216 @@
+{
+  "part": "F",
+  "golden_sha256": "f122ba4987fbff04a7c09a6a8e75631ac2a9b8edaf8b52ec2650995b1aaa19f9",
+  "aggregates": {
+    "num_items": 10,
+    "mode": "simulated",
+    "journey_completion_rate": 1.0,
+    "tool_sequence_match_rate": 1.0
+  },
+  "per_item": [
+    {
+      "id": "F_001",
+      "expected_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names"
+      ],
+      "actual_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names"
+      ],
+      "expected_outcome": "names_suggested",
+      "actual_outcome": "names_suggested",
+      "tool_sequence_match": true,
+      "journey_completed": true,
+      "pass": true
+    },
+    {
+      "id": "F_002",
+      "expected_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names",
+        "suggest_names"
+      ],
+      "actual_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names",
+        "suggest_names"
+      ],
+      "expected_outcome": "names_suggested",
+      "actual_outcome": "names_suggested",
+      "tool_sequence_match": true,
+      "journey_completed": true,
+      "pass": true
+    },
+    {
+      "id": "F_003",
+      "expected_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names"
+      ],
+      "actual_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names"
+      ],
+      "expected_outcome": "names_suggested",
+      "actual_outcome": "names_suggested",
+      "tool_sequence_match": true,
+      "journey_completed": true,
+      "pass": true
+    },
+    {
+      "id": "F_004",
+      "expected_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names"
+      ],
+      "actual_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names"
+      ],
+      "expected_outcome": "names_suggested",
+      "actual_outcome": "names_suggested",
+      "tool_sequence_match": true,
+      "journey_completed": true,
+      "pass": true
+    },
+    {
+      "id": "F_005",
+      "expected_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names",
+        "suggest_names"
+      ],
+      "actual_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names",
+        "suggest_names"
+      ],
+      "expected_outcome": "names_suggested",
+      "actual_outcome": "names_suggested",
+      "tool_sequence_match": true,
+      "journey_completed": true,
+      "pass": true
+    },
+    {
+      "id": "F_006",
+      "expected_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names"
+      ],
+      "actual_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names"
+      ],
+      "expected_outcome": "names_suggested",
+      "actual_outcome": "names_suggested",
+      "tool_sequence_match": true,
+      "journey_completed": true,
+      "pass": true
+    },
+    {
+      "id": "F_007",
+      "expected_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names"
+      ],
+      "actual_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names"
+      ],
+      "expected_outcome": "names_suggested",
+      "actual_outcome": "names_suggested",
+      "tool_sequence_match": true,
+      "journey_completed": true,
+      "pass": true
+    },
+    {
+      "id": "F_008",
+      "expected_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names"
+      ],
+      "actual_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names"
+      ],
+      "expected_outcome": "names_suggested",
+      "actual_outcome": "names_suggested",
+      "tool_sequence_match": true,
+      "journey_completed": true,
+      "pass": true
+    },
+    {
+      "id": "F_009",
+      "expected_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names"
+      ],
+      "actual_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names"
+      ],
+      "expected_outcome": "names_suggested",
+      "actual_outcome": "names_suggested",
+      "tool_sequence_match": true,
+      "journey_completed": true,
+      "pass": true
+    },
+    {
+      "id": "F_010",
+      "expected_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names"
+      ],
+      "actual_tool_sequence": [
+        "identify_breed",
+        "search_knowledge",
+        "recommend_breeds",
+        "suggest_names"
+      ],
+      "expected_outcome": "names_suggested",
+      "actual_outcome": "names_suggested",
+      "tool_sequence_match": true,
+      "journey_completed": true,
+      "pass": true
+    }
+  ]
+}

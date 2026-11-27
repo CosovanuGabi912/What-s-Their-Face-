@@ -1,0 +1,762 @@
+{
+  "part": "E",
+  "golden_sha256": "f122ba4987fbff04a7c09a6a8e75631ac2a9b8edaf8b52ec2650995b1aaa19f9",
+  "aggregates": {
+    "num_items": 50,
+    "real_name_in_top_5": 0.02,
+    "top5_hit_rate": 0.02,
+    "top1_hit_rate": 0.02
+  },
+  "per_item": [
+    {
+      "id": "E_001",
+      "description": "medium brown dog, Their pregnant mother was dumped by her irresponsible owner at the roadside near some shops in Subang Jaya. Gave birth",
+      "expected_real_name": "Brisco",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_002",
+      "description": "medium black dog, Good guard dog, very alert, active, obedience waiting for her good master, plz call or sms for more details if",
+      "expected_real_name": "Miko",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_003",
+      "description": "medium black dog, This handsome yet cute boy is up for adoption. He is the most playful pal we've seen in our puppies.",
+      "expected_real_name": "Hunter",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_004",
+      "description": "medium black dog, For serious adopter, please do sms or call for more details, thanks!",
+      "expected_real_name": "Bear",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_005",
+      "description": "medium brown dog, this dog was an abused puppy until he was rescued. He was very scared of people but now he is",
+      "expected_real_name": "Peanut",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_006",
+      "description": "medium black dog, We moved out of our apartment to a landed home and there were many friendly strays in the neighbourhood. My",
+      "expected_real_name": "Max",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": true,
+      "top5_hit": true,
+      "pass": true
+    },
+    {
+      "id": "E_007",
+      "description": "medium brown dog, shes active... she can obey wht command that u told her.. example shakeshand . sleep and eat .. command in",
+      "expected_real_name": "Blackie",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_008",
+      "description": "medium black dog, This cutie dumped by it's owner at the market and almost kill by the car, after kicking by the guy,",
+      "expected_real_name": "Beauty",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_009",
+      "description": "medium brown dog, this dog was rescued in Serdang residential area. Her group of friends were caught by dog catcher team and she",
+      "expected_real_name": "Godiva",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_010",
+      "description": "medium black dog, this dog is a friendly doggie and very domesticated. She will bark at strangers and will not run out of",
+      "expected_real_name": "Donut",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_011",
+      "description": "medium black dog, This is this dog, rescued from the streets. He is looking for a loving home. He is very friendly and",
+      "expected_real_name": "Whisky",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_012",
+      "description": "medium white dog, this dog is a this dog Russell crossed. He is very friendly, active, playful, and joyful. He has four short",
+      "expected_real_name": "Jack",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_013",
+      "description": "medium brown dog, She is a calm, gentle, good-mannered, friendly,loyal and obedient dog. She was ill-treated by her previous owner. She was sent",
+      "expected_real_name": "Lollipop",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_014",
+      "description": "small brown dog, She is very active, obedient, cute! Found her in the drain, she need someone urgently for her new home. She",
+      "expected_real_name": "Dusty",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_015",
+      "description": "medium cream dog, this dog is super friendly, great with kids, easy to handle, you can keep her in door due to her",
+      "expected_real_name": "Skippy",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_016",
+      "description": "large cream dog, this dog is a male puppy. He is a very lovely, active and intelligent puppy. He always wanted to play",
+      "expected_real_name": "Ceasar",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_017",
+      "description": "medium brown dog, this dog was in an accident and saved by one of our feeders. He is fully healed. One leg has",
+      "expected_real_name": "Lego",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_018",
+      "description": "medium brown dog, this dog was dump ard our area for more than half a year now. She became homeless n her resting",
+      "expected_real_name": "Milky",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_019",
+      "description": "medium black dog, this dog is a very friendly and well-behaved Schnauzer . He doesn\u2019t bark very often so he\u2019s perfect for an",
+      "expected_real_name": "Jasz",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_020",
+      "description": "small black dog, he's rescued from the industrial park. very active. and now way on curing his minor disease (skin problem - ringworm).",
+      "expected_real_name": "Ollie",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_021",
+      "description": "medium brown dog, Hi this dog is a rescued puppy from the streets. If you would like to adopt her pls contact me.",
+      "expected_real_name": "Coco",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_022",
+      "description": "medium brown dog, Adopted her at a drive at Citta Mall when she was about 2 months old. She is an active and",
+      "expected_real_name": "Zoe",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_023",
+      "description": "small black dog, he is the best breed of the so you can train him easily. He is very playful.toilet, sit, come and",
+      "expected_real_name": "Teddy",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_024",
+      "description": "medium cream dog, Lovely puppy with good nature looking for a home sweet home. Interested to adopt pls contact",
+      "expected_real_name": "Cody",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_025",
+      "description": "medium black dog, Mochi, momo and this dog are siblings, about 3 months old, black and white patches cute little babies, they are",
+      "expected_real_name": "Molly",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_026",
+      "description": "medium black dog, this dog was picked up from Penang SPCA on 6th Apr . He and his brother & sister should be",
+      "expected_real_name": "Heihei",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_027",
+      "description": "medium brown dog, This little one started hopping in and out of my house porch starting 3 weeks ago to play with my",
+      "expected_real_name": "Pretzel",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_028",
+      "description": "medium brown dog, this dog was tied to back of a friend's home in our neighborhood and we decided to temporarily take it",
+      "expected_real_name": "Rocket",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_029",
+      "description": "large black dog, I am looking for a loving permanent home for this dog. this dog is a really amazing, sweet and funny",
+      "expected_real_name": "Kaiser",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_030",
+      "description": "medium black dog, - Beautiful dog, with a pair of smart Blue eyes - Cute and lovely companion. - Actively interact with owner",
+      "expected_real_name": "Oscar",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_031",
+      "description": "medium cream dog, Rescued from the highway. gentle dog great with children. highly interested parties pls call",
+      "expected_real_name": "Wonderboy",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_032",
+      "description": "medium black dog, I rescued her 1month ago.My vet told me she is a mixed of german shepherd bloodline and couple of other",
+      "expected_real_name": "Ruby",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_033",
+      "description": "medium brown dog, this dog is a sweet boy who was abandoned in front of the Shelter by a guy whose dog got",
+      "expected_real_name": "Milo",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_034",
+      "description": "medium black dog, She was found wandering around a playground of a housing estate with a red collar. A group of boys was",
+      "expected_real_name": "Polly",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_035",
+      "description": "medium black dog, It is my home away dogs born. Dog mother to take care of them very well. Puppy looks very healthy",
+      "expected_real_name": "Kaka",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_036",
+      "description": "medium black dog, gentle and playful female pit. owner migrating. will give some money to new owner for taking care of sophie.",
+      "expected_real_name": "Sophieee",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_037",
+      "description": "medium brown dog, this dog was found wandering in the playground, wounded and wearing a worn out collar. We believe that she was",
+      "expected_real_name": "Latte",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_038",
+      "description": "medium black dog, this dog is a loving dog which was rescued off the streets. He is a very good watch dog as",
+      "expected_real_name": "Roscoe",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_039",
+      "description": "medium black dog, Healthy, Active, very Alert. Already have two dogs, ( parents of this)",
+      "expected_real_name": "Winnie",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_040",
+      "description": "medium black dog, rm80 is charged for 2 month vaccination fees. If adopters adopted the pup after the 3rd vaccination, the owner need",
+      "expected_real_name": "Ffiona",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_041",
+      "description": "medium black dog, this dog The Doberman Mix Is Looking For His Forever Home this dog is a strong, handsome, inquisitive boy that",
+      "expected_real_name": "Scooby",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_042",
+      "description": "medium brown dog, She used to follow a pack of adult dogs near my office area. But my office area is not a",
+      "expected_real_name": "Nutella",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_043",
+      "description": "medium black dog, Well behaved, loving and adorable Quiet but playful\u2026loves to be carried No caging or tying for long hours except for",
+      "expected_real_name": "Bb",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_044",
+      "description": "medium black dog, This lovely this dog is Active, Playful & Friendly. She and her siblings were rescue from a factory which the",
+      "expected_real_name": "Lady",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_045",
+      "description": "medium black dog, Say hello to this dog. A long time stray around my area, I began feeding him two months ago. Then",
+      "expected_real_name": "Harvey",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_046",
+      "description": "medium black dog, this dog is a handsome and good natured puppy. He was found with Tara, the black lab which we believed",
+      "expected_real_name": "Java",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_047",
+      "description": "medium black dog, Lovely puppy looking for a home sweet home. If u are interested to adopt pls contact Rachel",
+      "expected_real_name": "Money",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_048",
+      "description": "medium brown dog, Very aggressive, playful and obedient. He needs someone pay attention to him.",
+      "expected_real_name": "Jasper",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_049",
+      "description": "medium golden dog, THE PLIGHT OF this dog this dog was approximate 3 years old when found on the side of the road",
+      "expected_real_name": "Oreo",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    },
+    {
+      "id": "E_050",
+      "description": "medium cream dog, Lovely puppy looking for a forever home. If u are interested to adopt pls contact Rachel",
+      "expected_real_name": "Piston",
+      "suggested_names_top5": [
+        "Max",
+        "Bella",
+        "Rocky",
+        "Luna",
+        "Buddy"
+      ],
+      "top1_hit": false,
+      "top5_hit": false,
+      "pass": false
+    }
+  ]
+}
