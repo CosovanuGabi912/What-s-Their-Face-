@@ -1,14 +1,11 @@
-"""Evaluation harness for Parts A, B, and C of the Golden Dataset (issues #8 and #16).
+"""Evaluation harness for Parts A, B, C, E, and F of the Golden Dataset (issues #8, #16, #17).
 
 Usage:
     python eval/run_eval.py --part A --golden eval/golden.jsonl --output eval/results_A.json
     python eval/run_eval.py --part B --golden eval/golden.jsonl --output eval/results_B.json
     python eval/run_eval.py --part C --golden eval/golden.jsonl --output eval/results_C.json
-
-Part C runs the real agent (agent/loop.py: code guards + the SLM in LM Studio + the MCP server) on
-each message, in a fresh conversation, and scores the kind of reply it gave (agent.last_reply_kind).
---mode router scores the keyword router instead (no LM Studio needed; baseline for #21).
---model overrides AGENT_MODEL, e.g. --model qwen3.5-4b.
+    python eval/run_eval.py --part E --golden eval/golden.jsonl --output eval/results_E.json
+    python eval/run_eval.py --part F --golden eval/golden.jsonl --output eval/results_F.json
 """
 
 from __future__ import annotations
@@ -33,6 +30,7 @@ config.IMAGE_UPLOAD_DIR = config.EVAL_IMAGES_DIR
 
 from mcp_server.tools.breed_id import identify_breed
 from mcp_server.tools.knowledge import search_knowledge
+from mcp_server.tools.names import suggest_names
 from shared.schemas import GoldenItem
 
 
@@ -240,14 +238,165 @@ def eval_part_c(items: List[dict], mode: str = "agent", model: str = config.AGEN
     return {"aggregates": aggregates, "per_item": per_item}
 
 
+def eval_part_e(items: List[dict]) -> Dict[str, Any]:
+    per_item = []
+    top1_hit_count = 0
+    top5_hit_count = 0
+
+    for item in items:
+        item_id = item["id"]
+        description = item["input"]["description"]
+        expected_real_name = item["expected"]["real_name"]
+
+        out = suggest_names(species="dog", colour=None, description=description)
+        suggested_names = [n.name for n in out.names]
+        top5_names = suggested_names[:5]
+
+        top1_hit = (bool(suggested_names) and suggested_names[0].casefold() == expected_real_name.casefold())
+        top5_hit = any(n.casefold() == expected_real_name.casefold() for n in top5_names)
+
+        if top1_hit:
+            top1_hit_count += 1
+        if top5_hit:
+            top5_hit_count += 1
+
+        per_item.append({
+            "id": item_id,
+            "description": description,
+            "expected_real_name": expected_real_name,
+            "suggested_names_top5": top5_names,
+            "top1_hit": top1_hit,
+            "top5_hit": top5_hit,
+            "pass": top5_hit,
+        })
+
+    n = len(items)
+    real_name_in_top_5 = round(top5_hit_count / n, 4) if n else 0.0
+    top1_hit_rate = round(top1_hit_count / n, 4) if n else 0.0
+
+    aggregates = {
+        "num_items": n,
+        "real_name_in_top_5": real_name_in_top_5,
+        "top5_hit_rate": real_name_in_top_5,
+        "top1_hit_rate": top1_hit_rate,
+    }
+    return {"aggregates": aggregates, "per_item": per_item}
+
+
+def is_subsequence(sub: list[str], full: list[str]) -> bool:
+    """Returns True if sub elements appear in full in the same order."""
+    it = iter(full)
+    return all(x in it for x in sub)
+
+
+def simulate_journey_turns(turns: list[dict]) -> tuple[list[str], str]:
+    """Simulate tool calls and outcome for a scripted MVP journey."""
+    tools = []
+    for turn in turns:
+        msg = turn.get("content", "").lower()
+        image_id = turn.get("image_id")
+
+        if image_id or ("breed" in msg and any(k in msg for k in ["what breed", "identify", "which breed is this"])):
+            tools.append("identify_breed")
+            tools.append("search_knowledge")
+        elif any(k in msg for k in ["recommend", "suit", "best for me", "which breeds"]):
+            tools.append("recommend_breeds")
+        elif any(k in msg for k in ["unusual", "unique", "rarer"]):
+            tools.append("suggest_names")
+        elif any(k in msg for k in ["name", "names", "ideas", "call"]):
+            tools.append("suggest_names")
+        elif any(k in msg for k in ["exercise", "grooming", "temperament", "active", "children", "strangers", "trainable", "shed"]):
+            tools.append("search_knowledge")
+
+    outcome = "names_suggested" if "suggest_names" in tools else "unknown"
+    return tools, outcome
+
+
+async def run_agent_journeys(items: List[dict], model: str) -> List[tuple[list[str], str]]:
+    from agent.loop import AgentLoop
+
+    results = []
+    async with AgentLoop(model_id=model, session_id="eval_part_f") as server:
+        for item in items:
+            turns = item["input"]["scripted_turns"]
+            agent = AgentLoop(model_id=model, session=server.session, llm_client=server.llm,
+                              session_id=f"eval_part_f_{item['id']}")
+            agent.tools, agent._tool_names = server.tools, server._tool_names
+
+            for turn in turns:
+                content = turn.get("content", "")
+                image_id = turn.get("image_id")
+                await agent.run_turn(content, image_id=image_id)
+
+            executed_tools = [log.tool for log in agent.trace]
+            outcome = "names_suggested" if "suggest_names" in executed_tools else "unknown"
+            results.append((executed_tools, outcome))
+    return results
+
+
+def eval_part_f(items: List[dict], mode: str = "agent", model: str = config.AGENT_MODEL_ID) -> Dict[str, Any]:
+    per_item = []
+    completed_count = 0
+    exact_match_count = 0
+
+    actual_mode = mode
+    if mode == "agent":
+        try:
+            import urllib.request
+            urllib.request.urlopen(f"{config.LM_STUDIO_BASE_URL}/models", timeout=1.0)
+            journey_results = asyncio.run(run_agent_journeys(items, model))
+        except Exception:
+            actual_mode = "simulated"
+            journey_results = [simulate_journey_turns(it["input"]["scripted_turns"]) for it in items]
+    else:
+        actual_mode = "simulated"
+        journey_results = [simulate_journey_turns(it["input"]["scripted_turns"]) for it in items]
+
+    for item, (actual_tools, actual_outcome) in zip(items, journey_results):
+        item_id = item["id"]
+        expected_tools = item["expected"]["tool_sequence"]
+        expected_outcome = item["expected"]["final_outcome"]
+
+        exact_match = (actual_tools == expected_tools)
+        is_completed = is_subsequence(expected_tools, actual_tools) and (actual_outcome == expected_outcome)
+
+        if exact_match:
+            exact_match_count += 1
+        if is_completed:
+            completed_count += 1
+
+        per_item.append({
+            "id": item_id,
+            "expected_tool_sequence": expected_tools,
+            "actual_tool_sequence": actual_tools,
+            "expected_outcome": expected_outcome,
+            "actual_outcome": actual_outcome,
+            "tool_sequence_match": exact_match,
+            "journey_completed": is_completed,
+            "pass": is_completed,
+        })
+
+    n = len(items)
+    journey_completion_rate = round(completed_count / n, 4) if n else 0.0
+    tool_sequence_match_rate = round(exact_match_count / n, 4) if n else 0.0
+
+    aggregates = {
+        "num_items": n,
+        "mode": actual_mode,
+        "journey_completion_rate": journey_completion_rate,
+        "tool_sequence_match_rate": tool_sequence_match_rate,
+    }
+    return {"aggregates": aggregates, "per_item": per_item}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--part", required=True, choices=["A", "B", "C", "all"], help="Golden part to evaluate")
+    parser.add_argument("--part", required=True, choices=["A", "B", "C", "E", "F", "all"], help="Golden part to evaluate")
     parser.add_argument("--golden", type=Path, default=config.GOLDEN_PATH, help="Path to eval/golden.jsonl")
     parser.add_argument("--output", type=Path, default=None, help="Path to write evaluation results JSON")
-    parser.add_argument("--mode", choices=["agent", "router"], default="agent",
-                        help="Part C: run the real agent (LM Studio) or the keyword router baseline")
-    parser.add_argument("--model", default=config.AGENT_MODEL_ID, help="Part C agent model id in LM Studio")
+    parser.add_argument("--mode", choices=["agent", "router", "simulated"], default="agent",
+                        help="Part C / F: run the real agent (LM Studio) or the router/simulated baseline")
+    parser.add_argument("--model", default=config.AGENT_MODEL_ID, help="Part C / F agent model id in LM Studio")
     args = parser.parse_args()
 
     if not args.golden.exists():
@@ -264,11 +413,17 @@ def main() -> None:
         results = eval_part_b(items)
     elif args.part == "C":
         results = eval_part_c(items, args.mode, args.model)
+    elif args.part == "E":
+        results = eval_part_e(items)
+    elif args.part == "F":
+        results = eval_part_f(items, args.mode, args.model)
     else:
         results = {
             "part_A": eval_part_a([i for i in items if i["part"] == "A"]),
             "part_B": eval_part_b([i for i in items if i["part"] == "B"]),
             "part_C": eval_part_c([i for i in items if i["part"] == "C"], args.mode, args.model),
+            "part_E": eval_part_e([i for i in items if i["part"] == "E"]),
+            "part_F": eval_part_f([i for i in items if i["part"] == "F"], args.mode, args.model),
         }
 
     output_data = {
